@@ -34,7 +34,7 @@
 <footer id="footer" class="footer">
 
   <div class="footer-newsletter">
-    <div class="container">
+    <div class="container" data-aos="fade-down" data-aos-duration="1000">
       <div class="row justify-content-center">
         <div class="col-lg-6">
           <form action="" method="post">

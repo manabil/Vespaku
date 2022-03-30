@@ -37,8 +37,8 @@ Route::get('/about', function () {
     ]);
 });
 
-Route::get('/pegawai', function () {
-    return view('employee', [
+Route::get('/cari', function () {
+    return view('cari', [
         'title' => 'Cari Pegawai'
     ]);
 });
