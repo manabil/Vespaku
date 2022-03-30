@@ -1,3 +1,5 @@
+@extends('layout.main')
+
 <!-- ======= Header ======= -->
 @section('header')
 <header id="header" class="header fixed-top">
