@@ -52,9 +52,9 @@
 </section><!-- End Hero -->
 @endsection
 
+<!-- ======= Values Section ======= -->
 @section('features')
 <main id="main">
-<!-- ======= Values Section ======= -->
 <section id="values" class="values">
 
     <div class="container" data-aos="fade-up">
@@ -147,12 +147,11 @@
     </div>
 </section><!-- End Counts Section -->
 
-
 </main><!-- End #main -->
 @endsection
 
-@section('footer')
 <!-- ======= Footer ======= -->
+@section('footer')
 <footer id="footer" class="footer">
 
 <div class="footer-top">

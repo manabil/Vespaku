@@ -1939,7 +1939,7 @@ section {
 .footer .footer-newsletter form input[type="email"] {
     border: 0;
     padding: 8px;
-    width: calc(100% - 140px);
+    width: calc(100% - 90px);
 }
 .footer .footer-newsletter form input[type="submit"] {
     position: absolute;

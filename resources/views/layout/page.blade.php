@@ -33,11 +33,15 @@
   <!-- ======= Header ======= -->
   @yield('header')
 
-  <!-- ======= Hero Section ======= -->
-  @yield('content')
+  <main id="main">
 
-  <!-- ======= Values Section ======= -->
-  @yield('features')
+    <!-- ======= Breadcrumbs ======= -->
+    @yield('breadcrumbs')
+
+    <!-- ======= Content Section ======= -->
+    @yield('content')
+    
+  </main><!-- End #main -->
 
   <!-- ======= Footer ======= -->
   @yield('footer')

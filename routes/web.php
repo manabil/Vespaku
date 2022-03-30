@@ -39,6 +39,6 @@ Route::get('/about', function () {
 
 Route::get('/pegawai', function () {
     return view('employee', [
-        'title' => 'Pegawai'
+        'title' => 'Cari Pegawai'
     ]);
 });
