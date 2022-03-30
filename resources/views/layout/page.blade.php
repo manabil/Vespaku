@@ -30,12 +30,16 @@
 
 <body>
 
-  <!-- ======= Header ======= -->
-  @yield('header')
+  @include('layout.components.page_navbar')
 
   <main id="main">
 
     <!-- ======= Breadcrumbs ======= -->
+    <section class="breadcrumbs"  data-aos="zoom-out" data-aos-duration="1000">
+      <div class="container">
+        <h2>{{ $title }}</h2>
+      </div>
+    </section><!-- End Breadcrumbs -->
     @yield('breadcrumbs')
 
     <!-- ======= Content Section ======= -->

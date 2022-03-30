@@ -31,7 +31,7 @@
 <body>
 
   <!-- ======= Header ======= -->
-  @yield('header')
+  @include('layout.components.main_navbar')
 
   <!-- ======= Hero Section ======= -->
   @yield('content')

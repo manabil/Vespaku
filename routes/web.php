@@ -31,12 +31,6 @@ Route::get('/daftar', function () {
     ]);
 });
 
-Route::get('/about', function () {
-    return view('about', [
-        'title' => 'About'
-    ]);
-});
-
 Route::get('/cari', function () {
     return view('cari', [
         'title' => 'Cari Pegawai'
