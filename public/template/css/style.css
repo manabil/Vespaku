@@ -1499,16 +1499,51 @@ section {
     margin-bottom: 60px;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
 }
+.blog .entry-table {
+    margin: 50px 0px;
+    align-items: center;
+}
+.blog .entry-table thead tr th,
+.blog .entry-table tbody tr th,
+.blog .entry-table tbody tr td {
+    padding: 20px;
+    text-align: center;
+}
+.blog .entry-table thead {
+    background: orange;
+}
+.blog .entry-table thead tr .no,
+.blog .entry-table tbody tr .no {
+    text-align: center;
+}
+.blog .entry-table tbody tr td a i {
+    margin-right: 7px;
+}
+.blog .entry-image {
+    padding: 5px;
+    border-radius: 5px;
+    margin-bottom: 30px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
 .blog .entry .entry-img {
     max-height: 440px;
     margin: -30px -30px 20px -30px;
     overflow: hidden;
 }
 .blog .entry .entry-title {
+    margin-top: 20px;
     font-size: 28px;
     font-weight: bold;
+}
+.blog .entry .entry-heading {
+    font-weight: bold;
     padding: 0;
-    margin: 0 0 20px 0;
+    margin: 0 20px 20px 30px;
+    color: #012970;
+}
+.blog .entry h5 {
+    margin: 0 20px 20px 30px;
+    color: #012970;
 }
 .blog .entry .entry-title a {
     color: #012970;
