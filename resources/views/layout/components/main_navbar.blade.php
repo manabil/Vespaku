@@ -12,8 +12,8 @@
         <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
         <li><a class="nav-link scrollto" href="#values">Fitur</a></li>
         <li><a class="nav-link scrollto" href="#footer">Tentang</a></li>
-        <li><a class="nav-link scrollto" href="http://vespaku.test/login">Login</a></li>
-        <li><a class="getstarted scrollto" href="http://vespaku.test/daftar">Daftar</a></li>
+        <li><a class="nav-link scrollto" href="/login">Login</a></li>
+        <li><a class="getstarted scrollto" href="/daftar">Daftar</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
     </nav><!-- .navbar --> 
