@@ -40,4 +40,4 @@ Route::get('/daftar', function () {
 Route::get('/cari', [PegawaiController::class, 'cari']);
 
 // *=============== Profile ===============*
-Route::get('/cari/{slug}', [PegawaiController::class, 'profile']);
+Route::get('/cari/{slug:slug}', [PegawaiController::class, 'pegawai']);

@@ -18,10 +18,10 @@ class PegawaiController extends Controller
         ]);
     }
 
-    public function profile($slug){
+    public function pegawai(Pegawai $slug){
         return view('pegawai', [
             'title' => 'Profile Pegawai',
-            'pegawai' => Pegawai::find($slug)
+            'pegawai' => $slug
         ]);
     }
 }

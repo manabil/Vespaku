@@ -34,11 +34,11 @@
                   </div>
               </div>
               <div class="col-lg-8">
-                  <h1 class="entry-heading">{{ $pegawai['nama'] }}</h1>
-                  <h5>NIP : {{ $pegawai['nip'] }}</h5>
-                  <h5>Pangkat : {{ $pegawai['pangkat'] }}</h5>
-                  <h5>Jabatan : <strong>{{ $pegawai['jenis_jabatan'] }}</strong> - {{ $pegawai['jabatan'] }}</h5>
-                  <h5>Email : {{ $pegawai['email'] }}</h5>
+                  <h1 class="entry-heading">{{ $pegawai->nama }}</h1>
+                  <h5>NIP : {{ $pegawai->nip }}</h5>
+                  <h5>Pangkat : {{ $pegawai->pangkat }}</h5>
+                  <h5>Jabatan : <strong>{{ $pegawai->jenis_jabatan }}</strong> - {{ $pegawai->jabatan }}</h5>
+                  <h5>Email : {{ $pegawai->email }}</h5>
                   
               </div>
           </div>

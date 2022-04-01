@@ -63,11 +63,11 @@
               <tbody>
                 <tr>
                   <th scope="row" class="no">{{ $no+1 }}</th>
-                  <td>{{ $p['nama'] }}</td>
-                  <td>{{ $p['jabatan'] }}</td>
-                  <td>{{ $p['jenis_jabatan'] }}</td>
-                  <td>{{ $p['nip'] }}</td>
-                  <td><a href="/cari/{{ $p['slug'] }}" class="btn btn-sm btn-outline-warning"><i class="bi bi-eye"></i>Lihat</a></td>
+                  <td>{{ $p->nama }}</td>
+                  <td>{{ $p->jabatan }}</td>
+                  <td>{{ $p->jenis_jabatan }}</td>
+                  <td>{{ $p->nip }}</td>
+                  <td><a href="/cari/{{ $p->slug }}" class="btn btn-sm btn-outline-warning"><i class="bi bi-eye"></i>Lihat</a></td>
                 </tr>
               </tbody>
             @endforeach
