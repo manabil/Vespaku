@@ -5,23 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Pegawai extends Model
+class Pangkat extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'nama',
-        'pangkat_id',
-        'nip',
-        'pangkat',
-        'tmt_pangkat',
-        'jabatan',
-        'jenis_jabatan',
-        'tmt_jabatan',
-        'email',
         'slug',
-        'is_admin'
     ];
+
     protected $guarded = [
         'id',
         'created_at',

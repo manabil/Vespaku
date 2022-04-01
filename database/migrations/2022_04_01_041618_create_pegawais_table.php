@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('pegawais', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('pangkat_id');
             $table->string('nama');
             $table->bigInteger('nip');
             $table->text('pangkat');
@@ -31,8 +32,8 @@ return new class extends Migration
 
     // * Template Insert Data *
     // Pegawai::create([
-        
-    //     'nama' => 'Ammar Nabil',
+    //     'nama' => 'Muhammad Ammar Nabil',
+    //     'pegawai_id' => 3,
     //     'nip' => '146956569769566964',
     //     'pangkat' => 'Pembina Tk. IX/ III A',
     //     'tmt_pangkat' => '2020-01-01',
@@ -42,7 +43,7 @@ return new class extends Migration
     //     'email' => 'ammar@bpmpk.gov.id',
     //     'slug' => 'ammar-nabil',
     //     'is_admin' => false
-    //     ])
+    // ])
 
     /**
      * Reverse the migrations.
