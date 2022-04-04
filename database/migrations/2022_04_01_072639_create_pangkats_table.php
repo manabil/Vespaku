@@ -21,20 +21,6 @@ return new class extends Migration
         });
     }
 
-    // * Template Insert Data *
-    // Pangkat::create([
-    //     'nama' => 'Pengatur Muda TK I/ IV B',
-    //     'slug' => 'pengatur-muda-tk-i-iv-b',
-    // ])
-    // Pangkat::create([
-    //     'nama' => 'Pengatur Muda TK II/ IV B',
-    //     'slug' => 'pengatur-muda-tk-ii-iv-b',
-    // ])
-    // Pangkat::create([
-    //     'nama' => 'Pengatur Muda TK III/ IV B',
-    //     'slug' => 'pengatur-muda-tk-iii-iv-b',
-    // ])
-
     /**
      * Reverse the migrations.
      *

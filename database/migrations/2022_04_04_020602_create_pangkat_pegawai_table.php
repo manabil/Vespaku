@@ -13,10 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('jabatans', function (Blueprint $table) {
+        Schema::create('pangkat_pegawai', function (Blueprint $table) {
             $table->id();
-            $table->string('nama')->unique();
-            $table->string('slug')->unique();
+            $table->foreignId('pegawai_id')->constrained();
+            $table->foreignId('pangkat_id')->constrained();
+            $table->date('tahun_masuk')->nullable();
+            $table->text('surat_keterangan')->nullable();
             $table->timestamps();
         });
     }
@@ -28,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('jabatans');
+        Schema::dropIfExists('pangkat_pegawais');
     }
 };

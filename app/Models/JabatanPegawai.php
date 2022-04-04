@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Jabatan extends Model
+class JabatanPegawai extends Model
 {
     use HasFactory;
 
@@ -14,8 +14,4 @@ class Jabatan extends Model
         'created_at',
         'updated_at',
     ];
-
-    public function pegawai() {
-        return $this->belongsToMany(Pegawai::class);
-    }
 }

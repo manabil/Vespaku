@@ -16,6 +16,6 @@ class JenisJabatan extends Model
     ];
 
     public function pegawai() {
-        return $this->hasMany(Pegawai::class);
+        return $this->belongsToMany(Pegawai::class);
     }
 }
