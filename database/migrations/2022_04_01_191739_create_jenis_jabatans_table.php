@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('pangkats', function (Blueprint $table) {
+        Schema::create('jenis_jabatans', function (Blueprint $table) {
             $table->id();
             $table->string('nama')->unique();
             $table->string('slug')->unique();
@@ -21,18 +21,17 @@ return new class extends Migration
         });
     }
 
-    // * Template Insert Data *
-    // Pangkat::create([
-    //     'nama' => 'Pengatur Muda TK I/ IV B',
-    //     'slug' => 'pengatur-muda-tk-i-iv-b',
+    // JenisJabatan::create([
+    //     'nama' => 'Administrator',
+    //     'slug' => 'administrator',
     // ])
-    // Pangkat::create([
-    //     'nama' => 'Pengatur Muda TK II/ IV B',
-    //     'slug' => 'pengatur-muda-tk-ii-iv-b',
+    // JenisJabatan::create([
+    //     'nama' => 'Fungsional',
+    //     'slug' => 'fungsional',
     // ])
-    // Pangkat::create([
-    //     'nama' => 'Pengatur Muda TK III/ IV B',
-    //     'slug' => 'pengatur-muda-tk-iii-iv-b',
+    // JenisJabatan::create([
+    //     'nama' => 'Pelaksana',
+    //     'slug' => 'pelaksana',
     // ])
 
     /**
@@ -42,6 +41,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pangkats');
+        Schema::dropIfExists('jenis_jabatans');
     }
 };
