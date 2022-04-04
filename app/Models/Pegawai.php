@@ -9,22 +9,21 @@ class Pegawai extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'nama',
-        'pangkat_id',
-        'nip',
-        'pangkat',
-        'tmt_pangkat',
-        'jabatan',
-        'jenis_jabatan',
-        'tmt_jabatan',
-        'email',
-        'slug',
-        'is_admin'
-    ];
     protected $guarded = [
         'id',
         'created_at',
         'updated_at',
     ];
+
+    public function pangkat() {
+        return $this->belongsTo(Pangkat::class);
+    }
+
+    public function jabatan() {
+        return $this->belongsTo(Jabatan::class);
+    }
+
+    public function jenis_jabatan() {
+        return $this->belongsTo(JenisJabatan::class);
+    }
 }
