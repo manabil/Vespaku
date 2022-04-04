@@ -39,5 +39,6 @@ Route::get('/daftar', function () {
 // *=============== Cari ===============*
 Route::get('/cari', [PegawaiController::class, 'cari']);
 
+
 // *=============== Profile ===============*
 Route::get('/cari/{slug:slug}', [PegawaiController::class, 'pegawai']);

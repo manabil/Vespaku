@@ -16,14 +16,14 @@ class Pegawai extends Model
     ];
 
     public function pangkat() {
-        return $this->belongsTo(Pangkat::class);
+        return $this->belongsToMany(Pangkat::class);
     }
-
+    
     public function jabatan() {
-        return $this->belongsTo(Jabatan::class);
+        return $this->belongsToMany(Jabatan::class);
     }
-
+    
     public function jenis_jabatan() {
-        return $this->belongsTo(JenisJabatan::class);
+        return $this->belongsToMany(JenisJabatan::class);
     }
 }
