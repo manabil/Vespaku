@@ -23,7 +23,7 @@ class Pegawai extends Model
         return $this->belongsToMany(Jabatan::class);
     }
     
-    public function jenis_jabatan() {
-        return $this->belongsToMany(JenisJabatan::class);
+    public function jabatan_pegawai() {
+        return $this->hasMany(JabatanPegawai::class);
     }
 }

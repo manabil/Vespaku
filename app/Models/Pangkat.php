@@ -18,4 +18,8 @@ class Pangkat extends Model
     public function pegawai() {
         return $this->belongsToMany(Pegawai::class);
     }
+    
+    public function pangkat_pegawai(){
+        return $this->hasMany(PangkatPegawai::class);
+    }
 }

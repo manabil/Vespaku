@@ -15,7 +15,7 @@ class JenisJabatan extends Model
         'updated_at',
     ];
 
-    public function pegawai() {
-        return $this->belongsToMany(Pegawai::class);
+    public function jabatan_pegawai(){
+        return $this->hasMany(JabatanPegawai::class);
     }
 }
