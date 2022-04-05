@@ -20,8 +20,8 @@
     <div class="container" data-aos="fade-down" data-aos-duration="1000">
       <div class="row justify-content-center">
         <div class="col-lg-6">
-          <form action="" method="post">
-            <input type="email" name="email" placeholder="Tuliskan Nama Pegawai">
+          <form action="/cari" >
+            <input type="text" name="search" placeholder="Tuliskan Nama Pegawai">
             <input type="submit" value="Cari">
           </form>
         </div>

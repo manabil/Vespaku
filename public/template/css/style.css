@@ -1971,7 +1971,7 @@ section {
     border-radius: 4px;
     border: 1px solid #e1ecff;
 }
-.footer .footer-newsletter form input[type="email"] {
+.footer .footer-newsletter form input[type="text"] {
     border: 0;
     padding: 8px;
     width: calc(100% - 90px);

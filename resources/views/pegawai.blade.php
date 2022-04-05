@@ -29,16 +29,16 @@
           <div class="row">
               <div class="col-lg-4">
                   <div class="entry-image">
-                    <img src="{{ asset('template/img/blog/blog-1.jpg') }}" alt="" class="img-fluid">
+                    <img src="https://source.unsplash.com/400x400?profile" alt="" class="img-fluid">
                   </div>
               </div>
               <div class="col-lg-8">
                   <h1 class="entry-heading">{{ $pegawai->nama }}</h1>
                   <h5>NIP : {{ $pegawai->nip }}</h5>
-                  @foreach ($pangkats as $pangkat)
+                  @foreach ($pangkats->take(1) as $pangkat)
                     <h5>Pangkat : {{ $pangkat->pangkat->nama }}</h5>
                   @endforeach
-                  @foreach ($jabatans as $jabatan)
+                  @foreach ($jabatans->take(1) as $jabatan)
                     <h5>Jabatan : <strong>{{ $jabatan->jenis_jabatan->nama }}</strong> - {{ $jabatan->jabatan->nama }}</h5>
                   @endforeach
                   <h5>Email : {{ $pegawai->email }}</h5>
@@ -63,8 +63,8 @@
                 </tr>
               </thead>
                 <tbody>
+                  @foreach ($pangkats as $pangkat)
                   <tr>
-                    @foreach ($pangkats as $pangkat)
                       <th scope="row">{{ $pangkat->pangkat->nama }}</th>
                       <td>{{ $pangkat->tahun_masuk }}</td>
                       <td>{{ $pangkat->no_surat_keterangan }}</td>
@@ -73,8 +73,8 @@
                       <td>
                         <a href="" class="btn btn-sm btn-outline-primary"><i class="bi bi-download"></i>Unduh</a>
                       </td>
+                    </tr>
                     @endforeach
-                  </tr>
                 </tbody>
             </table>
           </div>
@@ -96,8 +96,8 @@
                 </tr>
               </thead>
                 <tbody>
+                  @foreach ($jabatans as $jabatan)
                   <tr>
-                    @foreach ($jabatans as $jabatan)
                       <th scope="row">{{ $jabatan->jabatan->nama }}</th>
                       <td>{{ $jabatan->tahun_masuk }}</td>
                       <td>{{ $jabatan->no_surat_keterangan }}</td>
@@ -106,8 +106,8 @@
                       <td>
                         <a href="" class="btn btn-sm btn-outline-primary"><i class="bi bi-download"></i>Unduh</a>
                       </td>
+                    </tr>
                     @endforeach
-                  </tr>
                 </tbody>
             </table>
           </div>

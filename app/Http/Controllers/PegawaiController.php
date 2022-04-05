@@ -14,9 +14,15 @@ class PegawaiController extends Controller
     }
 
     public function cari(){
+        $pegawai = Pegawai::latest();
+
+        if(request('search')){
+            $pegawai->where('nama', 'like', '%'.request('search').'%');
+        }
+
         return view('cari', [
             'title' => 'Cari Pegawai',
-            'pegawai' => JabatanPegawai::latest()->get()
+            'pegawai' => JabatanPegawai::with(['pegawai', 'jabatan','jenis_jabatan'])->latest()->get()
         ]);
     }
     
@@ -24,8 +30,8 @@ class PegawaiController extends Controller
         return view('pegawai', [
             'title' => 'Profile Pegawai',
             'pegawai' => $username,
-            'jabatans' => JabatanPegawai::where('pegawai_id', $username->id)->get(),
-            'pangkats' => PangkatPegawai::where('pegawai_id', $username->id)->get()
+            'jabatans' => JabatanPegawai::with(['jenis_jabatan', 'jabatan', 'pegawai'])->latest()->where('pegawai_id', $username->id)->get(),
+            'pangkats' => PangkatPegawai::with(['pegawai', 'pangkat'])->latest()->where('pegawai_id', $username->id)->get()
         ]);
     }
 }
