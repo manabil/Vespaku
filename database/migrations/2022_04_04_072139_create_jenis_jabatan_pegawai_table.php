@@ -17,8 +17,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId('pegawai_id')->constrained();	
             $table->foreignId('jenis_jabatan_id')->constrained();
-            $table->date('tahun_masuk')->nullable();
-            $table->text('surat_keterangan')->nullable();
             $table->timestamps();
         });
     }

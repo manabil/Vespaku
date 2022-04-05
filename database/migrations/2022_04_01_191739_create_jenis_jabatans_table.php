@@ -21,19 +21,6 @@ return new class extends Migration
         });
     }
 
-    // JenisJabatan::create([
-    //     'nama' => 'Administrator',
-    //     'slug' => 'administrator',
-    // ])
-    // JenisJabatan::create([
-    //     'nama' => 'Fungsional',
-    //     'slug' => 'fungsional',
-    // ])
-    // JenisJabatan::create([
-    //     'nama' => 'Pelaksana',
-    //     'slug' => 'pelaksana',
-    // ])
-
     /**
      * Reverse the migrations.
      *

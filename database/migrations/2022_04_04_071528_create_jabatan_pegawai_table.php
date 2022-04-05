@@ -17,8 +17,10 @@ return new class extends Migration
             $table->id();
             $table->foreignId('pegawai_id')->constrained();
             $table->foreignId('jabatan_id')->constrained();
-            $table->date('tahun_masuk')->nullable();
-            $table->text('surat_keterangan')->nullable();
+            $table->foreignId('jenis_jabatan_id')->default(1)->constrained();
+            $table->year('tahun_masuk')->default(date('Y'));
+            $table->text('no_surat_keterangan')->default('897.2/.201-2014');
+            $table->text('surat_keterangan')->default('surat_keterangan');
             $table->timestamps();
         });
     }

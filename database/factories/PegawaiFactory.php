@@ -22,10 +22,8 @@ class PegawaiFactory extends Factory
         return [
             'nama' => $nama,
             'nip' => $this->faker->unique()->creditCardNumber(),
-            'tmt_jabatan' => $this->faker->date(),
-            'tmt_pangkat' => $this->faker->date(),
             'email' => $nama_clean . '@bpmpk.gov.id',
-            'slug' => $nama_clean,
+            'username' => $nama_clean,
             'is_admin' => $this->faker->boolean(20)
         ];
     }

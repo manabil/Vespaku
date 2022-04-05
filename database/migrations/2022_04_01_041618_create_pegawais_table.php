@@ -17,10 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('nama');
             $table->bigInteger('nip');
-            $table->timestamp('tmt_pangkat')->nullable();
-            $table->timestamp('tmt_jabatan')->nullable();
             $table->text('email');
-            $table->string('slug')->unique();
+            $table->string('username')->unique();
             $table->boolean('is_admin')->default(false);
             $table->timestamps();
         });

@@ -6,9 +6,9 @@ use App\Models\Jabatan;
 use App\Models\JenisJabatan;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use App\Models\User;
 use App\Models\Pangkat;
 use App\Models\Pegawai;
+use App\Models\JabatanPegawai;
 use App\Models\PangkatPegawai;
 use Illuminate\Support\Arr;
 
@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
         
         // Pangkat Seeder
         $pangkats = [
+            'CPNS',
             'Pengatur Muda / II A',
             'Pengatur Muda Tk I / II B',
             'Pengatur / II C',
@@ -105,14 +106,31 @@ class DatabaseSeeder extends Seeder
         foreach ($jabatans as $jabatan) {
             Jabatan::create([
                 'nama' => $jabatan,
-                'slug' => strtolower(str_replace(' ','-', $jabatan))
+                'slug' => strtolower(str_replace(' ','-', $jabatan)),
             ]);
         }
 
+        // Jabatan/Pangkat Pegawai Seeder
         foreach (Pegawai::all() as $pegawai) {
             $pegawai->pangkat()->attach(Pangkat::all()->random());
             $pegawai->jabatan()->attach(Jabatan::all()->random());
-            $pegawai->jenis_jabatan()->attach(JenisJabatan::all()->random());
+        }
+
+        // Jenis Jabatan Seeder
+        foreach (JabatanPegawai::all() as $jabatan) {
+            $jabatan->update([
+                'jenis_jabatan_id' => JenisJabatan::all()->random()->id,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+        }
+
+        // Pangkat timestamps Seeder
+        foreach (PangkatPegawai::all() as $pangkat) {
+            $pangkat->update([
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
         }
 
     }
