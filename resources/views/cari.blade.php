@@ -48,30 +48,32 @@
             <a href="blog-single.html">Daftar Pegawai</a>
           </h2>
 
-          <table class="table table-hover table-borderless entry-table ">
-            <thead>
-              <tr>
-                <th scope="col" class="no">No</th>
-                <th scope="col">Nama</th>
-                <th scope="col">Nama Jabatan Terakhir</th>
-                <th scope="col">Jenis Jabatan Terakhir</th>
-                <th scope="col">NIP</th>
-                <th scope="col">Aksi</th>
-              </tr>
-            </thead>
-            @foreach ($pegawai as $no=>$p)
-              <tbody>
+          <div class="table-responsive">
+            <table class="table table-hover table-borderless entry-table">
+              <thead>
                 <tr>
-                  <th scope="row" class="no">{{ $no+1 }}</th>
-                  <td>{{ $p->nama }}</td>
-                  <td>{{ $p->jabatan->nama }}</td>
-                  <td>{{ $p->jenis_jabatan->nama }}</td>
-                  <td>{{ $p->nip }}</td>
-                  <td><a href="/cari/{{ $p->slug }}" class="btn btn-sm btn-outline-warning"><i class="bi bi-eye"></i>Lihat</a></td>
+                  <th scope="col" class="no">No</th>
+                  <th scope="col">Nama</th>
+                  <th scope="col">Nama Jabatan Terakhir</th>
+                  <th scope="col">Jenis Jabatan Terakhir</th>
+                  <th scope="col">NIP</th>
+                  <th scope="col">Aksi</th>
                 </tr>
-              </tbody>
-            @endforeach
-          </table>
+              </thead>
+              @foreach ($pegawai as $no=>$p)
+                <tbody>
+                  <tr>
+                    <th scope="row" class="no">{{ $no+1 }}</th>
+                    <td>{{ $p->pegawai->nama }}</td>
+                    <td>{{ $p->jabatan->nama }}</td>
+                    <td>{{ $p->jenis_jabatan->nama }}</td>
+                    <td>{{ $p->pegawai->nip }}</td>
+                    <td><a href="/cari/{{ $p->pegawai->username }}" class="btn btn-sm btn-outline-warning"><i class="bi bi-eye" style="margin:auto 10px"></i>Lihat</a></td>
+                  </tr>
+                </tbody>
+              @endforeach
+            </table>
+          </div>
 
         </article><!-- End blog entry -->
 

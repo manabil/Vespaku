@@ -24,7 +24,6 @@
     <div class="row">
 
       <div class="entries">
-
         
         <article class="entry entry-single">
           <div class="row">
@@ -36,8 +35,12 @@
               <div class="col-lg-8">
                   <h1 class="entry-heading">{{ $pegawai->nama }}</h1>
                   <h5>NIP : {{ $pegawai->nip }}</h5>
-                  <h5>Pangkat : {{ $pegawai->pangkat->nama }}</h5>
-                  <h5>Jabatan : <strong>{{ $pegawai->jenis_jabatan }}</strong> - {{ $pegawai->jabatan }}</h5>
+                  @foreach ($pangkats as $pangkat)
+                    <h5>Pangkat : {{ $pangkat->pangkat->nama }}</h5>
+                  @endforeach
+                  @foreach ($jabatans as $jabatan)
+                    <h5>Jabatan : <strong>{{ $jabatan->jenis_jabatan->nama }}</strong> - {{ $jabatan->jabatan->nama }}</h5>
+                  @endforeach
                   <h5>Email : {{ $pegawai->email }}</h5>
                   
               </div>
@@ -59,20 +62,20 @@
                   <th scope="col">Aksi</th>
                 </tr>
               </thead>
-              @foreach ($pegawai as $no=>$p)
                 <tbody>
                   <tr>
-                    <th scope="row">Surat Keterangan CPNS</th>
-                    <td>1995</td>
-                    <td>897.2/.201-2014</td>
-                    <td>8-Maret-22 13:34:33</td>
-                    <td>8-Maret-22 13:34:33</td>
-                    <td>
-                      <a href="" class="btn btn-sm btn-outline-primary"><i class="bi bi-download"></i>Unduh</a>
-                    </td>
+                    @foreach ($pangkats as $pangkat)
+                      <th scope="row">{{ $pangkat->pangkat->nama }}</th>
+                      <td>{{ $pangkat->tahun_masuk }}</td>
+                      <td>{{ $pangkat->no_surat_keterangan }}</td>
+                      <td>{{ $pangkat->created_at }}</td>
+                      <td>{{ $pangkat->updated_at }}</td>
+                      <td>
+                        <a href="" class="btn btn-sm btn-outline-primary"><i class="bi bi-download"></i>Unduh</a>
+                      </td>
+                    @endforeach
                   </tr>
                 </tbody>
-              @endforeach
             </table>
           </div>
           
@@ -80,32 +83,34 @@
             <a href="blog-single.html">Daftar Jabatan</a>
           </h2>
 
-          <table class="table table-hover table-borderless entry-table ">
-            <thead>
-              <tr>
-                <th scope="col">Keterangan</th>
-                <th scope="col">Tahun</th>
-                <th scope="col">No. SK</th>
-                <th scope="col">Tanggal Ditambah</th>
-                <th scope="col">Tanggal Diubah</th>
-                <th scope="col">Aksi</th>
-              </tr>
-            </thead>
-            @foreach ($pegawai as $no=>$p)
-              <tbody>
+          <div class="table-responsive">
+            <table class="table table-hover table-borderless entry-table ">
+              <thead>
                 <tr>
-                  <th scope="row">Surat Keterangan CPNS</th>
-                  <td>1995</td>
-                  <td>897.2/.201-2014</td>
-                  <td>8-Maret-22 13:34:33</td>
-                  <td>8-Maret-22 13:34:33</td>
-                  <td>
-                    <a href="" class="btn btn-sm btn-outline-primary"><i class="bi bi-download"></i>Unduh</a>
-                  </td>
+                  <th scope="col">Keterangan</th>
+                  <th scope="col">Tahun</th>
+                  <th scope="col">No. SK</th>
+                  <th scope="col">Tanggal Ditambah</th>
+                  <th scope="col">Tanggal Diubah</th>
+                  <th scope="col">Aksi</th>
                 </tr>
-              </tbody>
-            @endforeach
-          </table>
+              </thead>
+                <tbody>
+                  <tr>
+                    @foreach ($jabatans as $jabatan)
+                      <th scope="row">{{ $jabatan->jabatan->nama }}</th>
+                      <td>{{ $jabatan->tahun_masuk }}</td>
+                      <td>{{ $jabatan->no_surat_keterangan }}</td>
+                      <td>{{ $jabatan->created_at }}</td>
+                      <td>{{ $jabatan->updated_at }}</td>
+                      <td>
+                        <a href="" class="btn btn-sm btn-outline-primary"><i class="bi bi-download"></i>Unduh</a>
+                      </td>
+                    @endforeach
+                  </tr>
+                </tbody>
+            </table>
+          </div>
 
         </article><!-- End blog entry -->
 
