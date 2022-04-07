@@ -17,9 +17,11 @@ return new class extends Migration
             $table->id();
             $table->string('nama');
             $table->bigInteger('nip');
-            $table->text('email');
             $table->string('username')->unique();
-            $table->boolean('is_admin')->default(false);
+            $table->text('password');
+            $table->text('email');
+            $table->date('tanggal_lahir');
+            $table->boolean('is_admin');
             $table->timestamps();
         });
     }

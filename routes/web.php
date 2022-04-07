@@ -1,8 +1,9 @@
 <?php
 
-use App\Http\Controllers\PegawaiController;
-use App\Models\Pegawai;
+use App\Http\Controllers\DaftarController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\PegawaiController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,18 +24,11 @@ Route::get('/', function () {
 });
 
 // *=============== Login Route ===============*
-Route::get('/login', function () {
-    return view('login', [
-        'title' => 'Login'
-    ]);
-});
+Route::get('/login', [LoginController::class, 'index']);
 
 // *=============== Daftar Route ===============*
-Route::get('/daftar', function () {
-    return view('daftar', [
-        'title' => 'Daftar'
-    ]);
-});
+Route::get('/daftar', [DaftarController::class, 'index']);
+Route::post('/daftar', [DaftarController::class, 'store']);
 
 // *=============== Cari ===============*
 Route::get('/cari', [PegawaiController::class, 'cari']);

@@ -1509,6 +1509,16 @@ section {
     text-align: center;
     vertical-align: middle;
 }
+.blog .login-entry {
+    width: 30%;
+    margin: auto;
+    padding: 10px 10px;
+}
+.blog .daftar-entry {
+    width: 60%;
+    margin: auto;
+    padding: 10px 10px;
+}
 .blog .entry-table thead {
     background: orange;
 }
@@ -2094,4 +2104,29 @@ section {
     text-align: center;
     font-size: 13px;
     color: #012970;
+}
+
+.form-signin {
+    width: 100%;
+    max-width: 600px;
+    padding: 15px;
+    margin: auto;
+}
+.form-daftar {
+    width: 100%;
+    max-width: 725px;
+    padding: 15px;
+    margin: auto;
+}
+
+.form-daftar input {
+    margin: 5px 0;
+    border-radius: 5px;
+}
+.form-daftar .form-floating .invalid-feedback {
+    margin: 10px 0;
+}
+
+.form-signin .form-floating:focus-within {
+    z-index: 2;
 }
