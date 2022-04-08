@@ -2112,6 +2112,10 @@ section {
     padding: 15px;
     margin: auto;
 }
+.form-signin input {
+    margin: 5px 0;
+    border-radius: 5px;
+}
 .form-daftar {
     width: 100%;
     max-width: 725px;

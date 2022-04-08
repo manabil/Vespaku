@@ -21,7 +21,7 @@ return new class extends Migration
             $table->text('password');
             $table->text('email');
             $table->date('tanggal_lahir');
-            $table->boolean('is_admin');
+            $table->boolean('is_admin')->default(false);
             $table->timestamps();
         });
     }
