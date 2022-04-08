@@ -11,8 +11,23 @@
         <ul>
         <li><a class="nav-link scrollto {{ $title === 'Home' ? 'active' : ''}}" href="/">Home</a></li>
         <li><a class="nav-link scrollto {{ $title === 'Cari Pegawai' ? 'active' : ''}}" href="/cari">Cari Pegawai</a></li>
-        <li><a class="nav-link scrollto {{ $title === 'Login' ? 'active' : ''}}" href="/login">Login</a></li>
-        <li><a class="getstarted scrollto {{ $title === 'Daftar' ? 'active' : ''}}" href="/daftar">Daftar</a></li>
+        @auth
+            <li class="dropdown"><a href="#"><span class="btn btn-outline-primary btn-sm"> {{ auth()->user()->username }}</span> <i class="bi bi-chevron-down"></i></a>
+                <ul>
+                    <li><a href="#">User Profile</a></li>
+                    <li class="dropdown-divider"></li>
+                    <li>
+                        <form id="form-submit" action="/logout" method="post">
+                            @csrf
+                            <a href="#" onclick="button_logout()" type="submit">Log out</a>
+                        </form>
+                    </li>
+                </ul>
+            </li>
+        @else
+            <li><a class="nav-link scrollto {{ $title === 'Login' ? 'active' : ''}}" href="/login">Login</a></li>
+            <li><a class="getstarted scrollto {{ $title === 'Daftar' ? 'active' : ''}}" href="/daftar">Daftar</a></li>
+        @endauth
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
     </nav><!-- .navbar --> 

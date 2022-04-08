@@ -250,7 +250,8 @@ section {
 .navbar .dropdown ul li {
     min-width: 200px;
 }
-.navbar .dropdown ul a {
+.navbar .dropdown ul a,
+.navbar .dropdown ul button {
     padding: 10px 20px;
     font-size: 15px;
     text-transform: none;

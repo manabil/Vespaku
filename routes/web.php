@@ -4,6 +4,7 @@ use App\Http\Controllers\DaftarController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,16 +25,21 @@ Route::get('/', function () {
 });
 
 // *=============== Login Route ===============*
-Route::get('/login', [LoginController::class, 'index']);
+Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
 Route::post('/login', [LoginController::class, 'authenticate']);
+Route::post('/logout', [LoginController::class, 'logout']);	
 
 // *=============== Daftar Route ===============*
-Route::get('/daftar', [DaftarController::class, 'index']);
+Route::get('/daftar', [DaftarController::class, 'index'])->middleware('guest');
 Route::post('/daftar', [DaftarController::class, 'add']);
 
 // *=============== Cari ===============*
 Route::get('/cari', [UserController::class, 'cari']);
 
 
+// *=============== Pegawai Details ============*
+Route::get('/cari/{username:username}', [UserController::class, 'pegawai'])->middleware('auth');
+
+
 // *=============== Profile ============*
-Route::get('/cari/{username:username}', [UserController::class, 'pegawai']);
+Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
