@@ -14,7 +14,7 @@
         @auth
             <li class="dropdown"><a href="#"><span class="btn btn-outline-primary btn-sm"> {{ auth()->user()->username }}</span> <i class="bi bi-chevron-down"></i></a>
                 <ul>
-                    <li><a href="#">User Profile</a></li>
+                    <li><a href="/dashboard">User Profile</a></li>
                     <li class="dropdown-divider"></li>
                     <li>
                         <form id="form-submit" action="/logout" method="post">
