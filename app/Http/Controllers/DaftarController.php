@@ -15,11 +15,11 @@ class DaftarController extends Controller
 
     public function add(Request $request){
         $validated_data = $request->validate([
-                            'nama' => 'required|min:3|unique:pegawais|regex:/^[a-zA-Z ]{3,}$/',
-                            'nip' => 'required|size:18|unique:pegawais|regex:/^[0-9]{18}$/',
-                            'username' => 'required|unique:pegawais|min:5|regex:/^[a-zA-Z0-9_-]{5,}$/',
+                            'nama' => 'required|min:3|unique:users|regex:/^[a-zA-Z ]{3,}$/',
+                            'nip' => 'required|size:18|unique:users|regex:/^[0-9]{18}$/',
+                            'username' => 'required|unique:users|min:5|regex:/^[a-zA-Z0-9_-]{5,}$/',
                             'password' => 'required|min:5',
-                            'email' => 'required|email:dns|unique:pegawais',
+                            'email' => 'required|email:dns|unique:users',
                             'tanggal_lahir' => 'required',
                             ]);
         

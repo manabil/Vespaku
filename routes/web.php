@@ -3,7 +3,7 @@
 use App\Http\Controllers\DaftarController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
-use App\Http\Controllers\PegawaiController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,8 +32,8 @@ Route::get('/daftar', [DaftarController::class, 'index']);
 Route::post('/daftar', [DaftarController::class, 'add']);
 
 // *=============== Cari ===============*
-Route::get('/cari', [PegawaiController::class, 'cari']);
+Route::get('/cari', [UserController::class, 'cari']);
 
 
 // *=============== Profile ============*
-Route::get('/cari/{username:username}', [PegawaiController::class, 'pegawai']);
+Route::get('/cari/{username:username}', [UserController::class, 'pegawai']);

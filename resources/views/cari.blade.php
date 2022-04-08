@@ -64,11 +64,11 @@
                   <tbody>
                     <tr>
                       <th scope="row" class="no">{{ $no+1 }}</th>
-                      <td>{{ $p->pegawai->nama }}</td>
+                      <td>{{ $p->user->nama }}</td>
                       <td>{{ $p->jabatan->nama }}</td>
                       <td>{{ $p->jenis_jabatan->nama }}</td>
-                      <td>{{ $p->pegawai->nip }}</td>
-                      <td><a href="/cari/{{ $p->pegawai->username }}" class="btn btn-sm btn-outline-warning"><i class="bi bi-eye" style="margin:auto 10px"></i>Lihat</a></td>
+                      <td>{{ $p->user->nip }}</td>
+                      <td><a href="/cari/{{ $p->user->username }}" class="btn btn-sm btn-outline-warning"><i class="bi bi-eye" style="margin:auto 10px"></i>Lihat</a></td>
                     </tr>
                   </tbody>
                 @endforeach
@@ -76,7 +76,7 @@
             </div>
           @else
             <h2 class="entry-title">
-              <a href="#">Daftar Pegawai</a>
+              <a href="#">Pencarian Tidak ditemukan</a>
             </h2>
           @endif
 

@@ -8,9 +8,8 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\User;
 use App\Models\Pangkat;
-use App\Models\Pegawai;
-use App\Models\JabatanPegawai;
-use App\Models\PangkatPegawai;
+use App\Models\JabatanUser;
+use App\Models\PangkatUser;
 use Illuminate\Support\Arr;
 
 class DatabaseSeeder extends Seeder
@@ -23,7 +22,6 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // Pegawai Seeder
-        Pegawai::factory(25)->create();
         User::factory(25)->create();
         
         // Pangkat Seeder
@@ -113,13 +111,13 @@ class DatabaseSeeder extends Seeder
         }
 
         // Jabatan/Pangkat Pegawai Seeder
-        foreach (Pegawai::all() as $pegawai) {
+        foreach (User::all() as $pegawai) {
             $pegawai->pangkat()->attach(Pangkat::all()->random());
             $pegawai->jabatan()->attach(Jabatan::all()->random());
         }
 
         // Jenis Jabatan Seeder
-        foreach (JabatanPegawai::all() as $jabatan) {
+        foreach (JabatanUser::all() as $jabatan) {
             $jabatan->update([
                 'jenis_jabatan_id' => JenisJabatan::all()->random()->id,
                 'created_at' => now(),
@@ -128,7 +126,7 @@ class DatabaseSeeder extends Seeder
         }
 
         // Pangkat timestamps Seeder
-        foreach (PangkatPegawai::all() as $pangkat) {
+        foreach (PangkatUser::all() as $pangkat) {
             $pangkat->update([
                 'created_at' => now(),
                 'updated_at' => now(),
