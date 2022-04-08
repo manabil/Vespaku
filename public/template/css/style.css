@@ -250,7 +250,8 @@ section {
 .navbar .dropdown ul li {
     min-width: 200px;
 }
-.navbar .dropdown ul a {
+.navbar .dropdown ul a,
+.navbar .dropdown ul button {
     padding: 10px 20px;
     font-size: 15px;
     text-transform: none;
@@ -2111,6 +2112,10 @@ section {
     max-width: 600px;
     padding: 15px;
     margin: auto;
+}
+.form-signin input {
+    margin: 5px 0;
+    border-radius: 5px;
 }
 .form-daftar {
     width: 100%;

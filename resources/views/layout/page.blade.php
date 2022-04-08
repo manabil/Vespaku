@@ -63,6 +63,12 @@
   <!-- Template Main JS File -->
   <script src="{{ asset('template/js/main.js') }}"></script>
 
+  <script>
+    function button_logout() {
+        document.getElementById("form-submit").submit();
+    }
+  </script>
+
 </body>
 
 </html>

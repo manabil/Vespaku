@@ -13,10 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('pangkat_pegawai', function (Blueprint $table) {
+        Schema::create('jabatan_user', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('pegawai_id')->constrained();
-            $table->foreignId('pangkat_id')->constrained();
+            $table->foreignId('user_id')->constrained();
+            $table->foreignId('jabatan_id')->constrained();
+            $table->foreignId('jenis_jabatan_id')->default(1)->constrained();
             $table->year('tahun_masuk')->default(date('Y'));
             $table->text('no_surat_keterangan')->default('897.2/.201-2014');
             $table->text('surat_keterangan')->default('surat_keterangan');
@@ -31,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pangkat_pegawais');
+        Schema::dropIfExists('jabatan_users');
     }
 };

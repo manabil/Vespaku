@@ -75,7 +75,7 @@
                 @enderror
               </div>
               <div class="form-floating">
-                <input type="date" class="form-control @error('tanggal') is-invalid @enderror" id="tanggal" name="tanggal" placeholder="Tanggal" required value="{{ old('tanggal') }}">
+                <input type="date" class="form-control @error('tanggal') is-invalid @enderror" id="tanggal" name="tanggal_lahir" placeholder="Tanggal" required value="{{ old('tanggal_lahir') }}">
                 <label for="tanggal">Tanggal Lahir</label>
                 @error('tanggal')
                 <div class="invalid-feedback">
