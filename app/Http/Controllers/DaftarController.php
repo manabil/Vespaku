@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Pegawai;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class DaftarController extends Controller
@@ -13,7 +13,7 @@ class DaftarController extends Controller
         ]);
     }
 
-    public function store(Request $request){
+    public function add(Request $request){
         $validated_data = $request->validate([
                             'nama' => 'required|min:3|unique:pegawais|regex:/^[a-zA-Z ]{3,}$/',
                             'nip' => 'required|size:18|unique:pegawais|regex:/^[0-9]{18}$/',
@@ -26,9 +26,9 @@ class DaftarController extends Controller
         $validated_data['password'] = bcrypt($validated_data['password']);
         $validated_data['is_admin'] = false;
 
-        Pegawai::create($validated_data);
+        User::create($validated_data);
         
-        return redirect()->with('success', 'Berhasil mendaftar, Silahkan Login');
+        return redirect('/login')->with('success', 'Berhasil mendaftar, Silahkan Login');
 
     }
 }

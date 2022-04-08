@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class JabatanPegawai extends Model
+class JabatanUser extends Model
 {
     use HasFactory;
 
-    protected $table = 'jabatan_pegawai';
+    protected $table = 'jabatan_user';
 
     protected $guarded = [
         'id',
@@ -21,10 +21,6 @@ class JabatanPegawai extends Model
         return $this->belongsTo(Jabatan::class);
     }
 
-    public function pegawai(){
-        return $this->belongsTo(Pegawai::class);
-    }
-    
     public function user(){
         return $this->belongsTo(User::class);
     }

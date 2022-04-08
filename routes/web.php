@@ -25,10 +25,11 @@ Route::get('/', function () {
 
 // *=============== Login Route ===============*
 Route::get('/login', [LoginController::class, 'index']);
+Route::post('/login', [LoginController::class, 'authenticate']);
 
 // *=============== Daftar Route ===============*
 Route::get('/daftar', [DaftarController::class, 'index']);
-Route::post('/daftar', [DaftarController::class, 'store']);
+Route::post('/daftar', [DaftarController::class, 'add']);
 
 // *=============== Cari ===============*
 Route::get('/cari', [PegawaiController::class, 'cari']);

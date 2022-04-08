@@ -6,6 +6,7 @@ use App\Models\Jabatan;
 use App\Models\JenisJabatan;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\User;
 use App\Models\Pangkat;
 use App\Models\Pegawai;
 use App\Models\JabatanPegawai;
@@ -23,6 +24,7 @@ class DatabaseSeeder extends Seeder
     {
         // Pegawai Seeder
         Pegawai::factory(25)->create();
+        User::factory(25)->create();
         
         // Pangkat Seeder
         $pangkats = [

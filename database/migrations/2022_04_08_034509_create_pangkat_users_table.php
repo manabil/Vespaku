@@ -13,15 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('pangkat_user', function (Blueprint $table) {
             $table->id();
-            $table->string('nama');
-            $table->bigInteger('nip');
-            $table->string('username')->unique();
-            $table->text('password');
-            $table->text('email');
-            $table->date('tanggal_lahir');
-            $table->boolean('is_admin')->default(false);
+            $table->foreignId('user_id')->constrained();
+            $table->foreignId('pangkat_id')->constrained();
+            $table->year('tahun_masuk')->default(date('Y'));
+            $table->text('no_surat_keterangan')->default('897.2/.201-2014');
+            $table->text('surat_keterangan')->default('surat_keterangan');
             $table->timestamps();
         });
     }
@@ -33,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('pangkat_users');
     }
 };
