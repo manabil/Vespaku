@@ -30,7 +30,7 @@
             <form action="/daftar" method="post">
               @csrf
               <div class="form-floating rounded-top"> 
-                <input type="text" class="form-control @error('username') is-invalid @enderror" id="username" placeholder="Username" required value="{{ old('username') }}">
+                <input type="text" class="form-control @error('username') is-invalid @enderror" id="username" name="username" placeholder="Username" required value="{{ old('username') }}">
                 <label for="username">Username</label>
                 @error('username')
                 <div class="invalid-feedback">
@@ -39,7 +39,7 @@
                 @enderror
               </div>
               <div class="form-floating">
-                <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" placeholder="Password" required value="{{ old('password') }}">
+                <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" placeholder="Password" required value="{{ old('password') }}">
                 <label for="password">Password</label>
                 @error('password')
                 <div class="invalid-feedback">
@@ -48,7 +48,7 @@
                 @enderror
               </div>
               <div class="form-floating">
-                <input type="text" class="form-control @error('email') is-invalid @enderror" id="email" placeholder="Email" required value="{{ old('email') }}">
+                <input type="text" class="form-control @error('email') is-invalid @enderror" id="email" name="email" placeholder="Email" required value="{{ old('email') }}">
                 <label for="email">Email</label>
                 @error('email')
                 <div class="invalid-feedback">
@@ -57,7 +57,7 @@
                 @enderror
               </div>
               <div class="form-floating mt-4">
-                <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama" placeholder="Nama" required value="{{ old('nama') }}">
+                <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama" name="nama" placeholder="Nama" required value="{{ old('nama') }}">
                 <label for="nama">Nama Lengkap</label>
                 @error('nama')
                 <div class="invalid-feedback">
@@ -66,7 +66,7 @@
                 @enderror
               </div>
               <div class="form-floating">
-                <input type="text" class="form-control @error('nip') is-invalid @enderror" id="nip" placeholder="NIP" required value="{{ old('nip') }}">
+                <input type="text" class="form-control @error('nip') is-invalid @enderror" id="nip" name="nip" placeholder="NIP" required value="{{ old('nip') }}">
                 <label for="nip">NIP</label>
                 @error('nip')
                 <div class="invalid-feedback">
@@ -75,7 +75,7 @@
                 @enderror
               </div>
               <div class="form-floating">
-                <input type="date" class="form-control @error('tanggal') is-invalid @enderror" id="tanggal" placeholder="Tanggal" required value="{{ old('tanggal') }}">
+                <input type="date" class="form-control @error('tanggal') is-invalid @enderror" id="tanggal" name="tanggal" placeholder="Tanggal" required value="{{ old('tanggal') }}">
                 <label for="tanggal">Tanggal Lahir</label>
                 @error('tanggal')
                 <div class="invalid-feedback">
