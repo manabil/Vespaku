@@ -29,7 +29,7 @@ class UserController extends Controller
     }
     
     public function pegawai(User $username){
-        return view('pegawai', [
+        return view('user', [
             'title' => 'Profile Pegawai',
             'pegawai' => $username,
             'jabatans' => JabatanUser::with(['jenis_jabatan', 'jabatan', 'user'])->latest()->where('user_id', $username->id)->get(),

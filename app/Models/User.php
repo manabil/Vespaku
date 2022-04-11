@@ -34,4 +34,14 @@ class User extends Authenticatable
     public function jabatan_pegawai() {
         return $this->hasMany(JabatanPegawai::class);
     }
+
+    /**
+     * Get the route key for the model.
+     *
+     * @return string
+     */
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 }

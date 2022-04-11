@@ -24,7 +24,7 @@ class UserFactory extends Factory
             'nama' => $nama,
             'nip' => $this->faker->unique()->creditCardNumber(),
             'username' => $nama_clean,
-            'password' => $this->faker->password(),
+            'password' => bcrypt('12345'),
             'email' => $nama_clean . '@bpmpk.gov.id',
             'tanggal_lahir' => now(),
             'is_admin' => $this->faker->boolean(20)

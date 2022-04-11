@@ -209,7 +209,6 @@ section {
 }
 .navbar a i,
 .navbar a:focus i {
-    font-size: 12px;
     line-height: 0;
     margin-left: 5px;
 }
@@ -1527,9 +1526,6 @@ section {
 .blog .entry-table tbody tr .no {
     text-align: center;
 }
-.blog .entry-table tbody tr td a i {
-    margin-right: 7px;
-}
 .blog .entry-image {
     padding: 5px;
     border-radius: 5px;
@@ -1553,7 +1549,7 @@ section {
     color: #012970;
 }
 .blog .entry h5 {
-    margin: 0 20px 20px 30px;
+    margin-left: 30px;
     color: #012970;
 }
 .blog .entry .entry-title a {

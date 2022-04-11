@@ -5,6 +5,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PangkatController;
+use App\Http\Controllers\RequestController;
+use App\Http\Controllers\JabatanController;
+use GuzzleHttp\Middleware;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,3 +47,8 @@ Route::get('/cari/{username:username}', [UserController::class, 'pegawai'])->mid
 
 // *=============== Profile ============*
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
+Route::resource('/dashboard/pangkat', PangkatController::class)->middleware('auth');
+Route::resource('/dashboard/jabatan', JabatanController::class)->middleware('auth');
+
+// *=============== Request ============*
+Route::get('/request', [RequestController::class, 'index'])->middleware('auth');

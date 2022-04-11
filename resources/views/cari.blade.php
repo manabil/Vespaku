@@ -63,7 +63,7 @@
                 @foreach ($pegawai as $no=>$p)
                   <tbody>
                     <tr>
-                      <th scope="row" class="no">{{ $no+1 }}</th>
+                      <th scope="row" class="no">{{ $loop->iteration }}</th>
                       <td>{{ $p->user->nama }}</td>
                       <td>{{ $p->jabatan->nama }}</td>
                       <td>{{ $p->jenis_jabatan->nama }}</td>
