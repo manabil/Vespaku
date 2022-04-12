@@ -58,13 +58,18 @@
                       </tr>
                     </table>
                 </div>
-          </div>
-          <div class="row">
-            <div class="d-flex mt-5" style="justify-content: end; align-items: flex-end">
-                <a href="" class="btn btn-outline-warning btn-md"><i class="bi bi-pen"></i>&nbsp; Ubah</a>
-                <a href="" class="btn btn-outline-primary btn-md mx-2"><i class="bi bi-download"></i>&nbsp; Download</a>
-                <a href="" class="btn btn-outline-danger btn-md "><i class="bi bi-trash"></i>&nbsp; Hapus</a>
-            </div>
+
+                <div class="mt-5">
+                  <div class="col mx-2 my-2" style="float: right">
+                    <a href="" class="btn btn-outline-danger btn-md "><i class="bi bi-trash"></i>&nbsp; Hapus</a>
+                  </div>
+                  <div class="col my-2" style="float: right">
+                    <a href="" class="btn btn-outline-primary btn-md"><i class="bi bi-download"></i>&nbsp; Download</a>
+                  </div>
+                  <div class="col mx-2 my-2" style="float: right">
+                    <a href="" class="btn btn-outline-warning btn-md"><i class="bi bi-pen"></i>&nbsp; Ubah</a>
+                  </div>
+                </div>
           </div>
         </article><!-- End blog entry -->
 

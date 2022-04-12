@@ -6,8 +6,7 @@
   <div class="container">
     <ol>
       <li><a href="/">Home</a></li>
-      <li><a href="/cari">Cari Pegawai</a></li>
-      <li><a href="#">Profile Pegawai</a></li>
+      <li><a href="#">Dashboard</a></li>
     </ol>
     <h2>{{ $title }}</h2>
   </div>
@@ -82,7 +81,7 @@
                     </table>
                   </div>
 
-                  <a href="" class="btn btn-lg btn-outline-success" style="margin: 20px 0 0 30px"> <i class="bi bi-pen" style="margin-right: 15px"></i>Ubah Data</a>
+                  <a href="/dashboard/profile" class="btn btn-lg btn-outline-success" style="margin: 20px 0 0 30px"> <i class="bi bi-pen" style="margin-right: 15px"></i>Ubah Data</a>
               </div>
           </div>
 
@@ -111,10 +110,18 @@
                       <td>{{ $pangkat->created_at }}</td>
                       <td>{{ $pangkat->updated_at }}</td>
                       <td>
-                        <a href="/dashboard/pangkat/{{ $pangkat->id }}" class="btn btn-sm btn-outline-warning"><i class="bi bi-eye mx-0"></i></a>
-                        <a href="" class="btn btn-sm btn-outline-success"><i class="bi bi-pen mx-0"></i></a>
-                        <a href="" class="btn btn-sm btn-outline-primary"><i class="bi bi-download mx-0"></i></a>
-                        <a href="" class="btn btn-sm btn-outline-danger"><i class="bi bi-trash mx-0"></i></a>
+                        <div class="child">
+                          <a href="/dashboard/pangkat/{{ $pangkat->id }}" class="btn btn-sm btn-outline-warning mx-1"><i class="bi bi-eye mx-0"></i></a>
+                        </div>
+                        <div class="child">
+                          <a href="" class="btn btn-sm btn-outline-success mx-1"><i class="bi bi-pen mx-0"></i></a>
+                        </div>
+                        <div class="child">
+                          <a href="" class="btn btn-sm btn-outline-primary mx-1"><i class="bi bi-download mx-0"></i></a>
+                        </div>
+                        <div class="child">
+                          <a href="" class="btn btn-sm btn-outline-danger mx-1"><i class="bi bi-trash mx-0"></i></a>
+                        </div>
                       </td>
                     </tr>
                     @endforeach
@@ -122,7 +129,7 @@
             </table>
           </div>
 
-          <a href="" class="btn btn-lg btn-outline-success" style="margin: 0 0 10px 0"> <i class="bi bi-plus" style="margin-right: 15px"></i>Tambah Pangkat</a>
+          <a href="/dashboard/pangkat/create" class="btn btn-lg btn-outline-success" style="margin: 0 0 10px 0"> <i class="bi bi-plus" style="margin-right: 15px"></i>Tambah Pangkat</a>
           
           <h2 class="entry-title">
             <a href="blog-single.html">Daftar Jabatan</a>
@@ -149,10 +156,18 @@
                       <td>{{ $jabatan->created_at }}</td>
                       <td>{{ $jabatan->updated_at }}</td>
                       <td>
-                        <a href="/dashboard/jabatan/{{ $jabatan->id }}" class="btn btn-sm btn-outline-warning"><i class="bi bi-eye mx-0"></i></a>
-                        <a href="" class="btn btn-sm btn-outline-success"><i class="bi bi-pen mx-0"></i></a>
-                        <a href="" class="btn btn-sm btn-outline-primary"><i class="bi bi-download mx-0"></i></a>
-                        <a href="" class="btn btn-sm btn-outline-danger"><i class="bi bi-trash mx-0"></i></a>
+                        <div class="child">
+                          <a href="/dashboard/pangkat/{{ $jabatan->id }}" class="btn btn-sm btn-outline-warning mx-1"><i class="bi bi-eye mx-0"></i></a>
+                        </div>
+                        <div class="child">
+                          <a href="" class="btn btn-sm btn-outline-success mx-1"><i class="bi bi-pen mx-0"></i></a>
+                        </div>
+                        <div class="child">
+                          <a href="" class="btn btn-sm btn-outline-primary mx-1"><i class="bi bi-download mx-0"></i></a>
+                        </div>
+                        <div class="child">
+                          <a href="" class="btn btn-sm btn-outline-danger mx-1"><i class="bi bi-trash mx-0"></i></a>
+                        </div>
                       </td>
                     </tr>
                   @endforeach
@@ -160,7 +175,7 @@
             </table>
           </div>
 
-          <a href="" class="btn btn-lg btn-outline-success" style="margin: 0 0 10px 0"> <i class="bi bi-plus" style="margin-right: 15px"></i>Tambah Jabatan</a>
+          <a href="/dashboard/jabatan/create" class="btn btn-lg btn-outline-success" style="margin: 0 0 10px 0"> <i class="bi bi-plus" style="margin-right: 15px"></i>Tambah Jabatan</a>
 
         </article><!-- End blog entry -->
 

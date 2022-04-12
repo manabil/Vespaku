@@ -1,4 +1,4 @@
-@extends('layout.signin')
+@extends('layout.form')
 
 <!-- ======= Breadcrumbs ======= -->
 @section('breadcrumbs')
@@ -26,7 +26,7 @@
         
         <article class="entry entry-single daftar-entry">
           <main class="form-daftar">
-            <h1 class="h3 mb-3 fw-normal">Daftar</h1>
+            <h1 class="h3 mb-3 fw-normal">Daftar Akun</h1>
             <form action="/daftar" method="post">
               @csrf
               <div class="form-floating rounded-top"> 

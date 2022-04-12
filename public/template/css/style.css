@@ -1497,7 +1497,8 @@ section {
 .blog .entry {
     padding: 30px;
     margin-bottom: 60px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
 }
 .blog .entry-table {
     margin: 50px 0px;
@@ -1509,13 +1510,18 @@ section {
     text-align: center;
     vertical-align: middle;
 }
+.blog .entry-table tbody tr td .child {
+    display: inherit;
+}
 .blog .login-entry {
-    width: 30%;
+    width: 100%;
+    max-width: 390px;
     margin: auto;
     padding: 10px 10px;
 }
 .blog .daftar-entry {
-    width: 60%;
+    width: 100%;
+    max-width: 780px;
     margin: auto;
     padding: 10px 10px;
 }
@@ -2124,8 +2130,29 @@ section {
     margin: 5px 0;
     border-radius: 5px;
 }
+.form-daftar select {
+    margin: 5px 0;
+    border-radius: 5px;
+}
 .form-daftar .form-floating .invalid-feedback {
     margin: 10px 0;
+}
+.form-daftar .form-floating .custom-select {
+    display: block;
+    width: 100%;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border-radius: 0.25rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
 .form-signin .form-floating:focus-within {

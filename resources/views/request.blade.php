@@ -47,8 +47,8 @@
                       <td>SK CPNS</td>
                       <td>02-02-2022 18:18:16</td>
                       <td>
-                        <a href="" class="btn btn-sm btn-outline-success mx-2 mb-2"><i class="bi bi-check-square"></i>Terima</a>
-                        <a href="" class="btn btn-sm btn-outline-danger mx-2"><i class="bi bi-x-square"></i>Tolak</a>
+                        <a href="" class="btn btn-sm btn-outline-success mx-2"><i class="bi bi-check-square"></i>&nbsp; Terima</a>
+                        <a href="" class="btn btn-sm btn-outline-danger mx-2"><i class="bi bi-x-square"></i>&nbsp; Tolak</a>
                       </td>
                     </tr>
                 </tbody>
@@ -79,7 +79,7 @@
                     <td>02-02-2022 18:18:16</td>
                     <td>02-02-2022 18:18:16</td>
                     <td>
-                      <a href="" class="btn btn-sm btn-outline-success disabled"><i class="bi bi-check-square"></i>Diterima</a>
+                      <a href="" class="btn btn-sm btn-outline-success disabled"><i class="bi bi-check-square"></i>&nbsp; Diterima</a>
                     </td>
                     </tr>
                 </tbody>
