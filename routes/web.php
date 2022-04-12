@@ -39,11 +39,9 @@ Route::post('/daftar', [DaftarController::class, 'add']);
 
 // *=============== Cari ===============*
 Route::get('/cari', [UserController::class, 'cari']);
-
-
-// *=============== Pegawai Details ============*
 Route::get('/cari/{username:username}', [UserController::class, 'pegawai'])->middleware('auth');
-
+Route::get('dashboard/profile', [UserController::class, 'profile'])->middleware('auth');
+Route::post('dashboard/profile', [UserController::class, 'edit'])->middleware('auth');
 
 // *=============== Profile ============*
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
