@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\JabatanUser;
+use App\Models\Jabatan;
+use App\Models\JenisJabatan;
 use App\Models\PangkatUser;
+use App\Models\Pangkat;
 use Illuminate\Http\Request;
 use App\Models\User;
 
@@ -35,5 +38,22 @@ class UserController extends Controller
             'jabatans' => JabatanUser::with(['jenis_jabatan', 'jabatan', 'user'])->latest()->where('user_id', $username->id)->get(),
             'pangkats' => PangkatUser::with(['user', 'pangkat'])->latest()->where('user_id', $username->id)->get()
         ]);
+    }
+
+    public function profile(){
+        // return JabatanUser::with(['jenis_jabatan', 'jabatan', 'user'])->latest()->where('user_id', auth()->user()->id)->get();
+        return view('dashboard.profile.create', [
+            'title' => 'Edit Profile',
+            'pegawai' => auth()->user(),
+            'jabatans' => Jabatan::all(),
+            'pangkats' => Pangkat::all(),
+            'jenis_jabatans' => JenisJabatan::all(),
+            'jabatan_user' => JabatanUser::with(['jenis_jabatan', 'jabatan', 'user'])->latest()->where('user_id', auth()->user()->id)->get(),
+            'pangkat_user' => PangkatUser::with(['user', 'pangkat'])->latest()->where('user_id', auth()->user()->id)->get()
+        ]);	
+    }
+
+    public function edit(){
+        //
     }
 }

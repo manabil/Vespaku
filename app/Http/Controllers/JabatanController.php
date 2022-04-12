@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\JabatanUser;
+use App\Models\Jabatan;
+use App\Models\JenisJabatan;
 use Illuminate\Http\Request;
 
 class JabatanController extends Controller
@@ -24,7 +26,11 @@ class JabatanController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.jabatan.create', [
+            'title' => 'Tambah Jabatan',
+            'jabatans' => Jabatan::all(),
+            'jenis_jabatans' => JenisJabatan::all()
+        ]);
     }
 
     /**

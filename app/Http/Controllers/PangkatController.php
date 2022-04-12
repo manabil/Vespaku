@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\PangkatUser;
+use App\Models\Pangkat;
 use Illuminate\Http\Request;
 
 class PangkatController extends Controller
@@ -24,7 +25,10 @@ class PangkatController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.pangkat.create', [
+            'title' => 'Tambah Pangkat',
+            'pangkats' => Pangkat::all()
+        ]);
     }
 
     /**
