@@ -39,7 +39,26 @@ class PangkatController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'pangkat_id' => 'required',
+            'no_surat_keterangan' => 'required|min:5',
+            'tahun_masuk' => 'required',
+            'surat_keterangan' => 'required|min:3',
+        ]);
+        
+        $validatedData['user_id'] = auth()->user()->id;
+        $validatedData['tahun_masuk'] = date('Y', strtotime($validatedData['tahun_masuk']));
+
+        $unavailablePangkat = PangkatUser:: where('user_id', auth()->user()->id)
+                                            ->where('pangkat_id', $validatedData['pangkat_id'])->get();
+
+        if($unavailablePangkat->isNotEmpty()){
+            return redirect('/dashboard/pangkat/create')->with('pangkat_sudah_ada', 'Pangkat ini sudah ada. Mohon isi dengan pangkat yang lain');
+        }
+
+
+        PangkatUser::create($validatedData);
+        return redirect('/dashboard')->with('alert_pangkat', 'Pangkat berhasil ditambahkan');
     }
 
     /**
@@ -62,9 +81,13 @@ class PangkatController extends Controller
      * @param  \App\Models\PangkatUser  $pangkatUser
      * @return \Illuminate\Http\Response
      */
-    public function edit(PangkatUser $pangkatUser)
+    public function edit(PangkatUser $pangkat)
     {
-        //
+        return view('dashboard.pangkat.edit', [
+            'title' => 'Edit Pangkat',
+            'pangkat' => $pangkat,
+            'pangkats' => Pangkat::all()
+        ]);
     }
 
     /**
@@ -85,8 +108,9 @@ class PangkatController extends Controller
      * @param  \App\Models\PangkatUser  $pangkatUser
      * @return \Illuminate\Http\Response
      */
-    public function destroy(PangkatUser $pangkatUser)
+    public function destroy(PangkatUser $pangkat)
     {
-        //
+        PangkatUser::destroy($pangkat->id);
+        return redirect('/dashboard')->with('pangkat_dihapus', 'Pangkat berhasil dihapus');
     }
 }
