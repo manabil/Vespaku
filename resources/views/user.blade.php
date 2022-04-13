@@ -91,7 +91,7 @@
                   @foreach ($pangkats as $pangkat)
                   <tr>
                       <th scope="row">{{ $pangkat->pangkat->nama }}</th>
-                      <td>{{ $pangkat->tahun_masuk }}</td>
+                      <td>{{ date('Y', strtotime($pangkat->tmt)) }}</td>
                       <td>{{ $pangkat->no_surat_keterangan }}</td>
                       <td>{{ $pangkat->created_at }}</td>
                       <td>{{ $pangkat->updated_at }}</td>
@@ -124,7 +124,7 @@
                   @foreach ($jabatans as $jabatan)
                   <tr>
                       <th scope="row">{{ $jabatan->jabatan->nama }}</th>
-                      <td>{{ $jabatan->tahun_masuk }}</td>
+                      <td>{{ date('Y', strtotime($jabatan->tmt)) }}</td>
                       <td>{{ $jabatan->no_surat_keterangan }}</td>
                       <td>{{ $jabatan->created_at }}</td>
                       <td>{{ $jabatan->updated_at }}</td>

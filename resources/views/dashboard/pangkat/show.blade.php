@@ -27,14 +27,13 @@
         
         <article class="entry entry-single">
           <div class="row">
-                <h1 class="entry-heading">{{ $pangkat->nama }}</h1>
-                
+                <h1 class="entry-heading">{{ $pangkat->pangkat->nama }}</h1>
                 <div class="table-responsive">
                   <table class="table table-borderless my-0">
                       <tr>
-                        <td><h5>Tahun masuk</h5></td>
+                        <td><h5>Terhitung Mulai Tanggal</h5></td>
                         <td>:</td>
-                        <td><h5>{{ $pangkat->tahun_masuk }}</h5></td>
+                        <td><h5>{{ date('j F Y', strtotime($pangkat->tmt)) }}</h5></td>
                       </tr>
                       <tr>
                         <td><h5>No Surat Keterangan</h5></td>
@@ -61,7 +60,11 @@
 
                 <div class="mt-5">
                   <div class="col mx-2 my-2" style="float: right">
-                    <a href="" class="btn btn-outline-danger btn-md "><i class="bi bi-trash"></i>&nbsp; Hapus</a>
+                    <form action="/dashboard/pangkat/{{ $pangkat->id }}" method="post">
+                      @csrf
+                      @method('delete')
+                      <button class="btn btn-outline-danger btn-md " onclick="return confirm('Apakah Anda yakin ingin menghapus ?')"><i class="bi bi-trash"></i>&nbsp; Hapus</button>
+                    </form>
                   </div>
                   <div class="col my-2" style="float: right">
                     <a href="" class="btn btn-outline-primary btn-md"><i class="bi bi-download"></i>&nbsp; Download</a>

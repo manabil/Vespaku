@@ -85,9 +85,21 @@
               </div>
           </div>
 
-          <h2 class="entry-title">
+          <h2 class="entry-title my-3">
             <a href="blog-single.html">Daftar Kepangkatan</a>
           </h2>
+
+          @if (session()->has('alert_pangkat'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+              {{ session('alert_pangkat') }}
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          @elseif (session()->has('pangkat_dihapus'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              {{ session('pangkat_dihapus') }}
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          @endif
 
           <div class="table-responsive">
             <table class="table table-hover table-borderless entry-table ">
@@ -105,7 +117,7 @@
                   @foreach ($pangkats as $pangkat)
                   <tr>
                       <th scope="row">{{ $pangkat->pangkat->nama }}</th>
-                      <td>{{ $pangkat->tahun_masuk }}</td>
+                      <td>{{ date('Y',strtotime($pangkat->tmt)) }}</td>
                       <td>{{ $pangkat->no_surat_keterangan }}</td>
                       <td>{{ $pangkat->created_at }}</td>
                       <td>{{ $pangkat->updated_at }}</td>
@@ -114,13 +126,17 @@
                           <a href="/dashboard/pangkat/{{ $pangkat->id }}" class="btn btn-sm btn-outline-warning mx-1"><i class="bi bi-eye mx-0"></i></a>
                         </div>
                         <div class="child">
-                          <a href="" class="btn btn-sm btn-outline-success mx-1"><i class="bi bi-pen mx-0"></i></a>
+                          <a href="/dashboard/pangkat/{{ $pangkat->id }}/edit" class="btn btn-sm btn-outline-success mx-1"><i class="bi bi-pen mx-0"></i></a>
                         </div>
                         <div class="child">
                           <a href="" class="btn btn-sm btn-outline-primary mx-1"><i class="bi bi-download mx-0"></i></a>
                         </div>
                         <div class="child">
-                          <a href="" class="btn btn-sm btn-outline-danger mx-1"><i class="bi bi-trash mx-0"></i></a>
+                          <form action="/dashboard/pangkat/{{ $pangkat->id }}" method="post">
+                            @csrf
+                            @method('delete')
+                            <button class="btn btn-sm btn-outline-danger mx-1" onclick="return confirm('Apakah Anda yakin ingin menghapus ?')"><i class="bi bi-trash"></i></button>
+                          </form>
                         </div>
                       </td>
                     </tr>
@@ -131,15 +147,28 @@
 
           <a href="/dashboard/pangkat/create" class="btn btn-lg btn-outline-success" style="margin: 0 0 10px 0"> <i class="bi bi-plus" style="margin-right: 15px"></i>Tambah Pangkat</a>
           
-          <h2 class="entry-title">
+          <h2 class="entry-title my-3">
             <a href="blog-single.html">Daftar Jabatan</a>
           </h2>
 
           <div class="table-responsive">
+            @if (session()->has('alert_jabatan'))
+              <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ session('alert_jabatan') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            @elseif (session()->has('jabatan_dihapus'))
+              <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ session('jabatan_dihapus') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            @endif
+
             <table class="table table-hover table-borderless entry-table ">
               <thead>
                 <tr>
-                  <th scope="col">Keterangan</th>
+                  <th scope="col">Jabatan</th>
+                  <th scope="col">Jenis Jabatan</th>
                   <th scope="col">Tahun</th>
                   <th scope="col">No. SK</th>
                   <th scope="col">Tanggal Ditambah</th>
@@ -151,22 +180,27 @@
                   @foreach ($jabatans as $jabatan)
                   <tr>
                       <th scope="row">{{ $jabatan->jabatan->nama }}</th>
-                      <td>{{ $jabatan->tahun_masuk }}</td>
+                      <td>{{ $jabatan->jenis_jabatan->nama }}</td>
+                      <td>{{ date('Y',strtotime($jabatan->tmt)) }}</td>
                       <td>{{ $jabatan->no_surat_keterangan }}</td>
                       <td>{{ $jabatan->created_at }}</td>
                       <td>{{ $jabatan->updated_at }}</td>
                       <td>
                         <div class="child">
-                          <a href="/dashboard/pangkat/{{ $jabatan->id }}" class="btn btn-sm btn-outline-warning mx-1"><i class="bi bi-eye mx-0"></i></a>
+                          <a href="/dashboard/jabatan/{{ $jabatan->id }}" class="btn btn-sm btn-outline-warning mx-1"><i class="bi bi-eye mx-0"></i></a>
                         </div>
                         <div class="child">
-                          <a href="" class="btn btn-sm btn-outline-success mx-1"><i class="bi bi-pen mx-0"></i></a>
+                          <a href="/dashboard/jabatan/{{ $jabatan->id }}/edit" class="btn btn-sm btn-outline-success mx-1"><i class="bi bi-pen mx-0"></i></a>
                         </div>
                         <div class="child">
                           <a href="" class="btn btn-sm btn-outline-primary mx-1"><i class="bi bi-download mx-0"></i></a>
                         </div>
                         <div class="child">
-                          <a href="" class="btn btn-sm btn-outline-danger mx-1"><i class="bi bi-trash mx-0"></i></a>
+                          <form action="/dashboard/jabatan/{{ $jabatan->id }}" method="post">
+                            @csrf
+                            @method('delete')
+                            <button class="btn btn-sm btn-outline-danger mx-1" onclick="return confirm('Apakah anda yakin akan menghapus')"><i class="bi bi-trash mx-0"></i></button>
+                          </form>
                         </div>
                       </td>
                     </tr>

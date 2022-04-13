@@ -44,7 +44,7 @@
 
         <article class="entry entry-single">
           @if ($pegawai->count())
-            <h2 class="entry-title">
+            <h2 class="entry-title mb-3">
               <a href="#">Daftar Pegawai</a>
             </h2>
 
