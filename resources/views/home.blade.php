@@ -81,7 +81,7 @@
         <div class="count-box">
             <i class="bi bi-people"></i>
             <div>
-            <span data-purecounter-start="0" data-purecounter-end="232" data-purecounter-duration="1" class="purecounter"></span>
+            <span data-purecounter-start="0" data-purecounter-end="{{ $total_pegawai }}" data-purecounter-duration="1" class="purecounter"></span>
             <p>Total Pegawai</p>
             </div>
         </div>
@@ -91,7 +91,7 @@
         <div class="count-box">
             <i class="bi bi-download" style="color: #ee6c20;"></i>
             <div>
-            <span data-purecounter-start="0" data-purecounter-end="521" data-purecounter-duration="1" class="purecounter"></span>
+            <span data-purecounter-start="0" data-purecounter-end="{{ $total_unduh }}" data-purecounter-duration="1" class="purecounter"></span>
             <p>Total Berkas Diunduh</p>
             </div>
         </div>
@@ -101,7 +101,7 @@
         <div class="count-box">
             <i class="bi bi-briefcase" style="color: #15be56;"></i>
             <div>
-            <span data-purecounter-start="0" data-purecounter-end="1463" data-purecounter-duration="1" class="purecounter"></span>
+            <span data-purecounter-start="0" data-purecounter-end="{{ $total_jabatan }}" data-purecounter-duration="1" class="purecounter"></span>
             <p>Total Jabatan</p>
             </div>
         </div>
@@ -111,7 +111,7 @@
         <div class="count-box">
             <i class="bi bi-person-badge" style="color: #bb0852;"></i>
             <div>
-            <span data-purecounter-start="0" data-purecounter-end="15" data-purecounter-duration="1" class="purecounter"></span>
+            <span data-purecounter-start="0" data-purecounter-end="{{ $total_pangkat }}" data-purecounter-duration="1" class="purecounter"></span>
             <p>Total Pangkat</p>
             </div>
         </div>

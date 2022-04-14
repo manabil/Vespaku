@@ -8,6 +8,9 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PangkatController;
 use App\Http\Controllers\RequestController;
 use App\Http\Controllers\JabatanController;
+use App\Models\Jabatan;
+use App\Models\Pangkat;
+use App\Models\User;
 use GuzzleHttp\Middleware;
 
 /*
@@ -23,8 +26,17 @@ use GuzzleHttp\Middleware;
 
 // *=============== Home Route ===============*
 Route::get('/', function () {
+    $total_pegawai = User::all()->count();
+    $total_jabatan = Jabatan::all()->count();
+    $total_pangkat = Pangkat::all()->count();
+    $total_unduh = Jabatan::all()->count();
+    
     return view('home', [
-        'title' => 'Home'
+        'title' => 'Home',
+        'total_pegawai' => $total_pegawai,
+        'total_jabatan' => $total_jabatan,
+        'total_pangkat' => $total_pangkat,
+        'total_unduh' => $total_unduh
     ]);
 });
 
