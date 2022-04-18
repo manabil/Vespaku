@@ -57,7 +57,7 @@
                 @enderror
               </div>
               <div class="form-floating">
-                <input type="text" class="form-control @error('no_surat_keterangan') is-invalid @enderror" id="no_surat_keterangan" name="no_surat_keterangan" placeholder="no_surat_keterangan" required value="{{ old('no_surat_keterangan', $pangkat->no_surat_keterangan) }}">
+                <input type="text" class="form-control @error('no_surat_keterangan') is-invalid @enderror" id="no_surat_keterangan" name="no_surat_keterangan" placeholder="no_surat_keterangan" value="{{ old('no_surat_keterangan', $no_surat_keterangan) }}" required >
                 <label for="no_surat_keterangan">No Surat Keterangan</label>
                 @error('no_surat_keterangan')
                 <div class="invalid-feedback">
@@ -66,16 +66,16 @@
                 @enderror
               </div>
                 <div class="form-floating">
-                  <input type="date" class="form-control @error('tahun_masuk') is-invalid @enderror" id="tahun_masuk" name="tahun_masuk" placeholder="tahun_masuk" required value="{{ old('tahun_masuk', $pangkat->tahun_masuk) }}">
-                  <label for="tahun_masuk">Terhitung Mulai Tanggal</label>
-                  @error('tahun_masuk')
+                  <input type="date" class="form-control @error('tmt') is-invalid @enderror" id="tmt" name="tmt" placeholder="tmt" required value="{{ old('tmt', $tmt) }}">
+                  <label for="tmt">Terhitung Mulai Tanggal</label>
+                  @error('tmt')
                   <div class="invalid-feedback">
                       {{ $message }}
                     </div>
                     @enderror
                 </div>
                 <div class="form-floating mt-4">
-                  <input type="text" class="form-control @error('surat_keterangan') is-invalid @enderror" id="surat_keterangan" name="surat_keterangan" placeholder="surat_keterangan" required value="{{ old('surat_keterangan', $pangkat->surat_keterangan) }}">
+                  <input type="text" class="form-control @error('surat_keterangan') is-invalid @enderror" id="surat_keterangan" name="surat_keterangan" placeholder="surat_keterangan" required value="{{ old('surat_keterangan', $surat_keterangan) }}">
                   <label for="surat_keterangan">Upload File</label>
                   @error('surat_keterangan')
                   <div class="invalid-feedback">
@@ -84,7 +84,7 @@
                   @enderror
                 </div>
                 
-                <button class="w-100 btn btn-lg btn-success" style="margin: 20px 0" type="Submit">Tambah Pangkat</button>
+                <button class="w-100 btn btn-lg btn-warning" style="margin: 20px 0" type="Submit"><i class="bi bi-pen"></i>&nbsp; Edit Pangkat</button>
             </form>
 
           </main>

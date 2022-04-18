@@ -120,7 +120,7 @@
                       <td>{{ date('Y',strtotime($pangkat->tmt)) }}</td>
                       <td>{{ $pangkat->no_surat_keterangan }}</td>
                       <td>{{ $pangkat->created_at }}</td>
-                      <td>{{ $pangkat->updated_at }}</td>
+                      <td>{{ $pangkat->updated_at->diffForHumans() }}</td>
                       <td>
                         <div class="child">
                           <a href="/dashboard/pangkat/{{ $pangkat->id }}" class="btn btn-sm btn-outline-warning mx-1"><i class="bi bi-eye mx-0"></i></a>
@@ -184,7 +184,7 @@
                       <td>{{ date('Y',strtotime($jabatan->tmt)) }}</td>
                       <td>{{ $jabatan->no_surat_keterangan }}</td>
                       <td>{{ $jabatan->created_at }}</td>
-                      <td>{{ $jabatan->updated_at }}</td>
+                      <td>{{ $jabatan->updated_at->diffForHumans() }}</td>
                       <td>
                         <div class="child">
                           <a href="/dashboard/jabatan/{{ $jabatan->id }}" class="btn btn-sm btn-outline-warning mx-1"><i class="bi bi-eye mx-0"></i></a>

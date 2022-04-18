@@ -99,7 +99,7 @@
                   @enderror
                 </div>
                 
-                <button class="w-100 btn btn-lg btn-success" style="margin: 20px 0" type="Submit">Tambah Jabatan</button>
+                <button class="w-100 btn btn-lg btn-success" style="margin: 20px 0" type="Submit"><i class="bi bi-plus"></i>&nbsp; Tambah Jabatan</button>
             </form>
 
           </main>

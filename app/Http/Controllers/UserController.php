@@ -41,7 +41,6 @@ class UserController extends Controller
     }
 
     public function profile(){
-        // return JabatanUser::with(['jenis_jabatan', 'jabatan', 'user'])->latest()->where('user_id', auth()->user()->id)->get();
         return view('dashboard.profile.create', [
             'title' => 'Edit Profile',
             'pegawai' => auth()->user(),

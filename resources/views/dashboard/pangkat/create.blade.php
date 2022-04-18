@@ -65,9 +65,9 @@
                 @enderror
               </div>
                 <div class="form-floating">
-                  <input type="date" class="form-control @error('tahun_masuk') is-invalid @enderror" id="tahun_masuk" name="tahun_masuk" placeholder="tahun_masuk" required value="{{ old('tahun_masuk') }}">
-                  <label for="tahun_masuk">Terhitung Mulai Tanggal</label>
-                  @error('tahun_masuk')
+                  <input type="date" class="form-control @error('tmt') is-invalid @enderror" id="tmt" name="tmt" placeholder="tmt" required value="{{ old('tmt') }}">
+                  <label for="tmt">Terhitung Mulai Tanggal</label>
+                  @error('tmt')
                   <div class="invalid-feedback">
                       {{ $message }}
                     </div>
@@ -83,7 +83,7 @@
                   @enderror
                 </div>
                 
-                <button class="w-100 btn btn-lg btn-success" style="margin: 20px 0" type="Submit">Tambah Pangkat</button>
+                <button class="w-100 btn btn-lg btn-success" style="margin: 20px 0" type="Submit"><i class="bi bi-plus"></i>&nbsp; Tambah Pangkat</button>
             </form>
 
           </main>

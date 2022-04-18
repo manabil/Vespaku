@@ -57,45 +57,6 @@
                     </div>
                     @enderror
                 </div>
-                <div class="form-floating rounded-top"> 
-                    <select class="custom-select form-control @error('pangkat') is-invalid @enderror" id="pangkat" name="pangkat" placeholder="pangkat" required>
-                        <option selected>{{ $pangkat_user->first()->pangkat->nama }}</option>
-                        @foreach ($pangkats as $pangkat)
-                            <option value="{{ $pangkat->id }}">{{ $pangkat->nama }}</option>
-                        @endforeach
-                    </select>
-                    @error('pangkat')
-                    <div class="invalid-feedback">
-                        {{ $message }}
-                    </div>
-                    @enderror
-                </div>
-                <div class="form-floating rounded-top"> 
-                    <select class="custom-select form-control @error('jenis_jabatan') is-invalid @enderror" id="jenis_jabatan" name="jenis_jabatan" placeholder="jenis_jabatan" required>
-                        <option selected>{{ $jabatan_user->first()->jenis_jabatan->nama }}</option>
-                        @foreach ($jenis_jabatans as $jenis_jabatan)
-                            <option value="{{ $jenis_jabatan->id }}">{{ $jenis_jabatan->nama }}</option>
-                        @endforeach
-                    </select>
-                    @error('jenis_jabatan')
-                    <div class="invalid-feedback">
-                        {{ $message }}
-                    </div>
-                    @enderror
-                </div>
-                <div class="form-floating rounded-top"> 
-                    <select class="custom-select form-control @error('jabatan') is-invalid @enderror" id="jabatan" name="jabatan" placeholder="jabatan" required>
-                        <option selected>{{ $jabatan_user->first()->jabatan->nama }}</option>
-                        @foreach ($jabatans as $jabatan)
-                            <option value="{{ $jabatan->id }}">{{ $jabatan->nama }}</option>
-                        @endforeach
-                    </select>
-                    @error('jabatan')
-                    <div class="invalid-feedback">
-                        {{ $message }}
-                    </div>
-                    @enderror
-                </div>
                 <div class="form-floating mt-4">
                     <input type="text" class="form-control @error('file') is-invalid @enderror" id="file" name="file" placeholder="file" required value="profile.jpg">
                     <label for="file">Upload File</label>
@@ -106,7 +67,7 @@
                     @enderror
                 </div>
                     
-                    <button class="w-100 btn btn-lg btn-warning" style="margin: 20px 0" type="Submit">Ubah Profile</button>
+                    <button class="w-100 btn btn-lg btn-warning" style="margin: 20px 0" type="Submit"><i class="bi bi-pen"></i>&nbsp; Ubah Profile</button>
             </form>
 
           </main>

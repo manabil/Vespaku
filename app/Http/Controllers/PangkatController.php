@@ -42,12 +42,11 @@ class PangkatController extends Controller
         $validatedData = $request->validate([
             'pangkat_id' => 'required',
             'no_surat_keterangan' => 'required|min:5',
-            'tahun_masuk' => 'required',
+            'tmt' => 'required',
             'surat_keterangan' => 'required|min:3',
         ]);
         
         $validatedData['user_id'] = auth()->user()->id;
-        $validatedData['tahun_masuk'] = date('Y', strtotime($validatedData['tahun_masuk']));
 
         $unavailablePangkat = PangkatUser:: where('user_id', auth()->user()->id)
                                             ->where('pangkat_id', $validatedData['pangkat_id'])->get();
@@ -55,7 +54,6 @@ class PangkatController extends Controller
         if($unavailablePangkat->isNotEmpty()){
             return redirect('/dashboard/pangkat/create')->with('pangkat_sudah_ada', 'Pangkat ini sudah ada. Mohon isi dengan pangkat yang lain');
         }
-
 
         PangkatUser::create($validatedData);
         return redirect('/dashboard')->with('alert_pangkat', 'Pangkat berhasil ditambahkan');
@@ -83,9 +81,16 @@ class PangkatController extends Controller
      */
     public function edit(PangkatUser $pangkat)
     {
+        $no_surat_keterangan = $pangkat->no_surat_keterangan;
+        $tmt = $pangkat->tmt;
+        $surat_keterangan = $pangkat->surat_keterangan;
+
         return view('dashboard.pangkat.edit', [
             'title' => 'Edit Pangkat',
             'pangkat' => $pangkat,
+            'no_surat_keterangan' => $no_surat_keterangan,
+            'tmt' => $tmt,
+            'surat_keterangan' => $surat_keterangan,
             'pangkats' => Pangkat::all()
         ]);
     }
@@ -97,9 +102,26 @@ class PangkatController extends Controller
      * @param  \App\Models\PangkatUser  $pangkatUser
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, PangkatUser $pangkatUser)
+    public function update(Request $request, PangkatUser $pangkat)
     {
-        //
+        $validatedData = $request->validate([
+            'pangkat_id' => 'required',
+            'no_surat_keterangan' => 'required|min:5',
+            'tmt' => 'required',
+            'surat_keterangan' => 'required|min:3',
+        ]);
+        
+        $validatedData['user_id'] = auth()->user()->id;
+
+        $unavailablePangkat = PangkatUser:: where('user_id', auth()->user()->id)
+                                            ->where('pangkat_id', $validatedData['pangkat_id'])->get();
+
+        if($unavailablePangkat->isNotEmpty()){
+            return redirect('/dashboard/pangkat/'.$pangkat->id.'/edit')->with('pangkat_sudah_ada', 'Pangkat ini sudah ada. Mohon isi dengan pangkat yang lain');
+        }
+
+        PangkatUser::where('id', $pangkat->id)->update($validatedData);
+        return redirect('/dashboard')->with('alert_pangkat', 'Pangkat berhasil diubah');
     }
 
     /**

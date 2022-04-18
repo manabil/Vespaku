@@ -45,12 +45,11 @@ class JabatanController extends Controller
             'jabatan_id' => 'required',
             'jenis_jabatan_id' => 'required',
             'no_surat_keterangan' => 'required|min:5',
-            'tahun_masuk' => 'required',
+            'tmt' => 'required',
             'surat_keterangan' => 'required|min:3',
         ]);
 
         $validatedData['user_id'] = auth()->user()->id;
-        $validatedData['tahun_masuk'] = date('Y', strtotime($validatedData['tahun_masuk']));
 
         $unavailableJabatan = JabatanUser:: where('user_id', auth()->user()->id)
                                             ->where('jabatan_id', $validatedData['jabatan_id'])
@@ -85,8 +84,25 @@ class JabatanController extends Controller
      * @param  \App\Models\JabatanUser  $jabatanUser
      * @return \Illuminate\Http\Response
      */
-    public function edit(JabatanUser $jabatanUser)
+    public function edit(JabatanUser $jabatan)
     {
+        $nama_jabatan = $jabatan->jabatan->nama;
+        $nama_jenis_jabatan = $jabatan->jenis_jabatan->nama;
+        $tmt = $jabatan->tmt;
+        $no_surat_keterangan = $jabatan->no_surat_keterangan;
+        $surat_keterangan = $jabatan->surat_keterangan;
+
+        return view('dashboard.jabatan.edit', [
+            'title' => 'Edit Jabatan',
+            'jabatan' => $jabatan,
+            'jabatans' => Jabatan::all(),
+            'jenis_jabatans' => JenisJabatan::all(),
+            'nama_jabatan' => $nama_jabatan,
+            'nama_jenis_jabatan' => $nama_jenis_jabatan,
+            'tmt' => $tmt,
+            'no_surat_keterangan' => $no_surat_keterangan,
+            'surat_keterangan' => $surat_keterangan
+        ]);
     }
 
     /**
@@ -96,9 +112,28 @@ class JabatanController extends Controller
      * @param  \App\Models\JabatanUser  $jabatanUser
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, JabatanUser $jabatanUser)
+    public function update(Request $request, JabatanUser $jabatan)
     {
-        //
+        $validatedData = $request->validate([
+            'jabatan_id' => 'required',
+            'jenis_jabatan_id' => 'required',
+            'no_surat_keterangan' => 'required|min:5',
+            'tmt' => 'required',
+            'surat_keterangan' => 'required|min:3',
+        ]);
+
+        $validatedData['user_id'] = auth()->user()->id;
+
+        $unavailableJabatan = JabatanUser:: where('user_id', auth()->user()->id)
+                                            ->where('jabatan_id', $validatedData['jabatan_id'])
+                                            ->where('jenis_jabatan_id', $validatedData['jenis_jabatan_id'])->get();
+
+        if($unavailableJabatan->isNotEmpty()){
+            return redirect('/dashboard/jabatan/'.$jabatan->id.'/edit')->with('jabatan_sudah_ada', 'Jabatan ini sudah ada. Mohon isi dengan jabatan yang lain');
+        }
+
+        JabatanUser::where('id', $jabatan->id)->update($validatedData);
+        return redirect('/dashboard')->with('alert_jabatan', 'Jabatan berhasil ditambahkan');
     }
 
     /**
