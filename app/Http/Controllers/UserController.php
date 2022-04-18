@@ -2,57 +2,106 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\JabatanUser;
-use App\Models\Jabatan;
-use App\Models\JenisJabatan;
-use App\Models\PangkatUser;
-use App\Models\Pangkat;
-use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\JabatanUser;
+use App\Models\PangkatUser;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
-    public function index(){
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
         //
     }
 
-    public function cari(){
-        $user_search = JabatanUser::with(['user', 'jabatan','jenis_jabatan'])->latest();
-
-        if(request('search')){
-            $user_search ->where('user_id', 'like', (User::where('nama', 'like', '%'.request('search').'%')->first())->id);
-                            // ->orWhere('jabatan_id', 'like', (JabatanPegawai::where('nama', 'like', '%'.request('search').'%')->first())->id)
-                            // ->orWhere('jenis_jabatan_id', 'like', (PangkatPegawai::where('nama', 'like', '%'.request('search').'%')->first())->id);
-        }
-
-        return view('cari', [
-            'title' => 'Cari Pegawai',
-            'pegawai' => $user_search->paginate(10)
-        ]);
-    }
-    
-    public function pegawai(User $username){
-        return view('user', [
-            'title' => 'Profile Pegawai',
-            'pegawai' => $username,
-            'jabatans' => JabatanUser::with(['jenis_jabatan', 'jabatan', 'user'])->latest()->where('user_id', $username->id)->get(),
-            'pangkats' => PangkatUser::with(['user', 'pangkat'])->latest()->where('user_id', $username->id)->get()
-        ]);
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
     }
 
-    public function profile(){
-        return view('dashboard.profile.create', [
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        //
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Http\Response
+     */
+    public function show(User $user)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(User $User)
+    {
+        return view('dashboard.profile.edit', [
             'title' => 'Edit Profile',
-            'pegawai' => auth()->user(),
-            'jabatans' => Jabatan::all(),
-            'pangkats' => Pangkat::all(),
-            'jenis_jabatans' => JenisJabatan::all(),
-            'jabatan_user' => JabatanUser::with(['jenis_jabatan', 'jabatan', 'user'])->latest()->where('user_id', auth()->user()->id)->get(),
-            'pangkat_user' => PangkatUser::with(['user', 'pangkat'])->latest()->where('user_id', auth()->user()->id)->get()
-        ]);	
+            'user' => User::with(['jabatan','pangkat'])->latest()->Firstwhere('id', auth()->user()->id),
+            'jabatans' => JabatanUser::with(['jenis_jabatan', 'jabatan', 'user'])->latest()->where('user_id', auth()->user()->id)->get(),	
+            'pangkats' => PangkatUser::with(['user', 'pangkat'])->latest()->where('user_id', auth()->user()->id)->get()
+        ]);
     }
 
-    public function edit(){
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, User $user)
+    {
+        $validated_data = $request->validate([
+            'nama' => 'required|min:3|unique:users|regex:/^[a-zA-Z ]{3,}$/',
+            'nip' => 'required|size:18|unique:users|regex:/^[0-9]{18}$/',
+            'username' => 'required|unique:users|min:5|regex:/^[a-zA-Z0-9_-]{5,}$/',
+            'password' => 'required|min:5',
+            'email' => 'required|email:dns|unique:users',
+            'tanggal_lahir' => 'required',
+            ]);
+
+        $validated_data['password'] = bcrypt($validated_data['password']);
+        $validated_data['is_admin'] = false;
+
+        User::where('id', auth()->user()->id)->update($validated_data);
+        return redirect('/dashboard')->with('alert_profile', 'Profile berhasil diubah');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\User  $user
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(User $user)
+    {
         //
     }
 }

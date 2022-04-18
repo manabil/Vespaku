@@ -8,6 +8,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PangkatController;
 use App\Http\Controllers\RequestController;
 use App\Http\Controllers\JabatanController;
+use App\Http\Controllers\SearchController;
 use App\Models\Jabatan;
 use App\Models\Pangkat;
 use App\Models\User;
@@ -45,20 +46,26 @@ Route::get('/login', [LoginController::class, 'index'])->name('login')->middlewa
 Route::post('/login', [LoginController::class, 'authenticate']);
 Route::post('/logout', [LoginController::class, 'logout']);	
 
+
 // *=============== Daftar Route ===============*
 Route::get('/daftar', [DaftarController::class, 'index'])->middleware('guest');
 Route::post('/daftar', [DaftarController::class, 'add']);
 
-// *=============== Cari ===============*
-Route::get('/cari', [UserController::class, 'cari']);
-Route::get('/cari/{username:username}', [UserController::class, 'pegawai'])->middleware('auth');
-Route::get('dashboard/profile', [UserController::class, 'profile'])->middleware('auth');
-Route::post('dashboard/profile', [UserController::class, 'edit'])->middleware('auth');
 
-// *=============== Profile ============*
+// *=============== Cari ===============*
+Route::get('/cari', [SearchController::class, 'index']);
+Route::get('/cari/{username:username}', [SearchController::class, 'pegawai'])->middleware('auth');
+
+
+// *=============== Profile ===============*
+Route::resource('dashboard/profile', UserController::class)->middleware('auth');
+
+
+// *=============== Dashboard ============*
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
 Route::resource('/dashboard/pangkat', PangkatController::class)->middleware('auth');
 Route::resource('/dashboard/jabatan', JabatanController::class)->middleware('auth');
+
 
 // *=============== Request ============*
 Route::get('/request', [RequestController::class, 'index'])->middleware('auth');

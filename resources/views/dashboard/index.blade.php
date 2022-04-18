@@ -36,6 +36,12 @@
                   </div>
               </div>
               <div class="col-lg-8">
+                @if (session()->has('alert_profile'))
+                  <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ session('alert_profile') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                  </div>
+                @endif
                 <h1 class="entry-heading">{{ auth()->user()->nama }}</h1>
                 
                 <div class="table-responsive">
@@ -80,8 +86,7 @@
                       </tr>
                     </table>
                   </div>
-
-                  <a href="/dashboard/profile" class="btn btn-lg btn-outline-success" style="margin: 20px 0 0 30px"> <i class="bi bi-pen" style="margin-right: 15px"></i>Ubah Data</a>
+                  <a href="/dashboard/profile/{{ auth()->user()->id }}/edit" class="btn btn-lg btn-outline-warning" style="margin: 20px 0 0 30px"> <i class="bi bi-pen"></i>&nbsp; Ubah Data</a>
               </div>
           </div>
 
@@ -145,7 +150,7 @@
             </table>
           </div>
 
-          <a href="/dashboard/pangkat/create" class="btn btn-lg btn-outline-success" style="margin: 0 0 10px 0"> <i class="bi bi-plus" style="margin-right: 15px"></i>Tambah Pangkat</a>
+          <a href="/dashboard/pangkat/create" class="btn btn-lg btn-outline-success" style="margin: 0 0 10px 0"> <i class="bi bi-plus"></i>&nbsp; Tambah Pangkat</a>
           
           <h2 class="entry-title my-3">
             <a href="blog-single.html">Daftar Jabatan</a>
@@ -209,7 +214,7 @@
             </table>
           </div>
 
-          <a href="/dashboard/jabatan/create" class="btn btn-lg btn-outline-success" style="margin: 0 0 10px 0"> <i class="bi bi-plus" style="margin-right: 15px"></i>Tambah Jabatan</a>
+          <a href="/dashboard/jabatan/create" class="btn btn-lg btn-outline-success" style="margin: 0 0 10px 0"> <i class="bi bi-plus"></i>&nbsp; Tambah Jabatan</a>
 
         </article><!-- End blog entry -->
 
