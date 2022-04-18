@@ -43,10 +43,14 @@
       <div class="entries">
 
         <article class="entry entry-single">
-          @if ($pegawai->count())
-            <h2 class="entry-title mb-3">
-              <a href="#">Daftar Pegawai</a>
-            </h2>
+          @if ($pegawai->isNotEmpty())
+            @if (request('search'))
+              <h2 class="entry-title mb-3">Ditemukan "{{ request('search') }}"</h2>
+            @else
+              <h2 class="entry-title mb-3">
+                <a href="#">Daftar Pegawai</a>
+              </h2>
+            @endif
 
             <div class="table-responsive">
               <table class="table table-hover table-borderless entry-table">
