@@ -21,6 +21,7 @@ return new class extends Migration
             $table->text('password');
             $table->text('email');
             $table->date('tanggal_lahir');
+            $table->text('foto')->default('profile.png');
             $table->boolean('is_admin')->default(false);
             $table->timestamps();
         });
