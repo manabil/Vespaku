@@ -36,7 +36,7 @@
             </div>
             @endif
 
-            <form action="/dashboard/jabatan" method="post">
+            <form action="/dashboard/jabatan" method="post" enctype="multipart/form-data">
               @csrf
               <div class="form-floating rounded-top"> 
                 <select class="custom-select form-control @error('jabatan_id') is-invalid @enderror" id="jabatan_id" name="jabatan_id" placeholder="jabatan_id" required value="{{ old('jabatan_id') }}">
@@ -81,20 +81,20 @@
                 @enderror
               </div>
                 <div class="form-floating">
-                  <input type="date" class="form-control @error('tahun_masuk') is-invalid @enderror" id="tahun_masuk" name="tahun_masuk" placeholder="tahun_masuk" required value="{{ old('tahun_masuk') }}">
-                  <label for="tahun_masuk">Terhitung Mulai Tanggal</label>
-                  @error('tahun_masuk')
+                  <input type="date" class="form-control @error('tmt') is-invalid @enderror" id="tmt" name="tmt" placeholder="tmt" required value="{{ old('tmt') }}">
+                  <label for="tmt">Terhitung Mulai Tanggal</label>
+                  @error('tmt')
                   <div class="invalid-feedback">
                       {{ $message }}
                     </div>
                     @enderror
                 </div>
                 <div class="form-floating mt-4">
-                  <input type="text" class="form-control @error('surat_keterangan') is-invalid @enderror" id="surat_keterangan" name="surat_keterangan" placeholder="surat_keterangan" required value="{{ old('surat_keterangan') }}">
-                  <label for="surat_keterangan">Upload File</label>
+                  <input class="form-control @error('surat_keterangan') is-invalid @enderror" style="padding: 27px 0 20px 25px;" type="file" name="surat_keterangan" id="surat_keterangan">
+                  <label for="surat_keterangan" style="padding: 0.6rem .75rem;">Surat Keterangan</label>
                   @error('surat_keterangan')
                   <div class="invalid-feedback">
-                      {{ $message }}
+                    {{ $message }}
                   </div>
                   @enderror
                 </div>

@@ -28,12 +28,12 @@
         <article class="entry entry-single daftar-entry">
           <main class="form-daftar">
             <h1 class="h3 mb-3 fw-normal">Edit Profile</h1>
-            <form action="/dashboard/profile/{{ $user->id }}" method="post">
+            <form action="/dashboard/profile/{{ $user->id }}" method="post" enctype="multipart/form-data">
                 @method('put')
                 @csrf
                 @csrf
               <div class="form-floating rounded-top"> 
-                <input type="text" class="form-control @error('username') is-invalid @enderror" id="username" name="username" placeholder="Username" required value="{{ old('username', $user->username) }}">
+                <input type="text" class="form-control @error('username') is-invalid @enderror" id="username" name="username" placeholder="Username" required autofocus value="{{ old('username', $user->username) }}">
                 <label for="username">Username</label>
                 @error('username')
                 <div class="invalid-feedback">
@@ -42,7 +42,7 @@
                 @enderror
               </div>
               <div class="form-floating">
-                <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" placeholder="Password" required value="{{ old('password') }}">
+                <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" placeholder="Password" value="{{ old('password'), $user->password}}">
                 <label for="password">Password</label>
                 @error('password')
                 <div class="invalid-feedback">
@@ -82,10 +82,22 @@
                 <label for="tanggal">Tanggal Lahir</label>
                 @error('tanggal')
                 <div class="invalid-feedback">
-                    {{ $message }}
+                  {{ $message }}
                 </div>
                 @enderror
               </div>
+              
+              <div class="form-floating">
+                <input class="form-control @error('foto') is-invalid @enderror" style="padding: 27px 0 20px 25px;" type="file" name="foto" id="foto" onchange="previewImage()">
+                <label for="foto" style="padding: 0.6rem .75rem;">Foto</label>
+                @error('foto')
+                <div class="invalid-feedback">
+                  {{ $message }}
+                </div>
+                @enderror
+              </div>
+              
+              <img src="{{ asset('storage/' . auth()->user()->foto) }}" class="img-preview card-img img-fluid mt-3" alt="">
                     
                     <button class="w-100 btn btn-lg btn-warning" style="margin: 20px 0" type="Submit"><i class="bi bi-pen"></i>&nbsp; Ubah Profile</button>
             </form>
