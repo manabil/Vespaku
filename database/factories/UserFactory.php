@@ -27,7 +27,8 @@ class UserFactory extends Factory
             'password' => bcrypt('12345'),
             'email' => $nama_clean . '@bpmpk.gov.id',
             'tanggal_lahir' => now(),
-            'is_admin' => $this->faker->boolean(20)
+            'is_admin' => $this->faker->boolean(20),
+            'foto' => '',
         ];
     }
 
