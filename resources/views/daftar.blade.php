@@ -27,7 +27,7 @@
         <article class="entry entry-single daftar-entry">
           <main class="form-daftar">
             <h1 class="h3 mb-3 fw-normal">Daftar Akun</h1>
-            <form action="/daftar" method="post">
+            <form action="/daftar" method="post" enctype="multipart/form-data">
               @csrf
               <div class="form-floating rounded-top"> 
                 <input type="text" class="form-control @error('username') is-invalid @enderror" id="username" name="username" placeholder="Username" required value="{{ old('username') }}">
@@ -83,6 +83,17 @@
                 </div>
                 @enderror
               </div>
+              <div class="form-floating">
+                <input class="form-control @error('foto') is-invalid @enderror" style="padding: 27px 0 20px 25px;" type="file" name="foto" id="foto" onchange="previewImage()">
+                <label for="foto" style="padding: 0.6rem .75rem;">Foto Profile</label>
+                @error('foto')
+                <div class="invalid-feedback">
+                  {{ $message }}
+                </div>
+                @enderror
+              </div>
+              
+              <img src="" class="img-preview card-img img-fluid mt-3" alt="">
           
               <button class="w-100 btn btn-lg btn-primary" style="margin: 20px 0" type="Submit">Daftar</button>
             </form>
