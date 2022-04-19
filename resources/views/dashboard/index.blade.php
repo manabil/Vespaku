@@ -28,10 +28,13 @@
           <div class="row">
               <div class="col-lg-4">
                   <div class="entry-image card">
-                    <img src="https://source.unsplash.com/400x400?profile" alt="" class="card-img">
+                    @if (auth()->user()->foto)
+                      <img src="{{ asset('storage/' . auth()->user()->foto) }}" alt="{{ auth()->user()->nama }}" style="height:400px; object-fit:cover" class="card-img">
+                    @else
+                      <img src="https://source.unsplash.com/400x400?profile" alt="" class="card-img">
+                    @endif
                     <div class="card-img-overlay d-flex align-items-center">
-                      <a href="" class="text-center m-auto"><i class="bi bi-pen btn btn-outline-light btn-lg"></i></a>
-
+                      <a href="/dashboard/profile/{{ auth()->user()->id }}/edit" class="text-center m-auto"><i class="bi bi-pen btn btn-outline-light btn-lg"></i></a>
                     </div>
                   </div>
               </div>
