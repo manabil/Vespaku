@@ -2158,3 +2158,16 @@ section {
 .form-signin .form-floating:focus-within {
     z-index: 2;
 }
+
+.d-flex .d-none .text-muted {
+    margin-right: 20px;
+}
+
+.form-daftar img {
+    border-radius: 5%;
+    margin: auto;
+    max-width: 200px;
+    max-height: 200px;
+    object-fit: cover;
+    display: flex;
+}

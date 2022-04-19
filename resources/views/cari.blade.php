@@ -56,8 +56,8 @@
               <table class="table table-hover table-borderless entry-table">
                 <thead>
                   <tr>
-                    <th scope="col" class="no">No</th>
-                    <th scope="col">Nama</th>
+                    <th scope="col" class="no" colspan="2">Nama</th>
+                    {{-- <th scope="col">Nama</th> --}}
                     <th scope="col">Nama Jabatan Terakhir</th>
                     <th scope="col">Jenis Jabatan Terakhir</th>
                     <th scope="col">NIP</th>
@@ -67,12 +67,12 @@
                 @foreach ($pegawai as $no=>$p)
                   <tbody>
                     <tr>
-                      <th scope="row" class="no">{{ $loop->iteration }}</th>
+                      <th scope="row" class="no"><img src="{{ ($p->user->foto=='') ? 'https://source.unsplash.com/400x400?profile' : $p->user->foto }}" style="border-radius: 50%; width:60px; height:60px; object-fit: cover;" alt="{{ $p->user->nama }}"></th>
                       <td>{{ $p->user->nama }}</td>
                       <td>{{ $p->jabatan->nama }}</td>
                       <td>{{ $p->jenis_jabatan->nama }}</td>
                       <td>{{ $p->user->nip }}</td>
-                      <td><a href="/cari/{{ $p->user->username }}" class="btn btn-sm btn-outline-warning"><i class="bi bi-eye" style="margin:auto 10px"></i>Lihat</a></td>
+                      <td><a href="{{ $p->user->id == auth()->user()->id ? '/dashboard' : '/cari/'.($p->user->username) }}" class="btn btn-sm btn-outline-warning"><i class="bi bi-eye" style="margin:auto 10px"></i>Lihat</a></td>
                     </tr>
                   </tbody>
                 @endforeach
