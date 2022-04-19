@@ -1,4 +1,4 @@
-@dd($jabatan->nama)
+@dd($jabatan->jenis_jabatan_id)
 @extends('layout.form')
 
 <!-- ======= Breadcrumbs ======= -->
@@ -42,12 +42,11 @@
                 @csrf
                 <div class="form-floating rounded-top"> 
                     <select class="custom-select form-control @error('jabatan_id') is-invalid @enderror" id="jabatan_id" name="jabatan_id" placeholder="jabatan_id" required>
-                        {{-- <option selected value="{{ old('jabatan_id', $jabatan->jabatan_id) }}">{{ old('jabatan_id', $nama_jabatan) }}</option> --}}
-                        @foreach ($jabatans as $jabatan)
-                        @if (old('jabatan_id') == $jabatan->id)
-                            <option selected value="{{ $jabatan->id }}">{{ $jabatan->nama }}</option>
+                        @foreach ($jabatans as $jbtn)
+                        @if (old('jabatan_id', $jabatan->jabatan->id) == $jbtn->id)
+                            <option selected value="{{ $jbtn->id }}">{{ $jbtn->nama }}</option>
                         @else
-                            <option value="{{ $jabatan->id }}">{{ $jabatan->nama }}</option>
+                            <option value="{{ $jbtn->id }}">{{ $jbtn->nama }}</option>
                         @endif
                         @endforeach
                     </select>
@@ -60,12 +59,12 @@
 
                 <div class="form-floating rounded-top"> 
                     <select class="custom-select form-control @error('jenis_jabatan_id') is-invalid @enderror" id="jenis_jabatan_id" name="jenis_jabatan_id" placeholder="jenis_jabatan_id" required>
-                        <option selected value="{{ old('jenis_jabatan_id', $jabatan->jenis_jabatan_id) }}">{{ old('jenis_jabatan_id', $nama_jenis_jabatan) }}</option>
-                        @foreach ($jenis_jabatans as $jenis_jabatan)
-                        @if (old('jenis_jabatan_id') == $jenis_jabatan->id)
-                        <option selected value="{{ $jenis_jabatan->id }}">{{ $jenis_jabatan->nama }}</option>
+                        {{-- <option selected value="{{ old('jenis_jabatan_id', $jabatan->jenis_jabatan_id) }}">{{ old('jenis_jabatan_id', $nama_jenis_jabatan) }}</option> --}}
+                        @foreach ($jenis_jabatans as $jns_jbtn)
+                        @if (old('jenis_jabatan_id', $jabatan->jenis_jabatan_id) == $jns_jbtn->id)
+                          <option selected value="{{ $jns_jbtn->id }}">{{ $jns_jbtn->nama }}</option>
                         @endif
-                        <option value="{{ $jenis_jabatan->id }}">{{ $jenis_jabatan->nama }}</option>
+                        <option value="{{ $jns_jbtn->id }}">{{ $jns_jbtn->nama }}</option>
                         @endforeach
                     </select>
                     @error('jenis_jabatan_id')
