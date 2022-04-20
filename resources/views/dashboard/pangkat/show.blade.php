@@ -26,8 +26,8 @@
       <div class="entries">
         
         <article class="entry entry-single">
+          <h1 class="entry-heading">{{ $pangkat->pangkat->nama }}</h1>
           <div class="row">
-                <h1 class="entry-heading">{{ $pangkat->pangkat->nama }}</h1>
                 <div class="table-responsive">
                   <table class="table table-borderless my-0">
                       <tr>
@@ -41,11 +41,6 @@
                         <td><h5>{{ $pangkat->no_surat_keterangan }}</h5></td>
                       </tr>
                       <tr>
-                        <td><h5>Surat Keterangan</h5></td>
-                        <td>:</td>
-                        <td><h5>{{ $pangkat->surat_keterangan }}</h5></td>
-                      </tr>
-                      <tr>
                         <td><h5>Ditambah Pada Tanggal</h5></td>
                         <td>:</td>
                         <td><h5>{{ $pangkat->created_at }}</h5></td>
@@ -56,6 +51,12 @@
                         <td><h5>{{ $pangkat->updated_at }}</h5></td>
                       </tr>
                     </table>
+                </div>
+
+                <div class="container">
+                  <div class="my-4 d-flex justify-content-center">
+                    <embed src="{{ asset('storage/' . $pangkat->surat_keterangan) }}" type="application/pdf" frameBorder="0" scrolling="auto" height="600px" width="75%"></embed>
+                  </div>
                 </div>
 
                 <div class="mt-5">

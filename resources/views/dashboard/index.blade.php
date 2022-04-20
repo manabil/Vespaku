@@ -130,21 +130,15 @@
                       <td>{{ $pangkat->created_at }}</td>
                       <td>{{ $pangkat->updated_at->diffForHumans() }}</td>
                       <td>
-                        <div class="child">
-                          <a href="/dashboard/pangkat/{{ $pangkat->id }}" class="btn btn-sm btn-outline-warning mx-1"><i class="bi bi-eye mx-0"></i></a>
-                        </div>
-                        <div class="child">
-                          <a href="/dashboard/pangkat/{{ $pangkat->id }}/edit" class="btn btn-sm btn-outline-success mx-1"><i class="bi bi-pen mx-0"></i></a>
-                        </div>
-                        <div class="child">
-                          <a href="" class="btn btn-sm btn-outline-primary mx-1"><i class="bi bi-download mx-0"></i></a>
-                        </div>
-                        <div class="child">
-                          <form action="/dashboard/pangkat/{{ $pangkat->id }}" method="post">
-                            @csrf
-                            @method('delete')
-                            <button class="btn btn-sm btn-outline-danger mx-1" onclick="return confirm('Apakah Anda yakin ingin menghapus ?')"><i class="bi bi-trash"></i></button>
-                          </form>
+                        <div class="container d-flex justify-content-center">
+                            <a href="/dashboard/pangkat/{{ $pangkat->id }}" class="btn btn-sm btn-outline-warning mx-1"><i class="bi bi-eye mx-0"></i></a>
+                            <a href="/dashboard/pangkat/{{ $pangkat->id }}/edit" class="btn btn-sm btn-outline-success mx-1"><i class="bi bi-pen mx-0"></i></a>
+                            <a href="{{ asset('storage/' . $pangkat->surat_keterangan) }}" class="btn btn-sm btn-outline-primary mx-1"><i class="bi bi-download mx-0"></i></a>
+                            <form action="/dashboard/pangkat/{{ $pangkat->id }}" method="post">
+                              @csrf
+                              @method('delete')
+                              <button class="btn btn-sm btn-outline-danger mx-1" onclick="return confirm('Apakah Anda yakin ingin menghapus ?')"><i class="bi bi-trash"></i></button>
+                            </form>
                         </div>
                       </td>
                     </tr>
@@ -194,21 +188,15 @@
                       <td>{{ $jabatan->created_at }}</td>
                       <td>{{ $jabatan->updated_at->diffForHumans() }}</td>
                       <td>
-                        <div class="child">
-                          <a href="/dashboard/jabatan/{{ $jabatan->id }}" class="btn btn-sm btn-outline-warning mx-1"><i class="bi bi-eye mx-0"></i></a>
-                        </div>
-                        <div class="child">
-                          <a href="/dashboard/jabatan/{{ $jabatan->id }}/edit" class="btn btn-sm btn-outline-success mx-1"><i class="bi bi-pen mx-0"></i></a>
-                        </div>
-                        <div class="child">
-                          <a href="" class="btn btn-sm btn-outline-primary mx-1"><i class="bi bi-download mx-0"></i></a>
-                        </div>
-                        <div class="child">
-                          <form action="/dashboard/jabatan/{{ $jabatan->id }}" method="post">
-                            @csrf
-                            @method('delete')
-                            <button class="btn btn-sm btn-outline-danger mx-1" onclick="return confirm('Apakah anda yakin akan menghapus')"><i class="bi bi-trash mx-0"></i></button>
-                          </form>
+                        <div class="container d-flex justify-content-center">
+                            <a href="/dashboard/jabatan/{{ $jabatan->id }}" class="btn btn-sm btn-outline-warning mx-1"><i class="bi bi-eye mx-0"></i></a>
+                            <a href="/dashboard/jabatan/{{ $jabatan->id }}/edit" class="btn btn-sm btn-outline-success mx-1"><i class="bi bi-pen mx-0"></i></a>
+                            <a href="{{ asset('storage/' . $jabatan->surat_keterangan) }}" class="btn btn-sm btn-outline-primary mx-1"><i class="bi bi-download mx-0"></i></a>
+                            <form action="/dashboard/jabatan/{{ $jabatan->id }}" method="post">
+                              @csrf
+                              @method('delete')
+                              <button class="btn btn-sm btn-outline-danger mx-1" onclick="return confirm('Apakah anda yakin akan menghapus')"><i class="bi bi-trash mx-0"></i></button>
+                            </form>
                         </div>
                       </td>
                     </tr>

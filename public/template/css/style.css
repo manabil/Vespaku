@@ -1509,6 +1509,7 @@ section {
     padding: 20px;
     text-align: center;
     vertical-align: middle;
+    font-size: 95%;
 }
 .blog .entry-table tbody tr td .child {
     display: inherit;
@@ -1557,6 +1558,7 @@ section {
 .blog .entry h5 {
     margin-left: 30px;
     color: #012970;
+    font-size: 115%;
 }
 .blog .entry .entry-title a {
     color: #012970;
