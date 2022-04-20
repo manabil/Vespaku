@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\PangkatUser;
 use App\Models\Pangkat;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 
 class PangkatController extends Controller
@@ -40,10 +41,10 @@ class PangkatController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'pangkat_id' => 'required',
-            'no_surat_keterangan' => 'required|min:5',
-            'tmt' => 'required',
-            'surat_keterangan' => 'required|min:3',
+                'pangkat_id' => 'required',
+                'no_surat_keterangan' => 'required|min:5',
+                'tmt' => 'required',
+                'surat_keterangan' => 'required|file|mimes:pdf,doc,docx,epub'
         ]);
         
         $validatedData['user_id'] = auth()->user()->id;
@@ -53,6 +54,11 @@ class PangkatController extends Controller
 
         if($unavailablePangkat->isNotEmpty()){
             return redirect('/dashboard/pangkat/create')->with('pangkat_sudah_ada', 'Pangkat ini sudah ada. Mohon isi dengan pangkat yang lain');
+        }
+
+        if($request->file('surat_keterangan'))
+        {
+            $validatedData['surat_keterangan'] = $request->file('surat_keterangan')->store('surat_keterangan_pangkat');
         }
 
         PangkatUser::create($validatedData);
@@ -108,17 +114,26 @@ class PangkatController extends Controller
             'pangkat_id' => 'required',
             'no_surat_keterangan' => 'required|min:5',
             'tmt' => 'required',
-            'surat_keterangan' => 'required|min:3',
+            'surat_keterangan' => 'file|mimes:pdf,doc,docx,epub',
         ]);
         
         $validatedData['user_id'] = auth()->user()->id;
 
-        $unavailablePangkat = PangkatUser:: where('user_id', auth()->user()->id)
-                                            ->where('pangkat_id', $validatedData['pangkat_id'])->get();
-
-        if($unavailablePangkat->isNotEmpty()){
-            return redirect('/dashboard/pangkat/'.$pangkat->id.'/edit')->with('pangkat_sudah_ada', 'Pangkat ini sudah ada. Mohon isi dengan pangkat yang lain');
+        if($pangkat->pangkat->id != $request['pangkat_id'])
+        {
+            $unavailablePangkat = PangkatUser:: where('user_id', auth()->user()->id)
+                                                ->where('pangkat_id', $validatedData['pangkat_id'])->get();
+    
+            if($unavailablePangkat->isNotEmpty()){
+                return redirect('/dashboard/pangkat/'.$pangkat->id.'/edit')->with('pangkat_sudah_ada', 'Pangkat ini sudah ada. Mohon isi dengan pangkat yang lain');
+            }
         }
+
+        if($request->file('surat_keterangan'))
+        {
+            Storage::delete($pangkat->surat_keterangan);
+            $validatedData['surat_keterangan'] = $request->file('surat_keterangan')->store('surat_keterangan_pangkat');
+        }	
 
         PangkatUser::where('id', $pangkat->id)->update($validatedData);
         return redirect('/dashboard')->with('alert_pangkat', 'Pangkat berhasil diubah');
@@ -132,6 +147,7 @@ class PangkatController extends Controller
      */
     public function destroy(PangkatUser $pangkat)
     {
+        Storage::delete($pangkat->surat_keterangan);
         PangkatUser::destroy($pangkat->id);
         return redirect('/dashboard')->with('pangkat_dihapus', 'Pangkat berhasil dihapus');
     }

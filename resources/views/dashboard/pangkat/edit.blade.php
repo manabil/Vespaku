@@ -36,7 +36,7 @@
             </div>
             @endif
 
-            <form action="/dashboard/pangkat/{{ $pangkat->id }}" method="post">
+            <form action="/dashboard/pangkat/{{ $pangkat->id }}" method="post" enctype="multipart/form-data">
               @method('put')
               @csrf
               <div class="form-floating rounded-top"> 
@@ -75,11 +75,11 @@
                     @enderror
                 </div>
                 <div class="form-floating mt-4">
-                  <input type="text" class="form-control @error('surat_keterangan') is-invalid @enderror" id="surat_keterangan" name="surat_keterangan" placeholder="surat_keterangan" required value="{{ old('surat_keterangan', $surat_keterangan) }}">
-                  <label for="surat_keterangan">Upload File</label>
+                  <input class="form-control @error('surat_keterangan') is-invalid @enderror" style="padding: 27px 0 20px 25px;" type="file" name="surat_keterangan" id="surat_keterangan">
+                  <label for="surat_keterangan" style="padding: 0.6rem .75rem;">Surat Keterangan</label>
                   @error('surat_keterangan')
                   <div class="invalid-feedback">
-                      {{ $message }}
+                    {{ $message }}
                   </div>
                   @enderror
                 </div>

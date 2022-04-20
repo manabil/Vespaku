@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\JabatanUser;
 use App\Models\PangkatUser;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 
@@ -112,6 +113,7 @@ class UserController extends Controller
         
         if($request->file('foto'))
         {
+            Storage::delete($user->foto);
             $validated_data['foto'] = $request->file('foto')->store('foto_profile');
         }	
 

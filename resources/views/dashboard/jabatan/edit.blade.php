@@ -1,4 +1,4 @@
-@dd($jabatan->jenis_jabatan_id)
+{{-- @dd($jabatan->jenis_jabatan_id) --}}
 @extends('layout.form')
 
 <!-- ======= Breadcrumbs ======= -->
@@ -59,12 +59,12 @@
 
                 <div class="form-floating rounded-top"> 
                     <select class="custom-select form-control @error('jenis_jabatan_id') is-invalid @enderror" id="jenis_jabatan_id" name="jenis_jabatan_id" placeholder="jenis_jabatan_id" required>
-                        {{-- <option selected value="{{ old('jenis_jabatan_id', $jabatan->jenis_jabatan_id) }}">{{ old('jenis_jabatan_id', $nama_jenis_jabatan) }}</option> --}}
                         @foreach ($jenis_jabatans as $jns_jbtn)
                         @if (old('jenis_jabatan_id', $jabatan->jenis_jabatan_id) == $jns_jbtn->id)
                           <option selected value="{{ $jns_jbtn->id }}">{{ $jns_jbtn->nama }}</option>
+                        @else
+                          <option value="{{ $jns_jbtn->id }}">{{ $jns_jbtn->nama }}</option>
                         @endif
-                        <option value="{{ $jns_jbtn->id }}">{{ $jns_jbtn->nama }}</option>
                         @endforeach
                     </select>
                     @error('jenis_jabatan_id')
@@ -102,7 +102,7 @@
                     {{ $message }}
                   </div>
                   @enderror
-              </div>
+                </div>
                     
                     <button class="w-100 btn btn-lg btn-warning" style="margin: 20px 0" type="Submit"><i class="bi bi-pen"></i>&nbsp; Edit Jabatan</button>
             </form>
