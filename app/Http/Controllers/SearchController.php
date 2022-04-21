@@ -24,7 +24,7 @@ class SearchController extends Controller
 
             $user_search = JabatanUser::with(['user', 'jabatan','jenis_jabatan'])->latest()->whereIn('user_id', $searched_id);
         }
-
+        
         return view('cari', [
             'title' => 'Cari Pegawai',
             'pegawai' => $user_search->paginate(10)
