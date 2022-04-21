@@ -66,9 +66,9 @@
                 @foreach ($pegawai as $p)
                   <tbody>
                     <tr>
-                      <th scope="row" class="no"><img src="{{ ($p->user->foto=='') ? 'https://source.unsplash.com/400x400?profile' : $p->user->foto }}" style="border-radius: 50%; width:60px; height:60px; object-fit: cover;" alt="{{ $p->user->nama }}"></th>
-                      <td>{{ $p->user->nama }}</td>
-                      <td>{{ $p->jabatan->nama }}</td>
+                      <th scope="row" class="no"><img src="{{ ($p->foto=='') ? 'https://source.unsplash.com/400x400?profile' : $p->user->foto }}" style="border-radius: 50%; width:60px; height:60px; object-fit: cover;" alt="{{ $p->user->nama }}"></th>
+                      <td>{{ $p->nama }}</td>
+                      <td>{{ $p->jabatan->last()->nama }}</td>
                       <td>{{ $p->jenis_jabatan->nama }}</td>
                       <td>{{ $p->user->nip }}</td>
                       @if (auth()->check())
