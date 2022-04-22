@@ -131,8 +131,8 @@
                       <td>{{ $pangkat->updated_at->diffForHumans() }}</td>
                       <td>
                         <div class="container d-flex justify-content-center">
-                            <a href="/dashboard/pangkat/{{ $pangkat->id }}" class="btn btn-sm btn-outline-warning mx-1"><i class="bi bi-eye mx-0"></i></a>
-                            <a href="/dashboard/pangkat/{{ $pangkat->id }}/edit" class="btn btn-sm btn-outline-success mx-1"><i class="bi bi-pen mx-0"></i></a>
+                            <a href="/dashboard/pangkat/{{ $pangkat->slug }}" class="btn btn-sm btn-outline-warning mx-1"><i class="bi bi-eye mx-0"></i></a>
+                            <a href="/dashboard/pangkat/{{ $pangkat->slug }}/edit" class="btn btn-sm btn-outline-success mx-1"><i class="bi bi-pen mx-0"></i></a>
                             <a href="{{ asset('storage/' . $pangkat->surat_keterangan) }}" class="btn btn-sm btn-outline-primary mx-1"><i class="bi bi-download mx-0"></i></a>
                             <form action="/dashboard/pangkat/{{ $pangkat->id }}" method="post">
                               @csrf
@@ -189,8 +189,8 @@
                       <td>{{ $jabatan->updated_at->diffForHumans() }}</td>
                       <td>
                         <div class="container d-flex justify-content-center">
-                            <a href="/dashboard/jabatan/{{ $jabatan->id }}" class="btn btn-sm btn-outline-warning mx-1"><i class="bi bi-eye mx-0"></i></a>
-                            <a href="/dashboard/jabatan/{{ $jabatan->id }}/edit" class="btn btn-sm btn-outline-success mx-1"><i class="bi bi-pen mx-0"></i></a>
+                            <a href="/dashboard/jabatan/{{ $jabatan->slug }}" class="btn btn-sm btn-outline-warning mx-1"><i class="bi bi-eye mx-0"></i></a>
+                            <a href="/dashboard/jabatan/{{ $jabatan->slug }}/edit" class="btn btn-sm btn-outline-success mx-1"><i class="bi bi-pen mx-0"></i></a>
                             <a href="{{ asset('storage/' . $jabatan->surat_keterangan) }}" class="btn btn-sm btn-outline-primary mx-1"><i class="bi bi-download mx-0"></i></a>
                             <form action="/dashboard/jabatan/{{ $jabatan->id }}" method="post">
                               @csrf

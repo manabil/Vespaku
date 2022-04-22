@@ -63,8 +63,8 @@ Route::resource('dashboard/profile', UserController::class)->middleware('auth');
 
 // *=============== Dashboard ============*
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
-Route::resource('/dashboard/pangkat', PangkatController::class)->middleware('auth');
-Route::resource('/dashboard/jabatan', JabatanController::class)->middleware('auth');
+Route::resource('/dashboard/pangkat', PangkatController::class)->middleware('auth')->parameters(['pangkat' => 'pangkat:slug']);
+Route::resource('/dashboard/jabatan', JabatanController::class)->middleware('auth')->parameters(['jabatan' => 'jabatan:slug']);
 
 
 // *=============== Request ============*

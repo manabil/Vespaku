@@ -18,8 +18,9 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained();
             $table->foreignId('pangkat_id')->constrained();
             $table->date('tmt')->default(now());
-            $table->text('no_surat_keterangan')->default('897.2/.201-2014');
-            $table->text('surat_keterangan')->default('surat_keterangan');
+            $table->string('no_surat_keterangan', 50)->default('897.2/.201-2014');
+            $table->string('surat_keterangan', 100)->default('surat_keterangan');
+            $table->string('slug', 50)->default(str_replace(['-',' ', ':'], '', (now()->toDateTimeString())));
             $table->timestamps();
         });
     }

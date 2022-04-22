@@ -82,7 +82,7 @@ class DatabaseSeeder extends Seeder
             'Analis Tata Laksana',
             'Analis Pemanfaatan Teknologi',
             'Pengolah Bahan Informasi dan Publikasi',
-            'Pengelola Keuangan ',
+            'Pengelola Keuangan',
             'Verifikator Keuangan',
             'Pengelola Kepegawaian',
             'Pengelola Barang Milik Negara',
