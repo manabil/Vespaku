@@ -3,11 +3,14 @@
 use App\Http\Controllers\DaftarController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PangkatController;
+use App\Http\Controllers\PangkatUserController;
 use App\Http\Controllers\RequestController;
 use App\Http\Controllers\JabatanController;
+use App\Http\Controllers\JabatanUserController;
 use App\Http\Controllers\SearchController;
 use App\Models\Jabatan;
 use App\Models\Pangkat;
@@ -58,13 +61,20 @@ Route::get('/cari/{user:username}', [SearchController::class, 'pegawai'])->middl
 
 
 // *=============== Profile ===============*
-Route::resource('dashboard/profile', UserController::class)->middleware('auth');
+Route::get('/dashboard/profile/{user:username}', [ProfileController::class, 'index'])->middleware('auth');
+Route::post('/dashboard/profile/update', [ProfileController::class, 'update']);
 
 
 // *=============== Dashboard ============*
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
-Route::resource('/dashboard/pangkat', PangkatController::class)->middleware('auth')->parameters(['pangkat' => 'pangkat:slug']);
-Route::resource('/dashboard/jabatan', JabatanController::class)->middleware('auth')->parameters(['jabatan' => 'jabatan:slug']);
+Route::resource('/dashboard/pangkat', PangkatUserController::class)->middleware('auth')->parameters(['pangkat' => 'pangkat:slug']);
+Route::resource('/dashboard/jabatan', JabatanUserController::class)->middleware('auth')->parameters(['jabatan' => 'jabatan:slug']);
+
+
+// *=============== Administrator ============*
+Route::resource('/user', UserController::class)->middleware('auth')->parameters(['user' => 'user:username']);
+Route::resource('/pangkat', PangkatController::class)->middleware('auth')->parameters(['pangkat' => 'pangkat:slug']);
+Route::resource('/jabatan', JabatanController::class)->middleware('auth')->parameters(['jabatan' => 'jabatan:slug']);
 
 
 // *=============== Request ============*
