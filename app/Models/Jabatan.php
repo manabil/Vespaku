@@ -15,11 +15,11 @@ class Jabatan extends Model
         'updated_at',
     ];
 
-    public function pegawai() {
-        return $this->belongsToMany(Pegawai::class);
-    }
-    
     public function user() {
         return $this->belongsToMany(User::class);
     }
+    
+    // public function pegawai() {
+    //     return $this->belongsToMany(Pegawai::class);
+    // }
 }

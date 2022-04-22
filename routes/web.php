@@ -54,7 +54,7 @@ Route::post('/daftar', [DaftarController::class, 'add']);
 
 // *=============== Cari ===============*
 Route::get('/cari', [SearchController::class, 'index']);
-Route::get('/cari/{username:username}', [SearchController::class, 'pegawai'])->middleware('auth');
+Route::get('/cari/{user:username}', [SearchController::class, 'pegawai'])->middleware('auth');
 
 
 // *=============== Profile ===============*

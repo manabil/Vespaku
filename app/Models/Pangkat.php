@@ -14,16 +14,8 @@ class Pangkat extends Model
         'created_at',
         'updated_at',
     ];
-
-    public function pegawai() {
-        return $this->belongsToMany(Pegawai::class);
-    }
     
     public function user() {
         return $this->belongsToMany(User::class);
-    }
-    
-    public function pangkat_pegawai(){
-        return $this->hasMany(PangkatPegawai::class);
     }
 }

@@ -6,7 +6,7 @@
   <div class="container">
     <ol>
       <li><a href="/">Home</a></li>
-      <li><a href="#">Cari Pegawai</a></li>
+      <li><a href="/cari">Cari Pegawai</a></li>
     </ol>
     <h2>{{ $title }}</h2>
   </div>
@@ -57,8 +57,8 @@
                 <thead>
                   <tr>
                     <th scope="col" class="no" colspan="2">Pegawai</th>
-                    <th scope="col">Nama Jabatan Terakhir</th>
-                    <th scope="col">Jenis Jabatan Terakhir</th>
+                    <th scope="col">Jabatan Terakhir</th>
+                    <th scope="col">Pangkat Terakhir</th>
                     <th scope="col">NIP</th>
                     <th scope="col">Aksi</th>
                   </tr>
@@ -66,15 +66,15 @@
                 @foreach ($pegawai as $p)
                   <tbody>
                     <tr>
-                      <th scope="row" class="no"><img src="{{ ($p->foto=='') ? 'https://source.unsplash.com/400x400?profile' : $p->user->foto }}" style="border-radius: 50%; width:60px; height:60px; object-fit: cover;" alt="{{ $p->user->nama }}"></th>
+                      <th scope="row" class="no"><img src="{{ ($p->foto=='') ? 'https://source.unsplash.com/400x400?profile' : $p->foto }}" style="border-radius: 50%; width:60px; height:60px; object-fit: cover;" alt="{{ $p->nama }}"></th>
                       <td>{{ $p->nama }}</td>
                       <td>{{ $p->jabatan->last()->nama }}</td>
-                      <td>{{ $p->jenis_jabatan->nama }}</td>
-                      <td>{{ $p->user->nip }}</td>
+                      <td>{{ $p->pangkat->last()->nama }}</td>
+                      <td>{{ $p->nip }}</td>
                       @if (auth()->check())
-                        <td><a href="{{ $p->user->id == auth()->user()->id ? '/dashboard' : '' }}" class="btn btn-sm btn-outline-warning"><i class="bi bi-eye" style="margin:auto 10px"></i>Lihat</a></td>
+                        <td><a href="{{ $p->id == auth()->user()->id ? '/dashboard' : '/cari/'. $p->username }}" class="btn btn-sm btn-outline-warning"><i class="bi bi-eye" style="margin:auto 10px"></i>Lihat</a></td>
                       @else
-                        <td><a href="/dashboard/cari/{{ ($p->user->username) }}" class="btn btn-sm btn-outline-warning"><i class="bi bi-eye" style="margin:auto 10px"></i>Lihat</a></td>
+                        <td><a href="/cari/{{ ($p->username) }}" class="btn btn-sm btn-outline-warning"><i class="bi bi-eye" style="margin:auto 10px"></i>Lihat</a></td>
                       @endif
                     </tr>
                   </tbody>

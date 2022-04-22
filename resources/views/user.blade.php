@@ -83,7 +83,7 @@
                   <th scope="col">Tahun</th>
                   <th scope="col">No. SK</th>
                   <th scope="col">Tanggal Ditambah</th>
-                  <th scope="col">Tanggal Diubah</th>
+                  <th scope="col">Diubah</th>
                   <th scope="col">Aksi</th>
                 </tr>
               </thead>
@@ -94,7 +94,7 @@
                       <td>{{ date('Y', strtotime($pangkat->tmt)) }}</td>
                       <td>{{ $pangkat->no_surat_keterangan }}</td>
                       <td>{{ $pangkat->created_at }}</td>
-                      <td>{{ $pangkat->updated_at }}</td>
+                      <td>{{ $pangkat->updated_at->diffForHumans() }}</td>
                       <td>
                         <a href="" class="btn btn-sm btn-outline-primary"><i class="bi bi-download"></i>&nbsp; Unduh</a>
                       </td>
@@ -116,7 +116,7 @@
                   <th scope="col">Tahun</th>
                   <th scope="col">No. SK</th>
                   <th scope="col">Tanggal Ditambah</th>
-                  <th scope="col">Tanggal Diubah</th>
+                  <th scope="col">Diubah</th>
                   <th scope="col">Aksi</th>
                 </tr>
               </thead>
@@ -127,7 +127,7 @@
                       <td>{{ date('Y', strtotime($jabatan->tmt)) }}</td>
                       <td>{{ $jabatan->no_surat_keterangan }}</td>
                       <td>{{ $jabatan->created_at }}</td>
-                      <td>{{ $jabatan->updated_at }}</td>
+                      <td>{{ $jabatan->updated_at->diffForHumans() }}</td>
                       <td>
                         <a href="" class="btn btn-sm btn-outline-primary"><i class="bi bi-download"></i>&nbsp; Unduh</a>
                       </td>
