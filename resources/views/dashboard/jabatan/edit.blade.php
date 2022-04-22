@@ -37,7 +37,7 @@
             </div>
             @endif
 
-            <form action="/dashboard/jabatan/{{ $jabatan->id }}" method="post" enctype="multipart/form-data">
+            <form action="/dashboard/jabatan/{{ $jabatan->slug }}" method="post" enctype="multipart/form-data">
                 @method('put')
                 @csrf
                 <div class="form-floating rounded-top"> 

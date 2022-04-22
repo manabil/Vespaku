@@ -89,7 +89,7 @@
                       </tr>
                     </table>
                   </div>
-                  <a href="/dashboard/profile/{{ auth()->user()->id }}/edit" class="btn btn-lg btn-outline-warning" style="margin: 20px 0 0 30px"> <i class="bi bi-pen"></i>&nbsp; Ubah Data</a>
+                  <a href="/dashboard/profile/{{ auth()->user()->username }}" class="btn btn-lg btn-outline-warning" style="margin: 20px 0 0 30px"> <i class="bi bi-pen"></i>&nbsp; Ubah Data</a>
               </div>
           </div>
 
@@ -134,7 +134,7 @@
                             <a href="/dashboard/pangkat/{{ $pangkat->slug }}" class="btn btn-sm btn-outline-warning mx-1"><i class="bi bi-eye mx-0"></i></a>
                             <a href="/dashboard/pangkat/{{ $pangkat->slug }}/edit" class="btn btn-sm btn-outline-success mx-1"><i class="bi bi-pen mx-0"></i></a>
                             <a href="{{ asset('storage/' . $pangkat->surat_keterangan) }}" class="btn btn-sm btn-outline-primary mx-1"><i class="bi bi-download mx-0"></i></a>
-                            <form action="/dashboard/pangkat/{{ $pangkat->id }}" method="post">
+                            <form action="/dashboard/pangkat/{{ $pangkat->slug }}" method="post">
                               @csrf
                               @method('delete')
                               <button class="btn btn-sm btn-outline-danger mx-1" onclick="return confirm('Apakah Anda yakin ingin menghapus ?')"><i class="bi bi-trash"></i></button>
@@ -192,7 +192,7 @@
                             <a href="/dashboard/jabatan/{{ $jabatan->slug }}" class="btn btn-sm btn-outline-warning mx-1"><i class="bi bi-eye mx-0"></i></a>
                             <a href="/dashboard/jabatan/{{ $jabatan->slug }}/edit" class="btn btn-sm btn-outline-success mx-1"><i class="bi bi-pen mx-0"></i></a>
                             <a href="{{ asset('storage/' . $jabatan->surat_keterangan) }}" class="btn btn-sm btn-outline-primary mx-1"><i class="bi bi-download mx-0"></i></a>
-                            <form action="/dashboard/jabatan/{{ $jabatan->id }}" method="post">
+                            <form action="/dashboard/jabatan/{{ $jabatan->slug }}" method="post">
                               @csrf
                               @method('delete')
                               <button class="btn btn-sm btn-outline-danger mx-1" onclick="return confirm('Apakah anda yakin akan menghapus')"><i class="bi bi-trash mx-0"></i></button>

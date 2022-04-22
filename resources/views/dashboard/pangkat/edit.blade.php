@@ -36,17 +36,16 @@
             </div>
             @endif
 
-            <form action="/dashboard/pangkat/{{ $pangkat->id }}" method="post" enctype="multipart/form-data">
+            <form action="/dashboard/pangkat/{{ $pangkat->slug }}" method="post" enctype="multipart/form-data">
               @method('put')
               @csrf
               <div class="form-floating rounded-top"> 
                 <select class="custom-select form-control @error('pangkat_id') is-invalid @enderror" id="pangkat_id" name="pangkat_id" placeholder="pangkat_id" required >
-                    <option selected value="{{ old('pangkat_id', $pangkat->pangkat_id) }}">{{ $pangkat->pangkat->nama }}</option>
-                    @foreach ($pangkats as $pangkat)
-                      @if (old('pangkat_id') == $pangkat->id)
-                        <option selected value="{{ $pangkat->id }}">{{ $pangkat->nama }}</option>
+                    @foreach ($pangkats as $pkt)
+                      @if (old('pangkat_id', $pangkat->pangkat->id) == $pkt->id)
+                        <option selected value="{{ $pkt->id }}">{{ $pkt->nama }}</option>
                       @else
-                        <option value="{{ $pangkat->id }}">{{ $pangkat->nama }}</option>
+                        <option value="{{ $pkt->id }}">{{ $pkt->nama }}</option>
                       @endif
                     @endforeach
                   </select>
