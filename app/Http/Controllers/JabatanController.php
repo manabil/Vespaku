@@ -2,11 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\JabatanUser;
 use App\Models\Jabatan;
-use App\Models\JenisJabatan;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 class JabatanController extends Controller
 {
@@ -58,12 +55,11 @@ class JabatanController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'nama' => 'required|min:5|unique:jabatans',
-            'slug' => 'required|min:5|unique:jabatans'
+            'nama' => 'required|min:5|unique:jabatans|regex:/^[a-zA-Z ]{5,}$/'
         ]);
 
         $validatedData['nama'] = ucwords($validatedData['nama']);
-        $validatedData['slug'] = str_replace(['-', ':'], ' ', strtolower($validatedData['slug']));
+        $validatedData['slug'] = str_replace(' ', '-', strtolower($validatedData['nama']));
 
         Jabatan::create($validatedData);
         return redirect('/jabatan')->with('alert_jabatan', 'Jabatan berhasil ditambahkan');
@@ -72,25 +68,25 @@ class JabatanController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\JabatanUser  $jabatanUser
+     * @param  \App\Models\Jabatan  $jabatan
      * @return \Illuminate\Http\Response
      */
-    public function show(JabatanUser $jabatan)
+    public function show(Jabatan $jabatans)
     {
-        
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\JabatanUser  $jabatanUser
+     * @param  \App\Models\Jabatan  $jabatan
      * @return \Illuminate\Http\Response
      */
-    public function edit(JabatanUser $jabatan)
+    public function edit(Jabatan $jabatans)
     {
         return view('administrator.jabatan.edit', [
-            'title' => 'Ubah Jabatan',
-            'jabatan' => $jabatan
+            'title' => 'Edit Jabatan',
+            'jabatan' => $jabatans
         ]);
     }
 
@@ -98,21 +94,31 @@ class JabatanController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\JabatanUser  $jabatanUser
+     * @param  \App\Models\Jabatan  $jabatan
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, JabatanUser $jabatan)
+    public function update(Request $request, Jabatan $jabatans)
     {
+        $validatedData = $request->validate([
+            'nama' => 'required|min:5|unique:jabatans|regex:/^[a-zA-Z ]{5,}$/'
+        ]);
 
+        $validatedData['nama'] = ucwords($validatedData['nama']);
+        $validatedData['slug'] = str_replace(' ', '-', strtolower($validatedData['nama']));
+
+        Jabatan::where('id', $jabatans->id)->update($validatedData);
+        return redirect('/jabatan')->with('alert_jabatan', 'Jabatan berhasil diubah');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\JabatanUser  $jabatanUser
+     * @param  \App\Models\Jabatan  $jabatan
      * @return \Illuminate\Http\Response
      */
-    public function destroy(JabatanUser $jabatan)
+    public function destroy(Jabatan $jabatans)
     {
+        Jabatan::destroy($jabatans->id);
+        return redirect('/jabatan')->with('jabatan_dihapus', 'Jabatan berhasil dihapus');
     }
 }

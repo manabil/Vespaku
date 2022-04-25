@@ -57,18 +57,23 @@ class PangkatController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'nama' => 'required|min:5|unique:pangkats',
-            'slug' => 'required|min:5|unique:pangkats',
+            'nama' => 'required|min:5|unique:pangkats|regex:#^[a-zA-Z0-9 /]{5,}$#'
         ]);
+
+        $validatedData['nama'] = ucwords($validatedData['nama']);
+        $validatedData['slug'] = str_replace([ ' / ', ' '], '-', strtolower($validatedData['nama']));
+
+        Pangkat::create($validatedData);
+        return redirect('/pangkat')->with('alert_pangkat', 'Pangkat berhasil ditambahkan');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\PangkatUser  $pangkatUser
+     * @param  \App\Models\Pangkat  $pangkats
      * @return \Illuminate\Http\Response
      */
-    public function show(PangkatUser $pangkat)
+    public function show(Pangkat $pangkats)
     {
 
     }
@@ -76,34 +81,46 @@ class PangkatController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\PangkatUser  $pangkatUser
+     * @param  \App\Models\Pangkat  $pangkats
      * @return \Illuminate\Http\Response
      */
-    public function edit(PangkatUser $pangkat)
+    public function edit(Pangkat $pangkats)
     {
-
+        return view('administrator.pangkat.edit', [
+            'title' => 'Edit Pangkat',
+            'pangkat' => $pangkats
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\PangkatUser  $pangkatUser
+     * @param  \App\Models\Pangkat  $pangkats
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, PangkatUser $pangkat)
+    public function update(Request $request, Pangkat $pangkats)
     {
+        $validatedData = $request->validate([
+            'nama' => 'required|min:5|unique:pangkats|regex:#^[a-zA-Z0-9 /]{5,}$#'
+        ]);
 
+        $validatedData['nama'] = ucwords($validatedData['nama']);
+        $validatedData['slug'] = str_replace([ ' / ', ' '], '-', strtolower($validatedData['nama']));
+
+        Pangkat::where('id', $pangkats->id)->update($validatedData);
+        return redirect('/pangkat')->with('alert_pangkat', 'Pangkat berhasil diubah');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\PangkatUser  $pangkatUser
+     * @param  \App\Models\Pangkat  $pangkats
      * @return \Illuminate\Http\Response
      */
-    public function destroy(PangkatUser $pangkat)
+    public function destroy(Pangkat $pangkats)
     {
-        
+        Pangkat::destroy($pangkats->id);
+        return redirect('/pangkat')->with('pangkat_dihapus', 'Pangkat berhasil dihapus');
     }
 }
