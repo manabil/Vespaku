@@ -15,9 +15,13 @@ class JabatanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        return view('administrator.jabatan.index', [
+            'title' => 'Manajemen Jabatan',
+            'jabatans' => Jabatan::paginate(10),
+            'page' => $request->page
+        ]);
     }
 
     /**
@@ -27,11 +31,7 @@ class JabatanController extends Controller
      */
     public function create()
     {
-        return view('dashboard.jabatan.create', [
-            'title' => 'Tambah Jabatan',
-            'jabatans' => Jabatan::all(),
-            'jenis_jabatans' => JenisJabatan::all()
-        ]);
+        
     }
 
     /**
@@ -42,32 +42,7 @@ class JabatanController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'jabatan_id' => 'required',
-            'jenis_jabatan_id' => 'required',
-            'no_surat_keterangan' => 'required|min:5',
-            'tmt' => 'required',
-            'surat_keterangan' => 'required|file|mimes:pdf,doc,docx,epub'
-        ]);
-        
-        $validatedData['user_id'] = auth()->user()->id;
-        
-        $unavailableJabatan = JabatanUser:: where('user_id', auth()->user()->id)
-                                            ->where('jabatan_id', $validatedData['jabatan_id'])
-                                            ->where('jenis_jabatan_id', $validatedData['jenis_jabatan_id'])->get();
-
-        if($unavailableJabatan->isNotEmpty())
-        {
-            return redirect('/dashboard/jabatan/create')->with('jabatan_sudah_ada', 'Jabatan ini sudah ada. Mohon isi dengan jabatan yang lain');
-        }
-
-        if($request->file('surat_keterangan'))
-        {
-            $validatedData['surat_keterangan'] = $request->file('surat_keterangan')->store('surat_keterangan_jabatan');
-        }
-        
-        JabatanUser::create($validatedData);
-        return redirect('/dashboard')->with('alert_jabatan', 'Jabatan berhasil ditambahkan');
+        //
     }
 
     /**
@@ -78,10 +53,6 @@ class JabatanController extends Controller
      */
     public function show(JabatanUser $jabatan)
     {
-        return view('dashboard.jabatan.show', [
-            'title' => 'Detail Jabatan',
-            'jabatan' => $jabatan
-        ]);
         //
     }
 
@@ -93,23 +64,7 @@ class JabatanController extends Controller
      */
     public function edit(JabatanUser $jabatan)
     {
-        $nama_jabatan = $jabatan->jabatan->nama;
-        $nama_jenis_jabatan = $jabatan->jenis_jabatan->nama;
-        $tmt = $jabatan->tmt;
-        $no_surat_keterangan = $jabatan->no_surat_keterangan;
-        $surat_keterangan = $jabatan->surat_keterangan;
 
-        return view('dashboard.jabatan.edit', [
-            'title' => 'Edit Jabatan',
-            'jabatan' => $jabatan,
-            'jabatans' => Jabatan::all(),
-            'jenis_jabatans' => JenisJabatan::all(),
-            'nama_jabatan' => $nama_jabatan,
-            'nama_jenis_jabatan' => $nama_jenis_jabatan,
-            'tmt' => $tmt,
-            'no_surat_keterangan' => $no_surat_keterangan,
-            'surat_keterangan' => $surat_keterangan
-        ]);
     }
 
     /**
@@ -121,36 +76,7 @@ class JabatanController extends Controller
      */
     public function update(Request $request, JabatanUser $jabatan)
     {
-        $validatedData = $request->validate([
-            'jabatan_id' => 'required',
-            'jenis_jabatan_id' => 'required',
-            'no_surat_keterangan' => 'required|min:5',
-            'tmt' => 'required',
-            'surat_keterangan' => 'file|mimes:pdf,doc,docx,epub',
-        ]);
-        
-        $validatedData['user_id'] = auth()->user()->id;
 
-        if(($jabatan->jabatan->id != $request['jabatan_id']) || ($jabatan->jenis_jabatan->id != $request['jenis_jabatan_id']))
-        {
-            $unavailableJabatan = JabatanUser:: where('user_id', auth()->user()->id)
-                                                ->where('jabatan_id', $validatedData['jabatan_id'])
-                                                ->where('jenis_jabatan_id', $validatedData['jenis_jabatan_id'])->get();
-    
-            if($unavailableJabatan->isNotEmpty())
-            {
-                return redirect('/dashboard/jabatan/'.$jabatan->id.'/edit')->with('jabatan_sudah_ada', 'Jabatan ini sudah ada. Mohon isi dengan jabatan yang lain');
-            }
-        }
-
-        if($request->file('surat_keterangan'))
-        {
-            Storage::delete($jabatan->surat_keterangan);
-            $validatedData['surat_keterangan'] = $request->file('surat_keterangan')->store('surat_keterangan_jabatan');
-        }	
-
-        JabatanUser::where('id', $jabatan->id)->update($validatedData);
-        return redirect('/dashboard')->with('alert_jabatan', 'Jabatan berhasil ditambahkan');
     }
 
     /**
@@ -161,8 +87,5 @@ class JabatanController extends Controller
      */
     public function destroy(JabatanUser $jabatan)
     {
-        Storage::delete($jabatan->surat_keterangan);
-        JabatanUser::destroy($jabatan->id);
-        return redirect('/dashboard')->with('jabatan_dihapus', 'Jabatan berhasil dihapus');
     }
 }
