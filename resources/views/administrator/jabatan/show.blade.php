@@ -6,7 +6,6 @@
   <div class="container">
     <ol>
       <li><a href="/">Home</a></li>
-      <li><a href="/dashboard">Dashboard</a></li>
       <li><a href="#">Detail Jabatan</a></li>
     </ol>
     <h2>{{ $title }}</h2>
@@ -32,24 +31,14 @@
                 <div class="table-responsive">
                   <table class="table table-borderless my-0">
                       <tr>
-                        <td><h5>Jenis Jabatan</h5></td>
+                        <td><h5>Nama Jabatan</h5></td>
                         <td>:</td>
-                        <td><h5>{{ $jabatan->jenis_jabatan->nama }}</h5></td>
+                        <td><h5>{{ $jabatan->nama }}</h5></td>
                       </tr>
                       <tr>
-                        <td><h5>Tahun masuk</h5></td>
+                        <td><h5>Slug</h5></td>
                         <td>:</td>
-                        <td><h5>{{ date('j F Y', strtotime($jabatan->tmt)) }}</h5></td>
-                      </tr>
-                      <tr>
-                        <td><h5>No Surat Keterangan</h5></td>
-                        <td>:</td>
-                        <td><h5>{{ $jabatan->no_surat_keterangan }}</h5></td>
-                      </tr>
-                      <tr>
-                        <td><h5>Surat Keterangan</h5></td>
-                        <td>:</td>
-                        <td><h5>{{ $jabatan->surat_keterangan }}</h5></td>
+                        <td><h5>{{ $jabatan->slug }}</h5></td>
                       </tr>
                       <tr>
                         <td><h5>Ditambah Pada Tanggal</h5></td>

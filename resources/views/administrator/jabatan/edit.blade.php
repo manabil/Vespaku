@@ -7,7 +7,6 @@
   <div class="container">
     <ol>
       <li><a href="/">Home</a></li>
-      <li><a href="/dashboard">Dashboard</a></li>
       <li><a href="#">Edit Jabatan</a></li>
     </ol>
     <h2>{{ $title }}</h2>
@@ -37,7 +36,7 @@
             </div>
             @endif
 
-            <form action="/dashboard/jabatan/{{ $jabatan->slug }}" method="post" enctype="multipart/form-data">
+            <form action="/jabatan/{{ $jabatan->slug }}" method="post" enctype="multipart/form-data">
                 @method('put')
                 @csrf
                 <div class="form-floating rounded-top"> 
