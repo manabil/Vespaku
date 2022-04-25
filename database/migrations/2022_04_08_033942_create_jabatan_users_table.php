@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('jabatan_user', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained();
-            $table->foreignId('jabatan_id')->constrained();
-            $table->foreignId('jenis_jabatan_id')->default(1)->constrained();
+            $table->foreignId('user_id');
+            $table->foreignId('jabatan_id')->onDelete('cascade');
+            $table->foreignId('jenis_jabatan_id')->default(1)->onDelete('cascade');
             $table->date('tmt')->default(now());
             $table->string('no_surat_keterangan', 50)->default('897.2/.201-2014');
             $table->string('surat_keterangan', 75)->default('surat_keterangan');

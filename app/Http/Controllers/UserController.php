@@ -77,7 +77,7 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit(User $User)
+    public function edit(User $user)
     {
         return view('dashboard.profile.edit', [
             'title' => 'Edit Profile',
@@ -146,6 +146,12 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        Storage::delete(User::where('id', $user->id)->pluck('foto')->toArray());
+        User::destroy($user->id);
+        Storage::delete(JabatanUser::where('user_id', $user->id)->pluck('surat_keterangan')->toArray());
+        JabatanUser::destroy(JabatanUser::where('user_id', $user->id)->get());
+        Storage::delete(PangkatUser::where('user_id', $user->id)->pluck('surat_keterangan')->toArray());
+        PangkatUser::destroy(PangkatUser::where('user_id', $user->id)->get());
+        return redirect('/user')->with('user_dihapus', 'User berhasil dihapus');
     }
 }
