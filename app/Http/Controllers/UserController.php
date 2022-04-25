@@ -17,9 +17,26 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $user_search = User::with(['pangkat', 'jabatan']);
+
+        if(request('search')){
+            $search_user = User::with(['jabatan','pangkat'])->latest()->where('nama', 'LIKE', '%' . request('search') . '%')->get();
+            $searched_id = collect();
+
+            foreach ($search_user as $user) {
+                $searched_id[] = $user->id;
+            }
+
+            $user_search = User::with(['pangkat', 'jabatan'])->latest()->whereIn('id', $searched_id);
+        }
+        
+        return view('administrator.user.index', [
+            'title' => 'Manajemen User',
+            'users' => $user_search->paginate(10),
+            'page' => $request->page
+        ]);
     }
 
     /**
