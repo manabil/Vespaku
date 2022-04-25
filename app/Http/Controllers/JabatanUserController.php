@@ -151,7 +151,7 @@ class JabatanUserController extends Controller
         }	
 
         JabatanUser::where('id', $jabatan->id)->update($validatedData);
-        return redirect('/dashboard')->with('alert_jabatan', 'Jabatan berhasil ditambahkan');
+        return redirect('/dashboard')->with('alert_jabatan', 'Jabatan berhasil diubah');
     }
 
     /**
