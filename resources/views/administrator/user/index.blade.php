@@ -45,45 +45,55 @@
         <article class="entry entry-single">
           @if ($users->isNotEmpty())
               @if (request('search'))
-              <h2 class="entry-title"></h2>
+                <h2 class="entry-title mb-3">Ditemukan "{{ request('search') }}"</h2>
+              @else
+                <h2 class="entry-title mb-3">
+                  <a href="#">Daftar Pegawai</a>
+                </h2>
               @endif
-          @endif
+          
 
-          <div class="table-responsive">
-            <table class="table table-hover table-borderless entry-table ">
-              <thead>
-                <tr>
-                  <th scope="col" colspan="2">Nama</th>
-                  <th scope="col">NIP</th>
-                  <th scope="col">Jabatan</th>
-                  <th scope="col">Pangkat</th>
-                  <th scope="col">Aksi</th>
-                </tr>
-              </thead>
-                <tbody>
-                  @foreach ($users as $user)
+            <div class="table-responsive">
+              <table class="table table-hover table-borderless entry-table ">
+                <thead>
                   <tr>
-                      <th><img src="{{ ($user->foto=='') ? 'https://source.unsplash.com/400x400?profile' : $user->foto }}" style="border-radius: 50%; width:60px; height:60px; object-fit: cover;" alt="{{ $user->nama }}"></th>
-                      <td>{{ $user->nama }}</td>
-                      <td>{{ $user->nip }}</td>
-                      <td>{{ $user->jabatan->last()->nama }}</td>
-                      <td>{{ $user->pangkat->last()->nama }}</td>
-                      <td>
-                        <div class="container d-flex justify-content-center">
-                          <a href="/user/{{ $user->username }}" class="btn btn-sm btn-outline-primary mx-1"><i class="bi bi-eye mx-0"></i></a>
-                          <a href="/user/{{ $user->username }}/edit" class="btn btn-sm btn-outline-warning mx-1"><i class="bi bi-pen mx-0"></i></a>
-                          <form action="/user/{{ $user->username }}" method="post">
-                            @csrf
-                            @method('delete')
-                            <button class="btn btn-sm btn-outline-danger mx-1" onclick="return confirm('Apakah Anda yakin ingin menghapus ?')"><i class="bi bi-trash"></i></button>
-                          </form>
-                        </div>
-                      </td>
-                    </tr>
-                  @endforeach
-                </tbody>
-            </table>
-          </div>
+                    <th scope="col" colspan="2">Nama</th>
+                    <th scope="col">NIP</th>
+                    <th scope="col">Jabatan</th>
+                    <th scope="col">Pangkat</th>
+                    <th scope="col">Aksi</th>
+                  </tr>
+                </thead>
+                  <tbody>
+                    @foreach ($users as $user)
+                    <tr>
+                        <th><img src="{{ ($user->foto=='') ? 'https://source.unsplash.com/400x400?profile' : $user->foto }}" style="border-radius: 50%; width:60px; height:60px; object-fit: cover;" alt="{{ $user->nama }}"></th>
+                        <td>{{ $user->nama }}</td>
+                        <td>{{ $user->nip }}</td>
+                        <td>{{ $user->jabatan->last()->nama }}</td>
+                        <td>{{ $user->pangkat->last()->nama }}</td>
+                        <td>
+                          <div class="container d-flex justify-content-center">
+                            <a href="/user/{{ $user->username }}" class="btn btn-sm btn-outline-primary mx-1"><i class="bi bi-eye mx-0"></i></a>
+                            <a href="/user/{{ $user->username }}/edit" class="btn btn-sm btn-outline-warning mx-1"><i class="bi bi-pen mx-0"></i></a>
+                            <form action="/user/{{ $user->username }}" method="post">
+                              @csrf
+                              @method('delete')
+                              <button class="btn btn-sm btn-outline-danger mx-1" onclick="return confirm('Apakah Anda yakin ingin menghapus ?')"><i class="bi bi-trash"></i></button>
+                            </form>
+                          </div>
+                        </td>
+                      </tr>
+                    @endforeach
+                  </tbody>
+              </table>
+            </div>
+
+          @else
+            <h2 class="entry-title">
+              <a href="#">Pencarian Tidak ditemukan</a>
+            </h2>
+          @endif
 
           <!-- Pagination -->
           <div class="d-flex justify-content-end">

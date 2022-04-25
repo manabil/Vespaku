@@ -1,3 +1,4 @@
+{{-- @dd(request('search')) --}}
 @extends('layout.page')
 
 <!-- ======= Breadcrumbs ======= -->
@@ -13,10 +14,27 @@
 </section><!-- End Breadcrumbs -->
 @endsection
 
+<!-- ======= Search Bar ======= -->
+@section('search_bar')
+<footer id="footer" class="footer">
+  <div class="footer-newsletter">
+    <div class="container" data-aos="fade-down" data-aos-duration="1000">
+      <div class="row justify-content-center">
+        <div class="col-lg-6">
+          <form action="/pangkat" >
+            <input type="text" name="search" value="{{ request('search') }}" placeholder="Tuliskan Pangkat">
+            <input type="submit" value="Cari">
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+@endsection
+
 <!-- ======= Blog Single Section ======= -->
 @section('content')
 <section id="blog" class="blog">
-  
 
   <div class="container" data-aos="fade-up">
 
@@ -25,25 +43,28 @@
       <div class="entries">
         
         <article class="entry entry-single">
-          <h2 class="entry-title">
-            <a href="blog-single.html">Daftar Pangkat</a>
-          </h2>
+          @if ($pangkats->isNotEmpty())
+            @if (request('search'))
+              <h2 class="entry-title mb-3">Ditemukan "{{ request('search') }}"</h2>
+            @else
+              <h2 class="entry-title mb-3"><a href="#">Daftar Pangkat</a></h2>
+            @endif
 
-          <a href="/pangkat/create" class="btn btn-lg btn-outline-success" style="margin: 0 0 10px 0"> <i class="bi bi-plus"></i>&nbsp; Tambah Pangkat</a>
+            <a href="/pangkat/create" class="btn btn-lg btn-outline-success mt-3" style="margin: 0 0 10px 0"> <i class="bi bi-plus"></i>&nbsp; Tambah Pangkat</a>
 
-          <div class="table-responsive">
-            <table class="table table-hover table-borderless entry-table ">
-              <thead>
-                <tr>
-                  <th scope="col">No</th>
-                  <th scope="col">Pangkat</th>
-                  <th scope="col">Slug</th>
-                  <th scope="col">Aksi</th>
-                </tr>
-              </thead>
-                <tbody>
-                  @foreach ($pangkats as $pangkat)
+            <div class="table-responsive">
+              <table class="table table-hover table-borderless entry-table ">
+                <thead>
                   <tr>
+                    <th scope="col">No</th>
+                    <th scope="col">Pangkat</th>
+                    <th scope="col">Slug</th>
+                    <th scope="col">Aksi</th>
+                  </tr>
+                </thead>
+                  <tbody>
+                    @foreach ($pangkats as $pangkat)
+                    <tr>
                       <th scope="row">{{ $loop->iteration + ($page == '' ? 0 : (($page*10) - 10)) }}</th>
                       <td>{{ $pangkat->nama }}</td>
                       <td>{{ $pangkat->slug }}</td>
@@ -58,10 +79,14 @@
                         </div>
                       </td>
                     </tr>
-                  @endforeach
-                </tbody>
-            </table>
-          </div>
+                    @endforeach
+                  </tbody>
+              </table>
+            </div>
+          
+          @else
+            <h2 class="entry-title"><a href="#">Pencarian Tidak ditemukan</a></h2>
+          @endif
 
           <!-- Pagination -->
           <div class="d-flex justify-content-end">

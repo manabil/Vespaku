@@ -16,9 +16,22 @@ class PangkatController extends Controller
      */
     public function index(Request $request)
     {
+        $pangkat_search = Pangkat::with(['user']);
+        
+        if(request('search')){
+            $search_pangkat = Pangkat::with(['user'])->latest()->where('nama', 'LIKE', '%' . request('search') . '%')->get();
+            $searched_id = collect();
+
+            foreach ($search_pangkat as $pangkat) {
+                $searched_id[] = $pangkat->id;
+            }
+
+            $pangkat_search = Pangkat::with(['user'])->latest()->whereIn('id', $searched_id);
+        }
+        
         return view('administrator.pangkat.index', [
             'title' => 'Manajemen Pangkat',
-            'pangkats' => Pangkat::paginate(10),
+            'pangkats' => $pangkat_search->paginate(10),
             'page' => $request->page
         ]);
     }
