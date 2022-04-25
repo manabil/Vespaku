@@ -18,8 +18,4 @@ class Jabatan extends Model
     public function user() {
         return $this->belongsToMany(User::class);
     }
-    
-    // public function pegawai() {
-    //     return $this->belongsToMany(Pegawai::class);
-    // }
 }
