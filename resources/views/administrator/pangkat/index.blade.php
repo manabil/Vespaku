@@ -53,6 +53,20 @@
             <a href="/pangkat/create" class="btn btn-lg btn-outline-success mt-3" style="margin: 0 0 10px 0"> <i class="bi bi-plus"></i>&nbsp; Tambah Pangkat</a>
 
             <div class="table-responsive">
+              @if (session()->has('alert_pangkat'))
+              <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <i class="bi bi-check-circle-fill"></i>&nbsp; 
+                {{ session('alert_pangkat') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+              @elseif (session()->has('pangkat_dihapus'))
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                  <i class="bi bi-check-circle-fill"></i>&nbsp; 
+                  {{ session('pangkat_dihapus') }}
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+              @endif
+
               <table class="table table-hover table-borderless entry-table ">
                 <thead>
                   <tr>

@@ -34,13 +34,14 @@
                       <img src="https://source.unsplash.com/400x400?profile" alt="" class="card-img">
                     @endif
                     <div class="card-img-overlay d-flex align-items-center">
-                      <a href="/dashboard/profile/{{ auth()->user()->id }}/edit" class="text-center m-auto"><i class="bi bi-pen btn btn-outline-light btn-lg"></i></a>
+                      <a href="/dashboard/profile/{{ auth()->user()->username }}" class="text-center m-auto"><i class="bi bi-pen btn btn-outline-light btn-lg"></i></a>
                     </div>
                   </div>
               </div>
               <div class="col-lg-8">
                 @if (session()->has('alert_profile'))
                   <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <i class="bi bi-check-circle-fill"></i>&nbsp;
                     {{ session('alert_profile') }}
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                   </div>
@@ -99,11 +100,13 @@
 
           @if (session()->has('alert_pangkat'))
             <div class="alert alert-success alert-dismissible fade show" role="alert">
+              <i class="bi bi-check-circle-fill"></i>&nbsp;
               {{ session('alert_pangkat') }}
               <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
           @elseif (session()->has('pangkat_dihapus'))
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              <i class="bi bi-check-circle-fill"></i>&nbsp;
               {{ session('pangkat_dihapus') }}
               <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
@@ -156,11 +159,13 @@
           <div class="table-responsive">
             @if (session()->has('alert_jabatan'))
               <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <i class="bi bi-check-circle-fill"></i>&nbsp;
                 {{ session('alert_jabatan') }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
               </div>
             @elseif (session()->has('jabatan_dihapus'))
               <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <i class="bi bi-check-circle-fill"></i>&nbsp;
                 {{ session('jabatan_dihapus') }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
               </div>

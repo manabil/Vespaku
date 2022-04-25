@@ -6,6 +6,7 @@
   <div class="container">
     <ol>
       <li><a href="/">Home</a></li>
+      <li><a href="/dashboard">Dashboard</a></li>
       <li><a href="#">Profile Saya</a></li>
     </ol>
     <h2>{{ $title }}</h2>
@@ -39,7 +40,7 @@
                 @enderror
               </div>
               <div class="form-floating">
-                <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" placeholder="Password" required value="{{ old('password') }}">
+                <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" placeholder="Password" value="{{ old('password') }}">
                 <label for="password">Password</label>
                 @error('password')
                 <div class="invalid-feedback">

@@ -54,6 +54,20 @@
           
 
             <div class="table-responsive">
+              @if (session()->has('alert_user'))
+              <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <i class="bi bi-check-circle-fill"></i>&nbsp; 
+                {{ session('alert_user') }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+              @elseif (session()->has('user_dihapus'))
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                  <i class="bi bi-check-circle-fill"></i>&nbsp;
+                  {{ session('user_dihapus') }}
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+              @endif
+              
               <table class="table table-hover table-borderless entry-table ">
                 <thead>
                   <tr>

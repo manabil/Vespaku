@@ -55,11 +55,13 @@
             <div class="table-responsive">
               @if (session()->has('alert_jabatan'))
               <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <i class="bi bi-check-circle-fill"></i>&nbsp; 
                 {{ session('alert_jabatan') }}
                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
               </div>
               @elseif (session()->has('jabatan_dihapus'))
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                  <i class="bi bi-check-circle-fill"></i>&nbsp;
                   {{ session('jabatan_dihapus') }}
                   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>

@@ -6,7 +6,7 @@
   <div class="container">
     <ol>
       <li><a href="/">Home</a></li>
-      <li><a href="/dashboard">Dashboard</a></li>
+      <li><a href="/pangkat">Manajemen Pangkat</a></li>
       <li><a href="#">Edit Pangkat</a></li>
     </ol>
     <h2>{{ $title }}</h2>
@@ -29,59 +29,18 @@
           <main class="form-daftar">
             <h1 class="h3 mb-3 fw-normal">Edit Pangkat</h1>
 
-            @if (session()->has('pangkat_sudah_ada'))
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-              {{ session('pangkat_sudah_ada') }}
-              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-            @endif
-
-            <form action="/dashboard/pangkat/{{ $pangkat->slug }}" method="post" enctype="multipart/form-data">
+            <form action="/pangkat/{{ $pangkat->slug }}" method="post" enctype="multipart/form-data">
               @method('put')
               @csrf
-              <div class="form-floating rounded-top"> 
-                <select class="custom-select form-control @error('pangkat_id') is-invalid @enderror" id="pangkat_id" name="pangkat_id" placeholder="pangkat_id" required >
-                    @foreach ($pangkats as $pkt)
-                      @if (old('pangkat_id', $pangkat->pangkat->id) == $pkt->id)
-                        <option selected value="{{ $pkt->id }}">{{ $pkt->nama }}</option>
-                      @else
-                        <option value="{{ $pkt->id }}">{{ $pkt->nama }}</option>
-                      @endif
-                    @endforeach
-                  </select>
-                @error('pangkat_id')
-                <div class="invalid-feedback">
-                    {{ $message }}
-                </div>
-                @enderror
-              </div>
               <div class="form-floating">
-                <input type="text" class="form-control @error('no_surat_keterangan') is-invalid @enderror" id="no_surat_keterangan" name="no_surat_keterangan" placeholder="no_surat_keterangan" value="{{ old('no_surat_keterangan', $no_surat_keterangan) }}" required >
-                <label for="no_surat_keterangan">No Surat Keterangan</label>
-                @error('no_surat_keterangan')
+                <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama" name="nama" placeholder="nama" required value="{{ old('nama', $pangkat->nama) }}">
+                <label for="nama">Nama Pangkat</label>
+                @error('nama')
                 <div class="invalid-feedback">
                     {{ $message }}
                 </div>
                 @enderror
               </div>
-                <div class="form-floating">
-                  <input type="date" class="form-control @error('tmt') is-invalid @enderror" id="tmt" name="tmt" placeholder="tmt" required value="{{ old('tmt', $tmt) }}">
-                  <label for="tmt">Terhitung Mulai Tanggal</label>
-                  @error('tmt')
-                  <div class="invalid-feedback">
-                      {{ $message }}
-                    </div>
-                    @enderror
-                </div>
-                <div class="form-floating mt-4">
-                  <input class="form-control @error('surat_keterangan') is-invalid @enderror" style="padding: 27px 0 20px 25px;" type="file" name="surat_keterangan" id="surat_keterangan">
-                  <label for="surat_keterangan" style="padding: 0.6rem .75rem;">Surat Keterangan</label>
-                  @error('surat_keterangan')
-                  <div class="invalid-feedback">
-                    {{ $message }}
-                  </div>
-                  @enderror
-                </div>
                 
                 <button class="w-100 btn btn-lg btn-warning" style="margin: 20px 0" type="Submit"><i class="bi bi-pen"></i>&nbsp; Edit Pangkat</button>
             </form>

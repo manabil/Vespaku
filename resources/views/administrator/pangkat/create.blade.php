@@ -6,7 +6,8 @@
   <div class="container">
     <ol>
       <li><a href="/">Home</a></li>
-      <li><a href="/pangkat">Tambah Pangkat</a></li>
+      <li><a href="/pangkat">Manajemen Pangkat</a></li>
+      <li><a href="#">Tambah Pangkat</a></li>
     </ol>
     <h2>{{ $title }}</h2>
   </div>
@@ -28,28 +29,12 @@
           <main class="form-daftar">
             <h1 class="h3 mb-3 fw-normal">Tambah Pangkat</h1>
 
-            @if (session()->has('pangkat_sudah_ada'))
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-              {{ session('pangkat_sudah_ada') }}
-              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-            @endif
-
-            <form action="/dashboard/pangkat" method="post">
+            <form action="/pangkat" method="post">
               @csrf
               <div class="form-floating">
                 <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama" name="nama" placeholder="nama" required value="{{ old('nama') }}">
                 <label for="nama">Nama Pangkat</label>
                 @error('nama')
-                <div class="invalid-feedback">
-                    {{ $message }}
-                </div>
-                @enderror
-              </div>
-              <div class="form-floating">
-                <input type="text" class="form-control @error('slug') is-invalid @enderror" id="slug" name="slug" placeholder="slug" required value="{{ old('slug') }}">
-                <label for="slug">Slug</label>
-                @error('slug')
                 <div class="invalid-feedback">
                     {{ $message }}
                 </div>

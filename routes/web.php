@@ -73,8 +73,8 @@ Route::resource('/dashboard/jabatan', JabatanUserController::class)->middleware(
 
 // *=============== Administrator ============*
 Route::resource('/user', UserController::class)->middleware('auth')->parameters(['user' => 'user:username']);
-Route::resource('/pangkat', PangkatController::class)->middleware('auth')->parameters(['pangkat' => 'pangkat:slug']);
-Route::resource('/jabatan', JabatanController::class)->middleware('auth')->parameters(['jabatan' => 'jabatan:slug']);
+Route::resource('/pangkat', PangkatController::class)->middleware('auth')->parameters(['pangkat' => 'pangkats:slug']);
+Route::resource('/jabatan', JabatanController::class)->middleware('auth')->parameters(['jabatan' => 'jabatans:slug']);
 
 
 // *=============== Request ============*
