@@ -21,7 +21,7 @@ return new class extends Migration
             $table->date('tmt')->default(now());
             $table->string('no_surat_keterangan', 50)->default('897.2/.201-2014');
             $table->string('surat_keterangan', 75)->default('surat_keterangan');
-            $table->string('slug', 50)->default(str_replace(['-',' ', ':'], '', (now()->toDateTimeString())));
+            $table->string('slug', 75)->default(str_replace('/', '', bcrypt(str_replace(['-',' ', ':'], '', now()->toDateTimeString()))));
             $table->timestamps();
         });
     }
