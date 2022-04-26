@@ -46,7 +46,14 @@
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                   </div>
                 @endif
-                <h1 class="entry-heading">{{ auth()->user()->nama }}</h1>
+                <h1 class="entry-heading">
+                  {{ auth()->user()->nama }} 
+                  @if (auth()->user()->user_type == 'super_admin')
+                    <sub class="fs-6 text-danger">(Super Administrator)</sub>
+                  @elseif (auth()->user()->user_type == 'admin')
+                    <sub class="fs-6 text-success">(Administrator)</sub>
+                  @endif
+                </h1>
                 
                 <div class="table-responsive">
                   <table class="table table-borderless my-0">
