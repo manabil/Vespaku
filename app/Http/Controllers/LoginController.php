@@ -19,6 +19,8 @@ class LoginController extends Controller
             'password' => 'required|min:5',
         ]);
 
+        $credentials['username'] = openssl_encrypt($credentials['username'], 'AES-128-ECB', 'VESPaKU');
+
         if(Auth::attempt($credentials)){
             request()->session()->regenerate();
             return redirect()->intended('/dashboard');
