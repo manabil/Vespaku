@@ -18,10 +18,10 @@ return new class extends Migration
             $table->string('nama');
             $table->bigInteger('nip');
             $table->string('username')->unique();
-            $table->text('password');
-            $table->text('email');
+            $table->string('password', 75);
+            $table->string('email', 75);
             $table->date('tanggal_lahir');
-            $table->text('foto');
+            $table->string('foto', 75);
             $table->boolean('is_admin');
             $table->timestamps();
         });
