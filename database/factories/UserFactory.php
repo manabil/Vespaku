@@ -18,12 +18,13 @@ class UserFactory extends Factory
     public function definition()
     {
         $nama = $this->faker->name();
-        $nama_clean = strtolower(str_replace('.','', str_replace(' ', '-', $nama)));
+        $nama_clean = strtolower(str_replace(['.', ' '], ['', '-'], $nama));
+        $username = str_replace('/', '-', openssl_encrypt($nama_clean, 'AES-128-ECB', 'VESPaKU'));
 
         return [
             'nama' => $nama,
             'nip' => $this->faker->unique()->creditCardNumber(),
-            'username' => $nama_clean,
+            'username' => $username,
             'password' => bcrypt('12345'),
             'email' => $nama_clean . '@bpmpk.gov.id',
             'tanggal_lahir' => now(),
