@@ -47,7 +47,7 @@ class PangkatUserController extends Controller
         ]);
         
         $validatedData['user_id'] = auth()->user()->id;
-        $validatedData['slug'] = str_replace([' ', '-', ':'], '', now()->toDateTimeString());
+        $validatedData['slug'] = str_replace('/', '', bcrypt(str_replace(['-',' ', ':'], '', now()->toDateTimeString())));
 
         $unavailablePangkat = PangkatUser:: where('user_id', auth()->user()->id)
                                             ->where('pangkat_id', $validatedData['pangkat_id'])->get();
