@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('email', 75);
             $table->date('tanggal_lahir');
             $table->string('foto', 75);
-            $table->boolean('is_admin');
+            $table->string('user_type', 15);
             $table->timestamps();
         });
     }

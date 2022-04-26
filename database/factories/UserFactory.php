@@ -21,6 +21,8 @@ class UserFactory extends Factory
         $nama_clean = strtolower(str_replace(['.', ' '], ['', '-'], $nama));
         $username = str_replace('/', '-', openssl_encrypt($nama_clean, 'AES-128-ECB', 'VESPaKU'));
 
+        $user_type = ['super_admin', 'admin', 'user'];
+
         return [
             'nama' => $nama,
             'nip' => $this->faker->unique()->creditCardNumber(),
@@ -28,7 +30,7 @@ class UserFactory extends Factory
             'password' => bcrypt('12345'),
             'email' => $nama_clean . '@bpmpk.gov.id',
             'tanggal_lahir' => now(),
-            'is_admin' => $this->faker->boolean(20),
+            'user_type' => $this->faker->randomElement($user_type),
             'foto' => '',
         ];
     }

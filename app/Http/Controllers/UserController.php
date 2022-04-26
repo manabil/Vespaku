@@ -95,7 +95,7 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        User::where('id', $user->id)->update(['is_admin' => $request->is_admin]);
+        User::where('id', $user->id)->update(['user_type' => $request->user_type]);
         return redirect('/user')->with('alert_user', 'User berhasil diubah');
     }
 
