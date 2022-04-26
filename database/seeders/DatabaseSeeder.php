@@ -21,10 +21,15 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // Pegawai Seeder
+        //*=====================
+        //* Pegawai Seeder
+        //*=====================
         User::factory(25)->create();
         
-        // Pangkat Seeder
+        
+        //*=====================
+        //* Pangkat Seeder
+        //*=====================
         $pangkats = [
             'CPNS',
             'Pengatur Muda / II A',
@@ -50,21 +55,26 @@ class DatabaseSeeder extends Seeder
         }
 
 
-        // Jenis Jabatan Seeder
+        //*=====================
+        //* Jenis Jabatan Seeder
+        //*=====================
         $jenis_jabatans = [
             'Administrator',
             'Pelaksana',
             'Fungsional',
         ];
-
+        
         foreach ($jenis_jabatans as $jabatan) {
             JenisJabatan::create([
                 'nama' => $jabatan,
                 'slug' => strtolower($jabatan)
             ]);
         }
-
-        // Jabatan Seeder
+        
+        
+        //*=====================
+        //* Jabatan Seeder
+        //*=====================
         $jabatans = [
             'Kepala',
             'Kassubag TU',
@@ -110,13 +120,17 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
-        // Jabatan/Pangkat Pegawai Seeder
+        //*===============================
+        //* Jabatan/Pangkat Pegawai Seeder
+        //*===============================
         foreach (User::all() as $pegawai) {
             $pegawai->pangkat()->attach(Pangkat::all()->random());
             $pegawai->jabatan()->attach(Jabatan::all()->random());
         }
 
-        // Jenis Jabatan Seeder
+        //*=====================
+        //* Jenis Jabatan Seeder
+        //*=====================
         foreach (JabatanUser::all() as $jabatan) {
             $jabatan->update([
                 'jenis_jabatan_id' => JenisJabatan::all()->random()->id,
@@ -125,7 +139,9 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
-        // Pangkat timestamps Seeder
+        //*===========================
+        //* Pangkat timestamps Seeder
+        //*===========================
         foreach (PangkatUser::all() as $pangkat) {
             $pangkat->update([
                 'created_at' => now(),
