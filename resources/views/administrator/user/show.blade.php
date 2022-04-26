@@ -6,8 +6,8 @@
   <div class="container">
     <ol>
       <li><a href="/">Home</a></li>
-      <li><a href="/dashboard">Dashboard</a></li>
-      <li><a href="#">Detail Pangkat</a></li>
+      <li><a href="/user">Manajemen User</a></li>
+      <li><a href="#">Profile Pegawai</a></li>
     </ol>
     <h2>{{ $title }}</h2>
   </div>
@@ -26,55 +26,117 @@
       <div class="entries">
         
         <article class="entry entry-single">
-          <h1 class="entry-heading">{{ $pangkat->pangkat->nama }}</h1>
           <div class="row">
+            <div class="col-lg-4">
+              <div class="entry-image">
+                <img src="https://source.unsplash.com/400x400?profile" alt="" class="img-fluid">
+              </div>
+            </div>
+            <div class="col-lg-8">
+              <h1 class="entry-heading">{{ $pegawai->nama }}</h1>
+              
                 <div class="table-responsive">
                   <table class="table table-borderless my-0">
                       <tr>
-                        <td><h5>Terhitung Mulai Tanggal</h5></td>
+                        <td><h5>NIP</h5></td>
                         <td>:</td>
-                        <td><h5>{{ date('j F Y', strtotime($pangkat->tmt)) }}</h5></td>
+                        <td><h5>{{ $pegawai->nip }}</h5></td>
                       </tr>
                       <tr>
-                        <td><h5>No Surat Keterangan</h5></td>
+                        <td><h5>Pangkat</h5></td>
                         <td>:</td>
-                        <td><h5>{{ $pangkat->no_surat_keterangan }}</h5></td>
+                        <td>
+                          @foreach ($pangkats->take(1) as $pangkat)
+                          <h5>{{ $pangkat->pangkat->nama }}</h5>
+                          @endforeach
+                        </td>
                       </tr>
                       <tr>
-                        <td><h5>Ditambah Pada Tanggal</h5></td>
+                        <td><h5>Jabatan</h5></td>
                         <td>:</td>
-                        <td><h5>{{ $pangkat->created_at }}</h5></td>
+                        <td>
+                          @foreach ($jabatans->take(1) as $jabatan)
+                          <h5><strong>{{ $jabatan->jenis_jabatan->nama }}</strong> - {{ $jabatan->jabatan->nama }}</h5>
+                          @endforeach
+                        </td>
                       </tr>
                       <tr>
-                        <td><h5>Diubah Pada Tanggal</h5></td>
+                        <th><h5>Email</h5></th>
                         <td>:</td>
-                        <td><h5>{{ $pangkat->updated_at }}</h5></td>
+                        <td><h5>{{ $pegawai->email }}</h5></td>
                       </tr>
-                    </table>
-                </div>
-
-                <div class="container">
-                  <div class="my-4 d-flex justify-content-center">
-                    <embed src="{{ asset('storage/' . $pangkat->surat_keterangan) }}" type="application/pdf" frameBorder="0" scrolling="auto" height="600px" width="75%"></embed>
-                  </div>
-                </div>
-
-                <div class="mt-5">
-                  <div class="col mx-2 my-2" style="float: right">
-                    <form action="/dashboard/pangkat/{{ $pangkat->id }}" method="post">
-                      @csrf
-                      @method('delete')
-                      <button class="btn btn-outline-danger btn-md " onclick="return confirm('Apakah Anda yakin ingin menghapus ?')"><i class="bi bi-trash"></i>&nbsp; Hapus</button>
-                    </form>
-                  </div>
-                  <div class="col my-2" style="float: right">
-                    <a href="" class="btn btn-outline-primary btn-md"><i class="bi bi-download"></i>&nbsp; Download</a>
-                  </div>
-                  <div class="col mx-2 my-2" style="float: right">
-                    <a href="/dashboard/pangkat/{{ $pangkat->id }}/edit" class="btn btn-outline-warning btn-md"><i class="bi bi-pen"></i>&nbsp; Ubah</a>
-                  </div>
-                </div>
+                  </table>
+                </div>  
+                
+              </div>
           </div>
+
+          <h2 class="entry-title">
+            <a href="blog-single.html">Daftar Kepangkatan</a>
+          </h2>
+
+          <div class="table-responsive">
+            <table class="table table-hover table-borderless entry-table ">
+              <thead>
+                <tr>
+                  <th scope="col">Keterangan</th>
+                  <th scope="col">Tahun</th>
+                  <th scope="col">No. SK</th>
+                  <th scope="col">Tanggal Ditambah</th>
+                  <th scope="col">Diubah</th>
+                  <th scope="col">Aksi</th>
+                </tr>
+              </thead>
+                <tbody>
+                  @foreach ($pangkats as $pangkat)
+                  <tr>
+                      <th scope="row">{{ $pangkat->pangkat->nama }}</th>
+                      <td>{{ date('Y', strtotime($pangkat->tmt)) }}</td>
+                      <td>{{ $pangkat->no_surat_keterangan }}</td>
+                      <td>{{ $pangkat->created_at }}</td>
+                      <td>{{ $pangkat->updated_at->diffForHumans() }}</td>
+                      <td>
+                        <a href="{{ asset('storage/' . $pangkat->surat_keterangan) }}" class="btn btn-sm btn-outline-primary"><i class="bi bi-download"></i>&nbsp; Unduh</a>
+                      </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+          </div>
+          
+          <h2 class="entry-title">
+            <a href="blog-single.html">Daftar Jabatan</a>
+          </h2>
+
+          <div class="table-responsive">
+            <table class="table table-hover table-borderless entry-table ">
+              <thead>
+                <tr>
+                  <th scope="col">Keterangan</th>
+                  <th scope="col">Tahun</th>
+                  <th scope="col">No. SK</th>
+                  <th scope="col">Tanggal Ditambah</th>
+                  <th scope="col">Diubah</th>
+                  <th scope="col">Aksi</th>
+                </tr>
+              </thead>
+                <tbody>
+                  @foreach ($jabatans as $jabatan)
+                  <tr>
+                      <th scope="row">{{ $jabatan->jabatan->nama }}</th>
+                      <td>{{ date('Y', strtotime($jabatan->tmt)) }}</td>
+                      <td>{{ $jabatan->no_surat_keterangan }}</td>
+                      <td>{{ $jabatan->created_at }}</td>
+                      <td>{{ $jabatan->updated_at->diffForHumans() }}</td>
+                      <td>
+                        <a href="{{ asset('storage/' . $jabatan->surat_keterangan) }}" class="btn btn-sm btn-outline-primary"><i class="bi bi-download"></i>&nbsp; Unduh</a>
+                      </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
+          </div>
+
         </article><!-- End blog entry -->
 
       </div><!-- End blog entries list -->
@@ -83,4 +145,20 @@
 
   </div>
 </section><!-- End Blog Single Section -->
+@endsection
+
+
+@section('footer')
+<!-- ======= Footer ======= -->
+<footer id="footer" class="footer">
+
+  <div class="container">
+    <div class="copyright">
+    Copyright &copy; <strong><span>Balai Pengembangan Multimedia Pendidikan dan Kebudayaan</span></strong>
+    </div>
+    <div class="credits">
+    Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+    </div>
+</div>
+</footer><!-- End Footer -->
 @endsection

@@ -22,7 +22,7 @@ class ProfileController extends Controller
         $rules = [
             'tanggal_lahir' => 'required',
             'foto' => 'image|max:2048'
-            ];
+        ];
         
         if($request->nama != $user->nama)
         {

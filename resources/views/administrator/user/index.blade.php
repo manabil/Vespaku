@@ -88,8 +88,15 @@
                         <td>{{ $user->pangkat->last()->nama }}</td>
                         <td>
                           <div class="container d-flex justify-content-center">
-                            <a href="/user/{{ $user->username }}" class="btn btn-sm btn-outline-primary mx-1"><i class="bi bi-eye mx-0"></i></a>
-                            <a href="/user/{{ $user->username }}/edit" class="btn btn-sm btn-outline-warning mx-1"><i class="bi bi-pen mx-0"></i></a>
+                            <a href="{{ $user->id == auth()->user()->id ? '/dashboard' : '/user/'. $user->username }}" class="btn btn-sm btn-outline-primary mx-1"><i class="bi bi-eye mx-0"></i></a>
+                            @if ($user->is_admin == 0)
+                            <form action="/user/{{ $user->username }}" method="post">
+                              @csrf
+                              @method('put')
+                              <input type="hidden" name="is_admin" value="1">
+                              <button class="btn btn-sm btn-outline-success mx-1"><i class="bi bi-person-check mx-0"></i></button>
+                            </form>
+                            @endif
                             <form action="/user/{{ $user->username }}" method="post">
                               @csrf
                               @method('delete')

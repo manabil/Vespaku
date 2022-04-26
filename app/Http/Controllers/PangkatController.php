@@ -31,7 +31,7 @@ class PangkatController extends Controller
         
         return view('administrator.pangkat.index', [
             'title' => 'Manajemen Pangkat',
-            'pangkats' => $pangkat_search->paginate(10),
+            'pangkats' => $pangkat_search->paginate(10)->withQueryString(),
             'page' => $request->page
         ]);
     }

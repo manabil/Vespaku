@@ -29,7 +29,7 @@ class JabatanController extends Controller
         
         return view('administrator.jabatan.index', [
             'title' => 'Manajemen Jabatan',
-            'jabatans' => $jabatan_search->paginate(10),
+            'jabatans' => $jabatan_search->paginate(10)->withQueryString(),
             'page' => $request->page
         ]);
     }

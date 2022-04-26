@@ -27,7 +27,7 @@ class SearchController extends Controller
         
         return view('search', [
             'title' => 'Cari Pegawai',
-            'pegawai' => $user_search->paginate(10),
+            'pegawai' => $user_search->paginate(10)->withQueryString(),
         ]);
     }
     
