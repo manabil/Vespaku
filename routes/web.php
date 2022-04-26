@@ -67,14 +67,14 @@ Route::post('/dashboard/profile/update', [ProfileController::class, 'update']);
 
 // *=============== Dashboard ============*
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
-Route::resource('/dashboard/pangkat', PangkatUserController::class)->middleware('auth')->parameters(['pangkat' => 'pangkat:slug']);
-Route::resource('/dashboard/jabatan', JabatanUserController::class)->middleware('auth')->parameters(['jabatan' => 'jabatan:slug']);
+Route::resource('/dashboard/pangkat', PangkatUserController::class)->middleware('auth')->parameters(['pangkat' => 'pangkat:slug'])->except('index');
+Route::resource('/dashboard/jabatan', JabatanUserController::class)->middleware('auth')->parameters(['jabatan' => 'jabatan:slug'])->except('index');
 
 
 // *=============== Administrator ============*
-Route::resource('/user', UserController::class)->middleware('auth')->parameters(['user' => 'user:username']);
-Route::resource('/pangkat', PangkatController::class)->middleware('auth')->parameters(['pangkat' => 'pangkats:slug']);
-Route::resource('/jabatan', JabatanController::class)->middleware('auth')->parameters(['jabatan' => 'jabatans:slug']);
+Route::resource('/user', UserController::class)->middleware('admin')->parameters(['user' => 'user:username'])->except(['create', 'store', 'edit']);
+Route::resource('/pangkat', PangkatController::class)->middleware('admin')->parameters(['pangkat' => 'pangkats:slug'])->except('show');
+Route::resource('/jabatan', JabatanController::class)->middleware('admin')->parameters(['jabatan' => 'jabatans:slug'])->except('show');
 
 
 // *=============== Request ============*
