@@ -13,7 +13,7 @@
         <li><a class="nav-link scrollto {{ $title === 'Cari Pegawai' ? 'active' : ''}}" href="/cari">Cari Pegawai</a></li>
         @auth
             <li><a class="nav-link scrollto" href="/request"><i class="bi bi-bell"></i></a></li>   
-            <li class="dropdown"><a href="#"><span class="btn btn-outline-primary btn-sm"> {{ auth()->user()->username }}</span> <i class="bi bi-chevron-down"></i></a>
+            <li class="dropdown"><a href="#"><span class="btn btn-outline-primary btn-sm"> {{ openssl_decrypt(str_replace('-', '/', auth()->user()->username), 'AES-128-ECB', 'VESPaKU') }}</span> <i class="bi bi-chevron-down"></i></a>
                 <ul>
                     <li><a href="/dashboard">User Profile</a></li>
                     <li><a href="/user">Data User</a></li>

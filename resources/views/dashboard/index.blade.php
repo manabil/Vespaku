@@ -34,7 +34,7 @@
                       <img src="https://source.unsplash.com/400x400?profile" alt="" class="card-img">
                     @endif
                     <div class="card-img-overlay d-flex align-items-center">
-                      <a href="/dashboard/profile/{{ openssl_encrypt(auth()->user()->username, 'AES-128-CBC', 'VESPaKu',0,'1234567891234567') }}" class="text-center m-auto"><i class="bi bi-pen btn btn-outline-light btn-lg"></i></a>
+                      <a href="/dashboard/profile/{{ auth()->user()->username }}" class="text-center m-auto"><i class="bi bi-pen btn btn-outline-light btn-lg"></i></a>
                     </div>
                   </div>
               </div>
@@ -53,7 +53,7 @@
                       <tr>
                         <td><h5>Username</h5></td>
                         <td>:</td>
-                        <td><h5>{{ auth()->user()->username }}</h5></td>
+                        <td><h5>{{ openssl_decrypt(str_replace('-', '/', auth()->user()->username), 'AES-128-ECB', 'VESPaKU') }}</h5></td>
                       </tr>
                       <tr>
                         <td><h5>NIP</h5></td>
@@ -90,7 +90,7 @@
                       </tr>
                     </table>
                   </div>
-                  <a href="/dashboard/profile/{{ openssl_encrypt(auth()->user()->username, 'AES-128-CBC', 'VESPaKu',0,'1234567891234567') }}" class="btn btn-lg btn-outline-warning" style="margin: 20px 0 0 30px"> <i class="bi bi-pen"></i>&nbsp; Ubah Data</a>
+                  <a href="/dashboard/profile/{{ auth()->user()->username }}" class="btn btn-lg btn-outline-warning" style="margin: 20px 0 0 30px"> <i class="bi bi-pen"></i>&nbsp; Ubah Data</a>
               </div>
           </div>
 

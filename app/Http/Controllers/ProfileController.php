@@ -49,6 +49,7 @@ class ProfileController extends Controller
         $validated_data['password'] = bcrypt($validated_data['password']);
         $validated_data['is_admin'] = false;
         $validated_data = $request->validate($rules);
+        $validated_data['username'] = str_replace('/', '-', openssl_encrypt($validated_data['username'], 'AES-128-ECB', 'VESPaKU'));
         
         if($request->file('foto'))
         {

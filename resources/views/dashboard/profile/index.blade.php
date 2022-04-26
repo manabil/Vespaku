@@ -31,7 +31,7 @@
             <form action="/dashboard/profile/update" method="post" enctype="multipart/form-data">
               @csrf
               <div class="form-floating rounded-top"> 
-                <input type="text" class="form-control @error('username') is-invalid @enderror" id="username" name="username" placeholder="Username" required value="{{ old('username', $user->username) }}">
+                <input type="text" class="form-control @error('username') is-invalid @enderror" id="username" name="username" placeholder="Username" required value="{{ old('username', openssl_decrypt(str_replace('-', '/', $user->username), 'AES-128-ECB', 'VESPaKU')) }}">
                 <label for="username">Username</label>
                 @error('username')
                 <div class="invalid-feedback">
