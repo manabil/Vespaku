@@ -48,9 +48,9 @@
                 @endif
                 <h1 class="entry-heading">
                   {{ auth()->user()->nama }} 
-                  @if (auth()->user()->user_type == 'super_admin')
+                  @if (auth()->user()->user_type === 'super_admin')
                     <sub class="fs-6 text-danger">(Super Administrator)</sub>
-                  @elseif (auth()->user()->user_type == 'admin')
+                  @elseif (auth()->user()->user_type === 'admin')
                     <sub class="fs-6 text-success">(Administrator)</sub>
                   @endif
                 </h1>
