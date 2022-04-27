@@ -84,9 +84,9 @@
                         <th><img src="{{ ($user->foto=='') ? 'https://source.unsplash.com/400x400?profile' : $user->foto }}" style="border-radius: 50%; width:60px; height:60px; object-fit: cover;" alt="{{ $user->nama }}"></th>
                         <td>
                           {{ $user->nama }} 
-                          @if ($user->user_type == 'super_admin')
+                          @if ($user->user_type === 'super_admin')
                             <br><sub class="fs-8 text-danger">(Super Administrator)</sub>
-                          @elseif ($user->user_type == 'admin')
+                          @elseif ($user->user_type === 'admin')
                             <br><sub class="fs-9 text-success">(Administrator)</sub>
                           @endif
                         </td>
@@ -96,13 +96,18 @@
                         <td>
                           <div class="container d-flex justify-content-center">
                             <a href="{{ $user->id == auth()->user()->id ? '/dashboard' : '/user/'. $user->username }}" class="btn btn-sm btn-outline-primary mx-1"><i class="bi bi-eye mx-0"></i></a>
-                            @can('super_admin', $user)
+                            @can('super_admin')
                               @if ($user->user_type === 'user')
                                 <form action="/user/{{ $user->username }}" method="post">
                                   @csrf
                                   @method('put')
                                   <input type="hidden" name="user_type" value="admin">
                                   <button class="btn btn-sm btn-outline-success mx-1"><i class="bi bi-person-check mx-0"></i></button>
+                                </form>
+                                <form action="/user/{{ $user->username }}" method="post">
+                                  @csrf
+                                  @method('delete')
+                                  <button class="btn btn-sm btn-outline-danger mx-1" onclick="return confirm('Apakah Anda yakin ingin menghapus ?')"><i class="bi bi-trash"></i></button>
                                 </form>
                               @elseif ($user->user_type === 'admin')
                                 <form action="/user/{{ $user->username }}" method="post">
@@ -111,13 +116,21 @@
                                   <input type="hidden" name="user_type" value="user">
                                   <button class="btn btn-sm btn-outline-dark mx-1"><i class="bi bi-person-dash mx-0"></i></button>
                                 </form>
+                                <form action="/user/{{ $user->username }}" method="post">
+                                  @csrf
+                                  @method('delete')
+                                  <button class="btn btn-sm btn-outline-danger mx-1" onclick="return confirm('Apakah Anda yakin ingin menghapus ?')"><i class="bi bi-trash"></i></button>
+                                </form>
+                              @endif
+                            @elsecan('admin')
+                              @if ($user->user_type === 'user')
+                                <form action="/user/{{ $user->username }}" method="post">
+                                  @csrf
+                                  @method('delete')
+                                  <button class="btn btn-sm btn-outline-danger mx-1" onclick="return confirm('Apakah Anda yakin ingin menghapus ?')"><i class="bi bi-trash"></i></button>
+                                </form>
                               @endif
                             @endcan
-                            <form action="/user/{{ $user->username }}" method="post">
-                              @csrf
-                              @method('delete')
-                              <button class="btn btn-sm btn-outline-danger mx-1" onclick="return confirm('Apakah Anda yakin ingin menghapus ?')"><i class="bi bi-trash"></i></button>
-                            </form>
                           </div>
                         </td>
                       </tr>
