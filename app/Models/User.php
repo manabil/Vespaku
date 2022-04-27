@@ -23,12 +23,19 @@ class User extends Authenticatable
         'updated_at',
     ];
 
-    public function pangkat() {
+    public function pangkat() 
+    {
         return $this->belongsToMany(Pangkat::class);
     }
     
-    public function jabatan() {
+    public function jabatan() 
+    {
         return $this->belongsToMany(Jabatan::class);
+    }
+
+    public function request()
+    {
+        return $this->hasMany(Request::class);
     }
 
 }

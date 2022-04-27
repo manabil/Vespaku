@@ -76,18 +76,26 @@
                         <td><h5>Pangkat</h5></td>
                         <td>:</td>
                         <td>
-                          @foreach ($pangkats->take(1) as $pangkat)
-                          <h5>{{ $pangkat->pangkat->nama }}</h5>
-                          @endforeach
+                          @if ($pangkats->isNotEmpty())
+                            @foreach ($pangkats->take(1) as $pangkat)
+                            <h5>{{ $pangkat->pangkat->nama }}</h5>
+                            @endforeach
+                          @else
+                            <h5 class="text-danger">Data Masih Kosong</h5>
+                          @endif
                         </td>
                       </tr>
                       <tr>
                         <td><h5>Jabatan</h5></td>
                         <td>:</td>
                         <td>
-                          @foreach ($jabatans->take(1) as $jabatan)
-                          <h5><strong>{{ $jabatan->jenis_jabatan->nama }}</strong> - {{ $jabatan->jabatan->nama }}</h5>
-                          @endforeach
+                          @if ($jabatans->isNotEmpty())
+                            @foreach ($jabatans->take(1) as $jabatan)
+                            <h5><strong>{{ $jabatan->jenis_jabatan->nama }}</strong> - {{ $jabatan->jabatan->nama }}</h5>
+                            @endforeach
+                          @else
+                            <h5 class="text-danger">Data Masih Kosong</h5>
+                          @endif
                         </td>
                       </tr>
                       <tr>
@@ -119,43 +127,47 @@
             </div>
           @endif
 
-          <div class="table-responsive">
-            <table class="table table-hover table-borderless entry-table ">
-              <thead>
-                <tr>
-                  <th scope="col">Keterangan</th>
-                  <th scope="col">Tahun</th>
-                  <th scope="col">No. SK</th>
-                  <th scope="col">Tanggal Ditambah</th>
-                  <th scope="col">Tanggal Diubah</th>
-                  <th scope="col">Aksi</th>
-                </tr>
-              </thead>
-                <tbody>
-                  @foreach ($pangkats as $pangkat)
+          @if ($pangkats->isNotEmpty())
+            <div class="table-responsive">
+              <table class="table table-hover table-borderless entry-table ">
+                <thead>
                   <tr>
-                      <th scope="row">{{ $pangkat->pangkat->nama }}</th>
-                      <td>{{ date('Y',strtotime($pangkat->tmt)) }}</td>
-                      <td>{{ $pangkat->no_surat_keterangan }}</td>
-                      <td>{{ $pangkat->created_at }}</td>
-                      <td>{{ $pangkat->updated_at->diffForHumans() }}</td>
-                      <td>
-                        <div class="container d-flex justify-content-center">
-                            <a href="/dashboard/pangkat/{{ $pangkat->slug }}" class="btn btn-sm btn-outline-primary mx-1"><i class="bi bi-eye mx-0"></i></a>
-                            <a href="{{ asset('storage/' . $pangkat->surat_keterangan) }}" class="btn btn-sm btn-outline-success mx-1"><i class="bi bi-download mx-0"></i></a>
-                            <a href="/dashboard/pangkat/{{ $pangkat->slug }}/edit" class="btn btn-sm btn-outline-warning mx-1"><i class="bi bi-pen mx-0"></i></a>
-                            <form action="/dashboard/pangkat/{{ $pangkat->slug }}" method="post">
-                              @csrf
-                              @method('delete')
-                              <button class="btn btn-sm btn-outline-danger mx-1" onclick="return confirm('Apakah Anda yakin ingin menghapus ?')"><i class="bi bi-trash"></i></button>
-                            </form>
-                        </div>
-                      </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
-          </div>
+                    <th scope="col">Keterangan</th>
+                    <th scope="col">Tahun</th>
+                    <th scope="col">No. SK</th>
+                    <th scope="col">Tanggal Ditambah</th>
+                    <th scope="col">Tanggal Diubah</th>
+                    <th scope="col">Aksi</th>
+                  </tr>
+                </thead>
+                  <tbody>
+                    @foreach ($pangkats as $pangkat)
+                    <tr>
+                        <th scope="row">{{ $pangkat->pangkat->nama }}</th>
+                        <td>{{ date('Y',strtotime($pangkat->tmt)) }}</td>
+                        <td>{{ $pangkat->no_surat_keterangan }}</td>
+                        <td>{{ $pangkat->created_at }}</td>
+                        <td>{{ $pangkat->updated_at->diffForHumans() }}</td>
+                        <td>
+                          <div class="container d-flex justify-content-center">
+                              <a href="/dashboard/pangkat/{{ $pangkat->slug }}" class="btn btn-sm btn-outline-primary mx-1"><i class="bi bi-eye mx-0"></i></a>
+                              <a href="{{ asset('storage/' . $pangkat->surat_keterangan) }}" class="btn btn-sm btn-outline-success mx-1"><i class="bi bi-download mx-0"></i></a>
+                              <a href="/dashboard/pangkat/{{ $pangkat->slug }}/edit" class="btn btn-sm btn-outline-warning mx-1"><i class="bi bi-pen mx-0"></i></a>
+                              <form action="/dashboard/pangkat/{{ $pangkat->slug }}" method="post">
+                                @csrf
+                                @method('delete')
+                                <button class="btn btn-sm btn-outline-danger mx-1" onclick="return confirm('Apakah Anda yakin ingin menghapus ?')"><i class="bi bi-trash"></i></button>
+                              </form>
+                          </div>
+                        </td>
+                      </tr>
+                      @endforeach
+                  </tbody>
+              </table>
+            </div>
+          @else
+            <p class="text-danger">Data Masih Kosong. Silahkan Isi Pangkat Terlebih Dahulu</p>
+          @endif
 
           <a href="/dashboard/pangkat/create" class="btn btn-lg btn-outline-success" style="margin: 0 0 10px 0"> <i class="bi bi-plus"></i>&nbsp; Tambah Pangkat</a>
           
@@ -163,59 +175,63 @@
             <a href="blog-single.html">Daftar Jabatan</a>
           </h2>
 
-          <div class="table-responsive">
-            @if (session()->has('alert_jabatan'))
-              <div class="alert alert-success alert-dismissible fade show" role="alert">
-                <i class="bi bi-check-circle-fill"></i>&nbsp;
-                {{ session('alert_jabatan') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-              </div>
-            @elseif (session()->has('jabatan_dihapus'))
-              <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                <i class="bi bi-check-circle-fill"></i>&nbsp;
-                {{ session('jabatan_dihapus') }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-              </div>
-            @endif
+          @if ($jabatans->isNotEmpty())
+            <div class="table-responsive">
+              @if (session()->has('alert_jabatan'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                  <i class="bi bi-check-circle-fill"></i>&nbsp;
+                  {{ session('alert_jabatan') }}
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+              @elseif (session()->has('jabatan_dihapus'))
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                  <i class="bi bi-check-circle-fill"></i>&nbsp;
+                  {{ session('jabatan_dihapus') }}
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+              @endif
 
-            <table class="table table-hover table-borderless entry-table ">
-              <thead>
-                <tr>
-                  <th scope="col">Jabatan</th>
-                  <th scope="col">Jenis Jabatan</th>
-                  <th scope="col">Tahun</th>
-                  <th scope="col">No. SK</th>
-                  <th scope="col">Tanggal Ditambah</th>
-                  <th scope="col">Tanggal Diubah</th>
-                  <th scope="col">Aksi</th>
-                </tr>
-              </thead>
-                <tbody>
-                  @foreach ($jabatans as $jabatan)
+              <table class="table table-hover table-borderless entry-table ">
+                <thead>
                   <tr>
-                      <th scope="row">{{ $jabatan->jabatan->nama }}</th>
-                      <td>{{ $jabatan->jenis_jabatan->nama }}</td>
-                      <td>{{ date('Y',strtotime($jabatan->tmt)) }}</td>
-                      <td>{{ $jabatan->no_surat_keterangan }}</td>
-                      <td>{{ $jabatan->created_at }}</td>
-                      <td>{{ $jabatan->updated_at->diffForHumans() }}</td>
-                      <td>
-                        <div class="container d-flex justify-content-center">
-                            <a href="/dashboard/jabatan/{{ $jabatan->slug }}" class="btn btn-sm btn-outline-primary mx-1"><i class="bi bi-eye mx-0"></i></a>
-                            <a href="{{ asset('storage/' . $jabatan->surat_keterangan) }}" class="btn btn-sm btn-outline-success mx-1"><i class="bi bi-download mx-0"></i></a>
-                            <a href="/dashboard/jabatan/{{ $jabatan->slug }}/edit" class="btn btn-sm btn-outline-warning mx-1"><i class="bi bi-pen mx-0"></i></a>
-                            <form action="/dashboard/jabatan/{{ $jabatan->slug }}" method="post">
-                              @csrf
-                              @method('delete')
-                              <button class="btn btn-sm btn-outline-danger mx-1" onclick="return confirm('Apakah anda yakin akan menghapus')"><i class="bi bi-trash mx-0"></i></button>
-                            </form>
-                        </div>
-                      </td>
-                    </tr>
-                  @endforeach
-                </tbody>
-            </table>
-          </div>
+                    <th scope="col">Jabatan</th>
+                    <th scope="col">Jenis Jabatan</th>
+                    <th scope="col">Tahun</th>
+                    <th scope="col">No. SK</th>
+                    <th scope="col">Tanggal Ditambah</th>
+                    <th scope="col">Tanggal Diubah</th>
+                    <th scope="col">Aksi</th>
+                  </tr>
+                </thead>
+                  <tbody>
+                    @foreach ($jabatans as $jabatan)
+                    <tr>
+                        <th scope="row">{{ $jabatan->jabatan->nama }}</th>
+                        <td>{{ $jabatan->jenis_jabatan->nama }}</td>
+                        <td>{{ date('Y',strtotime($jabatan->tmt)) }}</td>
+                        <td>{{ $jabatan->no_surat_keterangan }}</td>
+                        <td>{{ $jabatan->created_at }}</td>
+                        <td>{{ $jabatan->updated_at->diffForHumans() }}</td>
+                        <td>
+                          <div class="container d-flex justify-content-center">
+                              <a href="/dashboard/jabatan/{{ $jabatan->slug }}" class="btn btn-sm btn-outline-primary mx-1"><i class="bi bi-eye mx-0"></i></a>
+                              <a href="{{ asset('storage/' . $jabatan->surat_keterangan) }}" class="btn btn-sm btn-outline-success mx-1"><i class="bi bi-download mx-0"></i></a>
+                              <a href="/dashboard/jabatan/{{ $jabatan->slug }}/edit" class="btn btn-sm btn-outline-warning mx-1"><i class="bi bi-pen mx-0"></i></a>
+                              <form action="/dashboard/jabatan/{{ $jabatan->slug }}" method="post">
+                                @csrf
+                                @method('delete')
+                                <button class="btn btn-sm btn-outline-danger mx-1" onclick="return confirm('Apakah anda yakin akan menghapus')"><i class="bi bi-trash mx-0"></i></button>
+                              </form>
+                          </div>
+                        </td>
+                      </tr>
+                    @endforeach
+                  </tbody>
+              </table>
+            </div>
+          @else
+          <p class="text-danger">Data Masih Kosong. Silahkan Isi Jabatan Terlebih Dahulu</p>
+          @endif
 
           <a href="/dashboard/jabatan/create" class="btn btn-lg btn-outline-success" style="margin: 0 0 10px 0"> <i class="bi bi-plus"></i>&nbsp; Tambah Jabatan</a>
 

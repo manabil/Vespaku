@@ -16,7 +16,7 @@
             <li class="dropdown"><a href="#"><span class="btn btn-outline-primary btn-sm"> {{ openssl_decrypt(str_replace('-', '/', auth()->user()->username), 'AES-128-ECB', 'VESPaKU') }}</span> <i class="bi bi-chevron-down"></i></a>
                 <ul>
                     <li><a href="/dashboard">User Profile</a></li>
-                    @can('admin')
+                    @canany(['admin', 'super_admin'])
                         <li><a href="/user">Data User</a></li>
                         <li><a href="/pangkat">Data Pangkat</a></li>
                         <li><a href="/jabatan">Data Jabatan</a></li>

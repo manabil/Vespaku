@@ -84,7 +84,7 @@
                 @enderror
               </div>
               <div class="form-floating">
-                <input class="form-control @error('foto') is-invalid @enderror" style="padding: 27px 0 20px 25px;" type="file" name="foto" id="foto" onchange="previewImage()">
+                <input class="form-control @error('foto') is-invalid @enderror" style="padding: 27px 0 20px 25px;" type="file" name="foto" id="foto" required onchange="previewImage()">
                 <label for="foto" style="padding: 0.6rem .75rem;">Foto Profile</label>
                 @error('foto')
                 <div class="invalid-feedback">

@@ -112,12 +112,15 @@
                                   <button class="btn btn-sm btn-outline-dark mx-1"><i class="bi bi-person-dash mx-0"></i></button>
                                 </form>
                               @endif
+                            @elsecan ('admin')
+                              @if ($user->user_type === 'user')
+                                <form action="/user/{{ $user->username }}" method="post">
+                                  @csrf
+                                  @method('delete')
+                                  <button class="btn btn-sm btn-outline-danger mx-1" onclick="return confirm('Apakah Anda yakin ingin menghapus ?')"><i class="bi bi-trash"></i></button>
+                                </form>
+                              @endif
                             @endcan
-                            <form action="/user/{{ $user->username }}" method="post">
-                              @csrf
-                              @method('delete')
-                              <button class="btn btn-sm btn-outline-danger mx-1" onclick="return confirm('Apakah Anda yakin ingin menghapus ?')"><i class="bi bi-trash"></i></button>
-                            </form>
                           </div>
                         </td>
                       </tr>

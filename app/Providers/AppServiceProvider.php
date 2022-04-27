@@ -37,5 +37,10 @@ class AppServiceProvider extends ServiceProvider
         {
             return $user->user_type === 'super_admin';
         });
+
+        Gate::define('owners', function (User $user)
+        {
+            //
+        });
     }
 }

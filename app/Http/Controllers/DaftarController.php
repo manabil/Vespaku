@@ -21,6 +21,7 @@ class DaftarController extends Controller
                     'password' => 'required|min:5',
                     'email' => 'required|email:dns|unique:users',
                     'tanggal_lahir' => 'required',
+                    'foto' => 'required|image|max:2048'
                     ];
 
         if($request->file('foto'))
@@ -32,7 +33,8 @@ class DaftarController extends Controller
         $data_request['password'] = bcrypt($data_request['password']);
         
         $validated_data = $data_request->validate($rules);
-        $validated_data['is_admin'] = false;
+        $validated_data['username'] = str_replace('/', '-', openssl_encrypt($validated_data['username'], 'AES-128-ECB', 'VESPaKU'));
+        $validated_data['user_type'] = 'user';
         
         if($request->file('foto'))
         {
