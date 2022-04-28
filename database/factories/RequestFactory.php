@@ -18,15 +18,21 @@ class RequestFactory extends Factory
     public function definition()
     {
         $users = User::all();
-        $aksi = ['proses', 'terima', 'tolak'];
+        $action = ['proses', 'terima', 'tolak'];
         $peminta = $users->random()->id;
+        $valid_id = array_diff($users->pluck('id')->toArray(), [$peminta]);
+        $pemberi = $valid_id[array_rand($valid_id)];
+        $aksi = $this->faker->randomElement($action);
+        $is_downloaded = ($aksi === 'terima') ? $this->faker->boolean(40) : false;
         
         return [
             'user_id' => $peminta,
-            'user_tujuan' => $this->faker->randomDigitNotNull($peminta),
+            'user_tujuan' => $pemberi,
             'request_file' => 'surat_keterangan',
-            'tanggal_aksi' => now(),
-            'aksi' => $this->faker->randomElement($aksi),
+            'tanggal_aksi' => $this->faker->dateTimeInInterval('-1 years', '+7 days'),
+            'aksi' => $aksi,
+            'token' => ($aksi === 'terima') ? md5($this->faker->dateTimeBetween('-1 years')->format('Y-n-j_G:i:s')) : '',
+            'is_downloaded' => $is_downloaded
         ];
     }
 }

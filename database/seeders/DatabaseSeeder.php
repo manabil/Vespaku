@@ -152,6 +152,11 @@ class DatabaseSeeder extends Seeder
                 'updated_at' => now(),
             ]);
         }
+        
+        //*===========================
+        //* Request Seeder
+        //*===========================
+        Request::factory(50)->create();
 
     }
 }

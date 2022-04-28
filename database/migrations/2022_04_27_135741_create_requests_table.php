@@ -22,6 +22,8 @@ return new class extends Migration
             $table->string('request_file');
             $table->dateTime('tanggal_aksi');
             $table->string('aksi');
+            $table->string('token');
+            $table->boolean('is_downloaded');
             $table->timestamps();
         });
     }
