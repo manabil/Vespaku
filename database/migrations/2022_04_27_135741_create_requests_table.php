@@ -3,7 +3,6 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use App\Models\User;
 
 return new class extends Migration
 {
@@ -22,7 +21,9 @@ return new class extends Migration
             $table->string('request_file');
             $table->dateTime('tanggal_aksi');
             $table->string('aksi');
-            $table->string('token');
+            $table->string('token', 20);
+            $table->string('surat_keterangan', 100)->default('surat_keterangan_pangkat/default.pdf');
+            $table->string('slug', 75)->nullable();
             $table->boolean('is_downloaded');
             $table->timestamps();
         });
