@@ -30,7 +30,7 @@
             <form action="/daftar" method="post" enctype="multipart/form-data">
               @csrf
               <div class="form-floating rounded-top"> 
-                <input type="text" class="form-control @error('username') is-invalid @enderror" id="username" name="username" placeholder="Username" required value="{{ old('username') }}">
+                <input type="text" class="form-control @error('username') is-invalid @enderror" id="username" name="username" placeholder="Username" required value="{{ old('username') }}" autofocus>
                 <label for="username">Username</label>
                 @error('username')
                 <div class="invalid-feedback">
