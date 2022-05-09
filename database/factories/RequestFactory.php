@@ -4,6 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use App\Models\User;
+use Illuminate\Support\Str;
 
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\=Request>
@@ -31,7 +32,7 @@ class RequestFactory extends Factory
             'request_file' => 'surat_keterangan',
             'tanggal_aksi' => $this->faker->dateTimeInInterval('-1 years', '+7 days'),
             'aksi' => $aksi,
-            'token' => ($aksi === 'terima') ? md5($this->faker->dateTimeBetween('-1 years')->format('Y-n-j_G:i:s')) : '',
+            'token' => ($aksi === 'terima') ? Str::random(20) : '',
             'is_downloaded' => $is_downloaded
         ];
     }
