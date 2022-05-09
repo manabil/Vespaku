@@ -46,18 +46,27 @@
                         <td><h5>Pangkat</h5></td>
                         <td>:</td>
                         <td>
-                          @foreach ($pangkats->take(1) as $pangkat)
-                          <h5>{{ $pangkat->pangkat->nama }}</h5>
-                          @endforeach
+                          @if ($pangkats->isNotEmpty())
+                            @foreach ($pangkats->take(1) as $pangkat)
+                            <h5>{{ $pangkat->pangkat->nama }}</h5>
+                            @endforeach
+                          @else
+                            <h5 class="text-danger">Data Masih Kosong</h5>
+                          @endif
                         </td>
+                        
                       </tr>
                       <tr>
                         <td><h5>Jabatan</h5></td>
                         <td>:</td>
                         <td>
-                          @foreach ($jabatans->take(1) as $jabatan)
-                          <h5><strong>{{ $jabatan->jenis_jabatan->nama }}</strong> - {{ $jabatan->jabatan->nama }}</h5>
-                          @endforeach
+                          @if ($jabatans->isNotEmpty())
+                            @foreach ($jabatans->take(1) as $jabatan)
+                            <h5><strong>{{ $jabatan->jenis_jabatan->nama }}</strong> - {{ $jabatan->jabatan->nama }}</h5>
+                            @endforeach
+                          @else
+                            <h5 class="text-danger">Data Masih Kosong</h5>
+                          @endif
                         </td>
                       </tr>
                       <tr>
@@ -75,67 +84,85 @@
             <a href="blog-single.html">Daftar Kepangkatan</a>
           </h2>
 
-          <div class="table-responsive">
-            <table class="table table-hover table-borderless entry-table ">
-              <thead>
-                <tr>
-                  <th scope="col">Keterangan</th>
-                  <th scope="col">Tahun</th>
-                  <th scope="col">No. SK</th>
-                  <th scope="col">Tanggal Ditambah</th>
-                  <th scope="col">Diubah</th>
-                  <th scope="col">Aksi</th>
-                </tr>
-              </thead>
-                <tbody>
-                  @foreach ($pangkats as $pangkat)
+          @if ($pangkats->isNotEmpty())
+            <div class="table-responsive">
+              <table class="table table-hover table-borderless entry-table ">
+                <thead>
                   <tr>
-                      <th scope="row">{{ $pangkat->pangkat->nama }}</th>
-                      <td>{{ date('Y', strtotime($pangkat->tmt)) }}</td>
-                      <td>{{ $pangkat->no_surat_keterangan }}</td>
-                      <td>{{ $pangkat->created_at }}</td>
-                      <td>{{ $pangkat->updated_at->diffForHumans() }}</td>
-                      <td>
-                        <a href="" class="btn btn-sm btn-outline-primary"><i class="bi bi-download"></i>&nbsp; Unduh</a>
-                      </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
-          </div>
-          
-          <h2 class="entry-title">
-            <a href="blog-single.html">Daftar Jabatan</a>
-          </h2>
-
-          <div class="table-responsive">
-            <table class="table table-hover table-borderless entry-table ">
-              <thead>
-                <tr>
-                  <th scope="col">Keterangan</th>
-                  <th scope="col">Tahun</th>
-                  <th scope="col">No. SK</th>
-                  <th scope="col">Tanggal Ditambah</th>
-                  <th scope="col">Diubah</th>
-                  <th scope="col">Aksi</th>
-                </tr>
-              </thead>
-                <tbody>
-                  @foreach ($jabatans as $jabatan)
+                    <th scope="col">Keterangan</th>
+                    <th scope="col">Tahun</th>
+                    <th scope="col">No. SK</th>
+                    <th scope="col">Tanggal Ditambah</th>
+                    <th scope="col">Diubah</th>
+                    <th scope="col">Aksi</th>
+                  </tr>
+                </thead>
+                  <tbody>
+                    @foreach ($pangkats as $pangkat)
+                    <tr>
+                        <th scope="row">{{ $pangkat->pangkat->nama }}</th>
+                        <td>{{ date('Y', strtotime($pangkat->tmt)) }}</td>
+                        <td>{{ $pangkat->no_surat_keterangan }}</td>
+                        <td>{{ $pangkat->created_at }}</td>
+                        <td>{{ $pangkat->updated_at->diffForHumans() }}</td>
+                        <td>
+                          <form action="{{ '/cari/'.$pangkat->slug.'/request' }}" method="post">
+                            @csrf
+                            <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+                            <input type="hidden" name="owner" value="{{ $pegawai->id }}">
+                            <input type="hidden" name="request_file" value="{{ $pangkat->pangkat->nama }}">
+                            <input type="hidden" name="tanggal_aksi" value="{{ now() }}">
+                            <input type="hidden" name="aksi" value="proses">
+                            <input type="hidden" name="token" value="">
+                            <input type="hidden" name="is_downloaded" value="0">
+                            <button class="btn btn-sm btn-outline-primary"><i class="bi bi-download"></i>&nbsp; Unduh</button>
+                          </form>
+                        </td>
+                      </tr>
+                      @endforeach
+                  </tbody>
+              </table>
+            </div>
+          @else
+            <p class="text-danger">Data Masih Kosong.</p>
+            @endif
+            
+            <h2 class="entry-title">
+              <a href="blog-single.html">Daftar Jabatan</a>
+            </h2>
+            
+          @if ($jabatans->isNotEmpty())
+            <div class="table-responsive">
+              <table class="table table-hover table-borderless entry-table ">
+                <thead>
                   <tr>
-                      <th scope="row">{{ $jabatan->jabatan->nama }}</th>
-                      <td>{{ date('Y', strtotime($jabatan->tmt)) }}</td>
-                      <td>{{ $jabatan->no_surat_keterangan }}</td>
-                      <td>{{ $jabatan->created_at }}</td>
-                      <td>{{ $jabatan->updated_at->diffForHumans() }}</td>
-                      <td>
-                        <a href="" class="btn btn-sm btn-outline-primary"><i class="bi bi-download"></i>&nbsp; Unduh</a>
-                      </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
-          </div>
+                    <th scope="col">Keterangan</th>
+                    <th scope="col">Tahun</th>
+                    <th scope="col">No. SK</th>
+                    <th scope="col">Tanggal Ditambah</th>
+                    <th scope="col">Diubah</th>
+                    <th scope="col">Aksi</th>
+                  </tr>
+                </thead>
+                  <tbody>
+                    @foreach ($jabatans as $jabatan)
+                    <tr>
+                        <th scope="row">{{ $jabatan->jabatan->nama }}</th>
+                        <td>{{ date('Y', strtotime($jabatan->tmt)) }}</td>
+                        <td>{{ $jabatan->no_surat_keterangan }}</td>
+                        <td>{{ $jabatan->created_at }}</td>
+                        <td>{{ $jabatan->updated_at->diffForHumans() }}</td>
+                        <td>
+                          <a href="" class="btn btn-sm btn-outline-primary"><i class="bi bi-download"></i>&nbsp; Unduh</a>
+                        </td>
+                      </tr>
+                      @endforeach
+                  </tbody>
+              </table>
+            </div>
+          @else
+            <p class="text-danger">Data Masih Kosong.</p>
+          @endif
 
         </article><!-- End blog entry -->
 
