@@ -51,7 +51,7 @@ class JabatanUserController extends Controller
         ]);
         
         $validatedData['user_id'] = auth()->user()->id;
-        $validatedData['slug'] = str_replace('/', '', bcrypt(str_replace(['-',' ', ':', '.'], '', now()->toDateTimeString())));
+        $validatedData['slug'] = str_replace(['/', '.'], '', bcrypt(str_replace(['-',' ', ':', '.'], '', now()->toDateTimeString())));
         
         $unavailableJabatan = JabatanUser:: where('user_id', auth()->user()->id)
                                             ->where('jabatan_id', $validatedData['jabatan_id'])
