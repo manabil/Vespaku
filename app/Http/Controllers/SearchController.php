@@ -40,4 +40,8 @@ class SearchController extends Controller
             'pangkats' => PangkatUser::with(['user', 'pangkat'])->latest()->where('user_id', $user->id)->get()
         ]);
     }
+
+    public function request(PangkatUser $pangkat, Request $request){
+        return $request;
+    }
 }
