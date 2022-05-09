@@ -42,6 +42,7 @@ class SearchController extends Controller
     }
 
     public function request(PangkatUser $pangkat, Request $request){
-        return $request;
+        Request::create($request);
+        return back();
     }
 }

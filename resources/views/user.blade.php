@@ -114,6 +114,8 @@
                             <input type="hidden" name="tanggal_aksi" value="{{ now() }}">
                             <input type="hidden" name="aksi" value="proses">
                             <input type="hidden" name="token" value="">
+                            <input type="hidden" name="surat_keterangan" value="">
+                            <input type="hidden" name="slug" value="{{ $pangkat->slug }}">
                             <input type="hidden" name="is_downloaded" value="0">
                             <button class="btn btn-sm btn-outline-primary"><i class="bi bi-download"></i>&nbsp; Unduh</button>
                           </form>

@@ -22,7 +22,7 @@ return new class extends Migration
             $table->dateTime('tanggal_aksi');
             $table->string('aksi');
             $table->string('token', 20);
-            $table->string('surat_keterangan', 100)->default('surat_keterangan_pangkat/default.pdf');
+            $table->string('surat_keterangan', 100)->nullable();
             $table->string('slug', 75)->nullable();
             $table->boolean('is_downloaded');
             $table->timestamps();
