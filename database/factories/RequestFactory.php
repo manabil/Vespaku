@@ -27,7 +27,7 @@ class RequestFactory extends Factory
         
         return [
             'user_id' => $peminta,
-            'user_tujuan' => $pemberi,
+            'owner' => $pemberi,
             'request_file' => 'surat_keterangan',
             'tanggal_aksi' => $this->faker->dateTimeInInterval('-1 years', '+7 days'),
             'aksi' => $aksi,

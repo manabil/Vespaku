@@ -47,11 +47,6 @@
                         <td><h5>{{ $jabatan->no_surat_keterangan }}</h5></td>
                       </tr>
                       <tr>
-                        <td><h5>Surat Keterangan</h5></td>
-                        <td>:</td>
-                        <td><h5>{{ $jabatan->surat_keterangan }}</h5></td>
-                      </tr>
-                      <tr>
                         <td><h5>Ditambah Pada Tanggal</h5></td>
                         <td>:</td>
                         <td><h5>{{ $jabatan->created_at }}</h5></td>
@@ -63,6 +58,13 @@
                       </tr>
                     </table>
                 </div>
+
+                <div class="container">
+                  <div class="my-4 d-flex justify-content-center">
+                    <embed src="{{ asset('storage/' . $jabatan->surat_keterangan) }}" type="application/pdf" frameBorder="0" scrolling="auto" height="600px" width="75%"></embed>
+                  </div>
+                </div>
+
                 <div class="mt-5">
                   <div class="col mx-2 my-2" style="float: right">
                     <form action="/dashboard/jabatan/{{ $jabatan->id }}" method="post">
@@ -75,7 +77,7 @@
                     <a href="" class="btn btn-outline-primary btn-md"><i class="bi bi-download"></i>&nbsp; Download</a>
                   </div>
                   <div class="col mx-2 my-2" style="float: right">
-                    <a href="/dashboard/jabatan/{{ $jabatan->id }}/edit" class="btn btn-outline-warning btn-md"><i class="bi bi-pen"></i>&nbsp; Ubah</a>
+                    <a href="/dashboard/jabatan/{{ $jabatan->slug }}/edit" class="btn btn-outline-warning btn-md"><i class="bi bi-pen"></i>&nbsp; Ubah</a>
                   </div>
                 </div>
           </div>

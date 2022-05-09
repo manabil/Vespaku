@@ -66,7 +66,7 @@
                 @foreach ($pegawai as $p)
                   <tbody>
                     <tr>
-                      <th scope="row" class="no"><img src="{{ ($p->foto=='') ? 'https://source.unsplash.com/400x400?profile' : $p->foto }}" style="border-radius: 50%; width:60px; height:60px; object-fit: cover;" alt="{{ $p->nama }}"></th>
+                      <td scope="row" class="no"><img src="{{ ($p->foto=='') ? 'https://source.unsplash.com/400x400?profile' : $p->foto }}" style="border-radius: 50%; width:60px; height:60px; object-fit: cover;" alt="{{ $p->nama }}"></td>
                       <td>{{ $p->nama }}</td>
                       <td>{{ $p->jabatan->last()->nama }}</td>
                       <td>{{ $p->pangkat->last()->nama }}</td>

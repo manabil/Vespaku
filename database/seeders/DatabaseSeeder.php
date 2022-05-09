@@ -6,6 +6,7 @@ use App\Models\Jabatan;
 use App\Models\JenisJabatan;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Faker\Factory as Faker;
 use App\Models\User;
 use App\Models\Pangkat;
 use App\Models\Request;
@@ -22,6 +23,8 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $this->faker = Faker::create();
+        
         //*=====================
         //* Pegawai Seeder
         //*=====================
@@ -137,8 +140,9 @@ class DatabaseSeeder extends Seeder
         {
             $jabatan->update([
                 'jenis_jabatan_id' => JenisJabatan::all()->random()->id,
-                'created_at' => now(),
-                'updated_at' => now(),
+                'slug' => str_replace('/', '', bcrypt(str_replace(['-',' ', ':', '.'], '', $this->faker->dateTimeBetween('-1 years', 'now')->format('Y-m-d H:i:s')))),
+                'created_at' => $this->faker->dateTimeBetween('-1 years', 'now'),
+                'updated_at' => $this->faker->dateTimeInInterval('-1 years', '1 weeks'),
             ]);
         }
 
@@ -148,15 +152,16 @@ class DatabaseSeeder extends Seeder
         foreach (PangkatUser::all() as $pangkat) 
         {
             $pangkat->update([
-                'created_at' => now(),
-                'updated_at' => now(),
+                'slug' => str_replace('/', '', bcrypt(str_replace(['-',' ', ':', '.'], '', $this->faker->dateTimeBetween('-1 years', 'now')->format('Y-m-d H:i:s')))),
+                'created_at' => $this->faker->dateTimeBetween('-1 years', 'now'),
+                'updated_at' => $this->faker->dateTimeInInterval('-1 years', '1 weeks'),
             ]);
         }
         
         //*===========================
         //* Request Seeder
         //*===========================
-        Request::factory(50)->create();
+        Request::factory(75)->create();
 
     }
 }

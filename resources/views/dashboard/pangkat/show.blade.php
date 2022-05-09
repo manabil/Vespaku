@@ -71,7 +71,7 @@
                     <a href="" class="btn btn-outline-primary btn-md"><i class="bi bi-download"></i>&nbsp; Download</a>
                   </div>
                   <div class="col mx-2 my-2" style="float: right">
-                    <a href="/dashboard/pangkat/{{ $pangkat->id }}/edit" class="btn btn-outline-warning btn-md"><i class="bi bi-pen"></i>&nbsp; Ubah</a>
+                    <a href="/dashboard/pangkat/{{ $pangkat->slug }}/edit" class="btn btn-outline-warning btn-md"><i class="bi bi-pen"></i>&nbsp; Ubah</a>
                   </div>
                 </div>
           </div>

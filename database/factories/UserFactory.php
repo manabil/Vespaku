@@ -31,7 +31,7 @@ class UserFactory extends Factory
             'email' => $nama_clean . '@bpmpk.gov.id',
             'tanggal_lahir' => now(),
             'user_type' => $this->faker->randomElement($user_type),
-            'foto' => '',
+            'foto' => 'foto_profile/default.png',
         ];
     }
 

@@ -81,7 +81,7 @@
                   <tbody>
                     @foreach ($users as $user)
                     <tr>
-                        <th><img src="{{ ($user->foto=='') ? 'https://source.unsplash.com/400x400?profile' : $user->foto }}" style="border-radius: 50%; width:60px; height:60px; object-fit: cover;" alt="{{ $user->nama }}"></th>
+                        <td><img src="{{ ($user->foto=='') ? 'https://source.unsplash.com/400x400?profile' : $user->foto }}" style="border-radius: 50%; width:60px; height:60px; object-fit: cover;" alt="{{ $user->nama }}"></td>
                         <td>
                           {{ $user->nama }} 
                           @if ($user->user_type === 'super_admin')

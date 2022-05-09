@@ -9,7 +9,6 @@
   
     <nav id="navbar" class="navbar">
         <ul>
-        <li><a class="nav-link scrollto {{ $title === 'Home' ? 'active' : ''}}" href="/">Home</a></li>
         <li><a class="nav-link scrollto {{ $title === 'Cari Pegawai' ? 'active' : ''}}" href="/cari">Cari Pegawai</a></li>
         @auth
             <li><a class="nav-link scrollto" href="/request"><i class="bi bi-bell"></i></a></li>   

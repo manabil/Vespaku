@@ -29,7 +29,7 @@
           <div class="row">
             <div class="col-lg-4">
               <div class="entry-image">
-                <img src="https://source.unsplash.com/400x400?profile" alt="" class="img-fluid">
+                <img src="{{ asset('storage/' . $pegawai->foto) }}" alt="{{ $pegawai->nama }}" class="img-fluid">
               </div>
             </div>
             <div class="col-lg-8">

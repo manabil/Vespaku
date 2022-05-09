@@ -18,7 +18,7 @@ return new class extends Migration
         Schema::create('requests', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->string('user_tujuan');
+            $table->string('owner');
             $table->string('request_file');
             $table->dateTime('tanggal_aksi');
             $table->string('aksi');
