@@ -58,6 +58,7 @@ Route::post('/daftar', [DaftarController::class, 'add']);
 // *=============== Cari ===============*
 Route::get('/cari', [SearchController::class, 'index']);
 Route::get('/cari/{user:username}', [SearchController::class, 'pegawai'])->middleware('auth');
+Route::post('/cari/{pangkat:slug}/request', [SearchController::class, 'request'])->middleware('auth');
 
 
 // *=============== Profile ===============*
@@ -79,3 +80,5 @@ Route::resource('/jabatan', JabatanController::class)->middleware('admin')->para
 
 // *=============== Request ============*
 Route::get('/request', [RequestController::class, 'index'])->middleware('auth');
+Route::post('/request/accept', [RequestController::class, 'accept']);
+Route::post('/request/reject', [RequestController::class, 'reject']);
