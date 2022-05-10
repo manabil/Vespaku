@@ -34,7 +34,7 @@ Route::get('/', function () {
     $total_jabatan = Jabatan::all()->count();
     $total_pangkat = Pangkat::all()->count();
     $total_unduh = Jabatan::all()->count();
-    
+
     return view('home', [
         'title' => 'Home',
         'total_pegawai' => $total_pegawai,
@@ -47,7 +47,7 @@ Route::get('/', function () {
 // *=============== Login Route ===============*
 Route::get('/login', [LoginController::class, 'index'])->name('login')->middleware('guest');
 Route::post('/login', [LoginController::class, 'authenticate']);
-Route::post('/logout', [LoginController::class, 'logout']);	
+Route::post('/logout', [LoginController::class, 'logout']);
 
 
 // *=============== Daftar Route ===============*
@@ -80,5 +80,4 @@ Route::resource('/jabatan', JabatanController::class)->middleware('admin')->para
 
 // *=============== Request ============*
 Route::get('/request', [RequestController::class, 'index'])->middleware('auth');
-Route::post('/request/accept', [RequestController::class, 'accept']);
-Route::post('/request/reject', [RequestController::class, 'reject']);
+Route::post('/request/{pangkat:slug}', [RequestController::class, 'action']);

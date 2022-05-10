@@ -10,7 +10,8 @@ use Illuminate\Support\Str;
 
 class RequestController extends Controller
 {
-    public function index(User $user, PangkatUser $slug){
+    public function index()
+    {
         $get_request = RequestModel::where('owner', auth()->user()->id)->get();
         $set_request = RequestModel::where('user_id', auth()->user()->id)->get();
         $username = User::all();
@@ -25,16 +26,15 @@ class RequestController extends Controller
         ]);
     }
 
-    public function create(){
-
-    }
-
-    public function accept(Request $request){
-        RequestModel::create($request);
+    public function action(Request $request, PangkatUser $pangkat)
+    {
+        return $pangkat;
+        RequestModel::where('id', $pangkat->id)->update($validatedData);
         return redirect('/request')->with('request_accepted', 'Request diterima');
     }
-    
-    public function reject(Request $request){
+
+    public function reject(Request $request)
+    {
         RequestModel::create($request);
         return redirect('/request')->with('request_rejected', 'Request ditolak');
     }

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\JabatanUser;
 use App\Models\PangkatUser;
+use App\Models\Request as RequestModel;
 
 
 class SearchController extends Controller
@@ -14,8 +15,8 @@ class SearchController extends Controller
     {
         $user_search = User::with(['pangkat', 'jabatan']);
 
-        if(request('search')){
-            $search_user = User::with(['jabatan','pangkat'])->latest()->where('nama', 'LIKE', '%' . request('search') . '%')->get();
+        if (request('search')) {
+            $search_user = User::with(['jabatan', 'pangkat'])->latest()->where('nama', 'LIKE', '%' . request('search') . '%')->get();
             $searched_id = collect();
 
             foreach ($search_user as $user) {
@@ -24,13 +25,13 @@ class SearchController extends Controller
 
             $user_search = User::with(['pangkat', 'jabatan'])->latest()->whereIn('id', $searched_id);
         }
-        
+
         return view('search', [
             'title' => 'Cari Pegawai',
             'pegawai' => $user_search->paginate(10)->withQueryString(),
         ]);
     }
-    
+
     public function pegawai(User $user)
     {
         return view('user', [
@@ -41,8 +42,9 @@ class SearchController extends Controller
         ]);
     }
 
-    public function request(PangkatUser $pangkat, Request $request){
-        Request::create($request);
-        return back();
+    public function request(PangkatUser $pangkat, Request $request)
+    {
+        RequestModel::create($request->toArray());
+        return redirect('/request')->with('request_added', 'Request Berhasil Dibuat');
     }
 }

@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('request_file');
             $table->dateTime('tanggal_aksi');
             $table->string('aksi');
-            $table->string('token', 20);
+            $table->string('token', 20)->nullable();
             $table->string('surat_keterangan', 100)->nullable();
             $table->string('slug', 75)->nullable();
             $table->boolean('is_downloaded');

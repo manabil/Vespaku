@@ -1,3 +1,4 @@
+@dd($get_requests->first())
 @extends('layout.page')
 
 <!-- ======= Breadcrumbs ======= -->
@@ -29,7 +30,7 @@
             <a href="blog-single.html">Daftar Request</a>
           </h2>
 
-          @if ($get_requests->isNotEmpty())
+          @if ($get_requests->where('aksi', 'proses')->isNotEmpty())
             <div class="table-responsive">
 
               @if (session()->has('request_accepted'))
@@ -38,7 +39,7 @@
                   {{ session('request_accepted') }}
                   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
-              @else
+              @elseif (session()->has('request_rejected'))
                 <div class="alert alert-danger alert-dismissible fade show" role="alert">
                   <i class="bi bi-check-circle-fill"></i>&nbsp;
                   {{ session('request_rejected') }}
@@ -64,7 +65,7 @@
                             <td>{{ $request->request_file }}</td>
                             <td>{{ $request->created_at }}</td>
                             <td>
-                                <form action="request/accept" method="post" >
+                                <form action="{{ '/request/' . $request->slug }}" method="post" >
                                   @csrf
                                   <input type="hidden" name="user_id" value="{{ $request->user->id }}">
                                   <input type="hidden" name="owner" value="{{ auth()->user()->id }}">
@@ -75,7 +76,7 @@
                                   <input type="hidden" name="is_downloaded" value="0">
                                   <button class="btn btn-sm btn-outline-success mx-2"><i class="bi bi-check-square"></i>&nbsp; Terima</button>
                                 </form>
-                                <form action="request/reject" method="post">
+                                <form action="{{ '/request/' . $request->slug }}" method="post">
                                   @csrf
                                   <input type="hidden" name="user_id" value="{{ $request->user->id }}">
                                   <input type="hidden" name="owner" value="{{ auth()->user()->id }}">
@@ -94,7 +95,7 @@
               </table>
             </div>
           @else
-            <h5 class="text-danger">Tidak Ada Request Yang Masuk</h5>
+            <p class="text-danger">Tidak Ada Request Yang Masuk</p>
           @endif
           
           <h2 class="entry-title">
@@ -103,6 +104,13 @@
 
           @if ($set_requests->isNotEmpty())
             <div class="table-responsive">
+              @if (session()->has('request_added'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                  <i class="bi bi-check-circle-fill"></i>&nbsp;
+                  {{ session('request_added') }}
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+              @endif
               <table class="table table-hover table-borderless entry-table ">
                 <thead>
                   <tr>
