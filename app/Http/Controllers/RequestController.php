@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\JabatanUser;
 use App\Models\PangkatUser;
+use App\Models\Pangkat;
 use Illuminate\Http\Request;
 use App\Models\Request as RequestModel;
 use App\Models\User;
@@ -17,7 +19,7 @@ class RequestController extends Controller
         $username = User::all();
         $token = Str::random(20);
 
-        return view('request', [
+        return view('request.index', [
             'title' => 'Manajemen Request',
             'get_requests' => $get_request,
             'set_requests' => $set_request,
@@ -26,16 +28,39 @@ class RequestController extends Controller
         ]);
     }
 
-    public function action(Request $request, PangkatUser $pangkat)
+    public function create(PangkatUser $pangkat, JabatanUser $jabatan, Request $request)
     {
-        return $pangkat;
-        RequestModel::where('id', $pangkat->id)->update($validatedData);
+        return view('request.create', [
+            'title' => 'Request File',
+            'pangkat' => $pangkat,
+            'jabatan' => $jabatan,
+            'username' => $request->username
+        ]);
+    }
+
+    public function store(PangkatUser $pangkat, JabatanUser $jabatan, Request $request)
+    {
+        $request['tanggal_aksi'] = now();
+
+        RequestModel::create($request->toArray());
+        return redirect('/request')->with('request_added', 'Request Berhasil Dibuat');
+    }
+
+    public function update(Request $request, PangkatUser $pangkat)
+    {
+        $updated_request = array_slice($request->toArray(), 1, count($request->toArray()));
+        $updated_request['tanggal_aksi'] = now();
+
+        RequestModel::where('id', $request->id)->update($updated_request);
         return redirect('/request')->with('request_accepted', 'Request diterima');
     }
 
-    public function reject(Request $request)
+    public function token(PangkatUser $pangkat, JabatanUser $jabatan, Request $request)
     {
-        RequestModel::create($request);
-        return redirect('/request')->with('request_rejected', 'Request ditolak');
+        return view('request.token', [
+            'title' => 'Unduh File',
+            'pangkat' => $pangkat,
+            'username' => $request->username,
+        ]);
     }
 }

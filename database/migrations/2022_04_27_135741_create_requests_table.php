@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('token', 20)->nullable();
             $table->string('surat_keterangan', 100)->nullable();
             $table->string('slug', 75)->nullable();
+            $table->text('keterangan')->nullable();
             $table->boolean('is_downloaded');
             $table->timestamps();
         });

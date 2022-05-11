@@ -6,6 +6,8 @@ use Illuminate\Support\Facades\Gate;
 use App\Models\User;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator;
+use App\Models\PangkatUser;
+use App\Models\JabatanUser;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -28,18 +30,15 @@ class AppServiceProvider extends ServiceProvider
     {
         Paginator::useBootstrapFive();
 
-        Gate::define('admin', function (User $user)
-        {
+        Gate::define('admin', function (User $user) {
             return $user->user_type === 'admin';
         });
 
-        Gate::define('super_admin', function (User $user)
-        {
+        Gate::define('super_admin', function (User $user) {
             return $user->user_type === 'super_admin';
         });
 
-        Gate::define('owners', function (User $user)
-        {
+        Gate::define('owners', function (User $user) {
             //
         });
     }
