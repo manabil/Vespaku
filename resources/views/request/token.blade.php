@@ -42,8 +42,9 @@
 
           <main class="form-signin">
             <h1 class="h3 mb-3 fw-normal">Masukkan Token</h1>
-            <form action="/login" method="post">
+            <form action="/cari/{pangkat:slug}/token" method="post">
               @csrf
+
               <div class="form-floating">
                 <input type="text" name="token" class="form-control @error('token') is-invalid @enderror" placeholder="token" autofocus required value="{{ old('token') }}">
                 <label for="token">Token</label>
