@@ -146,7 +146,10 @@
                         <td>{{ $jabatan->created_at }}</td>
                         <td>{{ $jabatan->updated_at->diffForHumans() }}</td>
                         <td>
-                          <a href="" class="btn btn-sm btn-outline-primary"><i class="bi bi-download"></i>&nbsp; Unduh</a>
+                          <form action="{{ '/cari/'.$jabatan->slug.'/token' }}" method="get">
+                            <input type="hidden" name="username" value="{{ $pegawai->username }}">
+                            <button class="btn btn-sm btn-outline-primary"><i class="bi bi-download"></i>&nbsp; Unduh</button>
+                          </form>
                         </td>
                       </tr>
                       @endforeach
