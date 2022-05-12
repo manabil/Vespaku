@@ -24,13 +24,13 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->faker = Faker::create();
-        
+
         //*=====================
         //* Pegawai Seeder
         //*=====================
         User::factory(25)->create();
-        
-        
+
+
         //*=====================
         //* Pangkat Seeder
         //*=====================
@@ -54,7 +54,7 @@ class DatabaseSeeder extends Seeder
         foreach ($pangkats as $pangkat) {
             Pangkat::create([
                 'nama' => $pangkat,
-                'slug' => strtolower(str_replace(' ','-', str_replace(' / ', '-', $pangkat)))
+                'slug' => strtolower(str_replace(' ', '-', str_replace(' / ', '-', $pangkat)))
             ]);
         }
 
@@ -67,15 +67,15 @@ class DatabaseSeeder extends Seeder
             'Pelaksana',
             'Fungsional',
         ];
-        
+
         foreach ($jenis_jabatans as $jabatan) {
             JenisJabatan::create([
                 'nama' => $jabatan,
                 'slug' => strtolower($jabatan)
             ]);
         }
-        
-        
+
+
         //*=====================
         //* Jabatan Seeder
         //*=====================
@@ -120,15 +120,14 @@ class DatabaseSeeder extends Seeder
         foreach ($jabatans as $jabatan) {
             Jabatan::create([
                 'nama' => $jabatan,
-                'slug' => strtolower(str_replace(' ','-', $jabatan)),
+                'slug' => strtolower(str_replace(' ', '-', $jabatan)),
             ]);
         }
 
         //*===============================
         //* Jabatan/Pangkat Pegawai Seeder
         //*===============================
-        foreach (User::all() as $pegawai) 
-        {
+        foreach (User::all() as $pegawai) {
             $pegawai->pangkat()->attach(Pangkat::all()->random());
             $pegawai->jabatan()->attach(Jabatan::all()->random());
         }
@@ -136,11 +135,10 @@ class DatabaseSeeder extends Seeder
         //*=====================
         //* Jenis Jabatan Seeder
         //*=====================
-        foreach (JabatanUser::all() as $jabatan) 
-        {
+        foreach (JabatanUser::all() as $jabatan) {
             $jabatan->update([
                 'jenis_jabatan_id' => JenisJabatan::all()->random()->id,
-                'slug' => str_replace(['/', '.'], '', bcrypt(str_replace(['-',' ', ':', '.'], '', $this->faker->dateTimeBetween('-1 years', 'now')->format('Y-m-d H:i:s')))),
+                'slug' => str_replace(['/', '.'], '', bcrypt(str_replace(['-', ' ', ':', '.'], '', $this->faker->dateTimeBetween('-1 years', 'now')->format('Y-m-d H:i:s')))),
                 'created_at' => $this->faker->dateTimeBetween('-1 years', 'now'),
                 'updated_at' => $this->faker->dateTimeInInterval('-1 years', '1 weeks'),
             ]);
@@ -149,19 +147,17 @@ class DatabaseSeeder extends Seeder
         //*===========================
         //* Pangkat timestamps Seeder
         //*===========================
-        foreach (PangkatUser::all() as $pangkat) 
-        {
+        foreach (PangkatUser::all() as $pangkat) {
             $pangkat->update([
-                'slug' => str_replace(['/', '.'], '', bcrypt(str_replace(['-',' ', ':', '.'], '', $this->faker->dateTimeBetween('-1 years', 'now')->format('Y-m-d H:i:s')))),
+                'slug' => str_replace(['/', '.'], '', bcrypt(str_replace(['-', ' ', ':', '.'], '', $this->faker->dateTimeBetween('-1 years', 'now')->format('Y-m-d H:i:s')))),
                 'created_at' => $this->faker->dateTimeBetween('-1 years', 'now'),
                 'updated_at' => $this->faker->dateTimeInInterval('-1 years', '1 weeks'),
             ]);
         }
-        
+
         //*===========================
         //* Request Seeder
         //*===========================
-        Request::factory(75)->create();
-
+        Request::factory(150)->create();
     }
 }
