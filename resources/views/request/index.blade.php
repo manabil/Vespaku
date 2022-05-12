@@ -18,7 +18,6 @@
 @section('content')
 <section id="blog" class="blog">
   
-
   <div class="container" data-aos="fade-up">
 
     <div class="row">
@@ -30,22 +29,22 @@
             <a href="blog-single.html">Daftar Request</a>
           </h2>
 
+          @if (session()->has('request_accepted'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+              <i class="bi bi-check-circle-fill"></i>&nbsp;
+              {{ session('request_accepted') }}
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          @elseif (session()->has('request_rejected'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              <i class="bi bi-check-circle-fill"></i>&nbsp;
+              {{ session('request_rejected') }}
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          @endif
+
           @if ($get_requests->where('aksi', 'proses')->isNotEmpty())
             <div class="table-responsive">
-
-              @if (session()->has('request_accepted'))
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                  <i class="bi bi-check-circle-fill"></i>&nbsp;
-                  {{ session('request_accepted') }}
-                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-              @elseif (session()->has('request_rejected'))
-                <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                  <i class="bi bi-check-circle-fill"></i>&nbsp;
-                  {{ session('request_rejected') }}
-                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-              @endif
 
               <table class="table table-hover table-borderless entry-table " >
                 <thead>
@@ -58,42 +57,40 @@
                 </thead>
                   <tbody>
                     @foreach ($get_requests as $request)
-                      @if ($request->aksi === 'proses')
-                        <tr>
-                            <td><img src="{{ ($request->user->foto === '') ? 'https://source.unsplash.com/400x400?profile' : $request->user->foto }}" style="border-radius: 50%; width:60px; height:60px; object-fit: cover;" alt="{{ $request->user->nama }}"></td>
-                            <td>{{$request->user->nama}}</td>
-                            <td>{{ $request->request_file }}</td>
-                            <td>{{ $request->created_at }}</td>
-                            <td>
-                                <form action="{{ '/request/' . $request->slug }}" method="post" >
-                                  @csrf
-                                  <input type="hidden" name="id" value="{{ $request->id }}">
-                                  <input type="hidden" name="user_id" value="{{ $request->user->id }}">
-                                  <input type="hidden" name="owner" value="{{ auth()->user()->id }}">
-                                  <input type="hidden" name="request_file" value="{{ $request->request_file }}">
-                                  <input type="hidden" name="tanggal_aksi" value="{{ now() }}">
-                                  <input type="hidden" name="aksi" value="terima">
-                                  <input type="hidden" name="token" value="{{ $token }}">
-                                  <input type="hidden" name="surat_keterangan" value="{{ $request->surat_keterangan }}">
-                                  <input type="hidden" name="slug" value="{{ $request->slug }}">
-                                  <input type="hidden" name="is_downloaded" value="0">
-                                  <button class="btn btn-sm btn-outline-success mx-2"><i class="bi bi-check-square"></i>&nbsp; Terima</button>
-                                </form>
-                                <form action="{{ '/request/' . $request->slug }}" method="post">
-                                  @csrf
-                                  <input type="hidden" name="id" value="{{ $request->id }}">
-                                  <input type="hidden" name="user_id" value="{{ $request->user->id }}">
-                                  <input type="hidden" name="owner" value="{{ auth()->user()->id }}">
-                                  <input type="hidden" name="request_file" value="{{ $request->request_file }}">
-                                  <input type="hidden" name="tanggal_aksi" value="{{ now() }}">
-                                  <input type="hidden" name="aksi" value="tolak">
-                                  <input type="hidden" name="token" value="">
-                                  <input type="hidden" name="is_downloaded" value="0">
-                                  <button class="btn btn-sm btn-outline-danger mx-2"><i class="bi bi-x-square"></i>&nbsp; Tolak</button>
-                                </form>
-                            </td>
-                        </tr>
-                      @endif
+                      <tr>
+                          <td><img src="{{ ($request->user->foto === '') ? 'https://source.unsplash.com/400x400?profile' : $request->user->foto }}" style="border-radius: 50%; width:60px; height:60px; object-fit: cover;" alt="{{ $request->user->nama }}"></td>
+                          <td>{{$request->user->nama}}</td>
+                          <td>{{ $request->request_file }}</td>
+                          <td>{{ $request->created_at }}</td>
+                          <td>
+                              <form action="{{ '/request/' . $request->slug }}" method="post" >
+                                @csrf
+                                <input type="hidden" name="id" value="{{ $request->id }}">
+                                <input type="hidden" name="user_id" value="{{ $request->user->id }}">
+                                <input type="hidden" name="owner" value="{{ auth()->user()->id }}">
+                                <input type="hidden" name="request_file" value="{{ $request->request_file }}">
+                                <input type="hidden" name="tanggal_aksi" value="{{ now() }}">
+                                <input type="hidden" name="aksi" value="terima">
+                                <input type="hidden" name="token" value="{{ $token }}">
+                                <input type="hidden" name="surat_keterangan" value="{{ $request->surat_keterangan }}">
+                                <input type="hidden" name="slug" value="{{ $request->slug }}">
+                                <input type="hidden" name="is_downloaded" value="0">
+                                <button class="btn btn-sm btn-outline-success my-1"><i class="bi bi-check-square"></i>&nbsp; Terima</button>
+                              </form>
+                              <form action="{{ '/request/' . $request->slug }}" method="post">
+                                @csrf
+                                <input type="hidden" name="id" value="{{ $request->id }}">
+                                <input type="hidden" name="user_id" value="{{ $request->user->id }}">
+                                <input type="hidden" name="owner" value="{{ auth()->user()->id }}">
+                                <input type="hidden" name="request_file" value="{{ $request->request_file }}">
+                                <input type="hidden" name="tanggal_aksi" value="{{ now() }}">
+                                <input type="hidden" name="aksi" value="tolak">
+                                <input type="hidden" name="token" value="">
+                                <input type="hidden" name="is_downloaded" value="0">
+                                <button class="btn btn-sm btn-outline-danger my-1"><i class="bi bi-x-square"></i>&nbsp; Tolak</button>
+                              </form>
+                          </td>
+                      </tr>
                     @endforeach
                   </tbody>
               </table>
@@ -101,6 +98,11 @@
           @else
             <p class="text-danger">Tidak Ada Request Yang Masuk</p>
           @endif
+
+          <!-- Pagination -->
+          <div class="d-flex justify-content-end">
+            {{ $get_requests->links() }}
+          </div>
           
           <h2 class="entry-title">
             <a href="blog-single.html">Riwayat Request</a>
@@ -136,7 +138,12 @@
                             <td>{{ $request->tanggal_aksi }}</td>
                             @if ($request->aksi === 'terima')
                               <td>{{ $request->token }}</td>
-                              <td><a href="" class="btn btn-sm btn-outline-success disabled"><i class="bi bi-check-square"></i>&nbsp; Diterima</a></td>
+                              <td>
+                                <form action="cari/{{ $request->slug }}/token" method="get">
+                                  <input type="hidden" name="username" value="{{ $username->where('id', $request->owner)->pluck('username')[0] }}">
+                                  <button class="btn btn-sm btn-outline-primary"><i class="bi bi-download"></i>&nbsp; Unduh</button>
+                                </form>
+                              </td>
                             @elseif ($request->aksi === 'proses')
                               <td> - </td>
                               <td><a href="" class="btn btn-sm btn-outline-warning disabled"><i class="bi bi-arrow-clockwise"></i>&nbsp; Diproses</a></td>
@@ -151,6 +158,11 @@
           @else
             <h5 class="text-danger">Data Masih Kosong</h5>
           @endif
+
+          <!-- Pagination -->
+          <div class="d-flex justify-content-end">
+            {{ $set_requests->links() }}
+          </div>
 
         </article><!-- End blog entry -->
 
@@ -174,6 +186,6 @@
     <div class="credits">
     Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
     </div>
-</div>
+  </div>
 </footer><!-- End Footer -->
 @endsection
