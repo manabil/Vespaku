@@ -36,7 +36,8 @@ class RequestFactory extends Factory
             'aksi' => $aksi,
             'token' => ($aksi === 'terima') ? Str::random(20) : '',
             'surat_keterangan' => PangkatUser::where('user_id', $owner)->first()->surat_keterangan,
-            'slug' => PangkatUser::where('user_id', $owner)->first()->slug,
+            'slug' => str_replace(['/', '.'], '', bcrypt(str_replace(['-', ' ', ':', '.'], '', $this->faker->dateTimeBetween('-1 years', 'now')->format('Y-m-d H:i:s')))),
+            // 'slug' => PangkatUser::where('user_id', $owner)->first()->slug,
             'is_downloaded' => $is_downloaded
         ];
     }

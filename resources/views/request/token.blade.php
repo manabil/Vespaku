@@ -42,7 +42,7 @@
 
           <main class="form-signin">
             <h1 class="h3 mb-3 fw-normal">Masukkan Token</h1>
-            <form action="/cari/{pangkat:slug}/token" method="post">
+            <form action="/cari/{{ $pangkat->slug }}/token" method="post">
               @csrf
 
               <div class="form-floating">

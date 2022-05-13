@@ -8,6 +8,7 @@ use App\Models\Pangkat;
 use Illuminate\Http\Request;
 use App\Models\Request as RequestModel;
 use App\Models\User;
+use Symfony\Component\Console\Input\Input;
 use Illuminate\Support\Str;
 
 class RequestController extends Controller
@@ -60,6 +61,7 @@ class RequestController extends Controller
 
     public function token(PangkatUser $pangkat, JabatanUser $jabatan, Request $request)
     {
+        // return $request;
         return view('request.token', [
             'title' => 'Unduh File',
             'pangkat' => $pangkat,
@@ -68,13 +70,14 @@ class RequestController extends Controller
         ]);
     }
 
-    public function download(PangkatUser $pangkat, JabatanUser $jabatan, Request $request)
+    public function download(PangkatUser $pangkat, JabatanUser $jabatan, Request $request, RequestModel $request_model)
     {
+        return $request;
         $validatedData = $request->validate([
             'token' => 'required|min:20|max:20',
         ]);
 
-        if ($pangkat->token !== $validatedData['token']) {
+        if ($pangkat->token != $validatedData['token']) {
             return 'TOken ndak sama';
         }
         if (!$pangkat->is_downloaded) {
