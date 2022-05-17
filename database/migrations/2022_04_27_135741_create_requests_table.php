@@ -19,6 +19,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('owner');
             $table->string('request_file');
+            $table->string('type', 7);
             $table->dateTime('tanggal_aksi');
             $table->string('aksi');
             $table->string('token', 20)->nullable();

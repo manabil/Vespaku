@@ -32,6 +32,7 @@ class RequestFactory extends Factory
             'user_id' => $user_id,
             'owner' => $owner,
             'request_file' => $pangkat[array_rand($pangkat)],
+            'type' => 'pangkat',
             'tanggal_aksi' => $this->faker->dateTimeInInterval('-1 years', '+7 days'),
             'aksi' => $aksi,
             'token' => ($aksi === 'terima') ? Str::random(20) : '',
