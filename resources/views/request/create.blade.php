@@ -19,7 +19,6 @@
 <!-- ======= Blog Single Section ======= -->
 @section('content')
 <section id="blog" class="blog">
-  
 
   <div class="container" data-aos="fade-up">
 
@@ -30,30 +29,59 @@
         <article class="entry entry-single login-entry">
 
           <main class="form-signin">
-            <h1 class="h3 mb-3 fw-normal">Keterangan</h1>
-            <form action="{{ '/cari/'.$pangkat->slug.'/request' }}" method="post">
-              @csrf
-              <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
-              <input type="hidden" name="owner" value="{{ $pangkat->user_id }}">
-              <input type="hidden" name="request_file" value="{{ $pangkat->pangkat->nama }}">
-              <input type="hidden" name="aksi" value="proses">
-              <input type="hidden" name="token" value="">
-              <input type="hidden" name="surat_keterangan" value="">
-              <input type="hidden" name="slug" value="{{ $pangkat->slug }}">
-              <input type="hidden" name="is_downloaded" value="0">
 
-              <div class="form-floating">
-                <textarea name="keterangan" id="keterangan" class="form-control" style="height: 10rem"></textarea>
-                <label for="keterangan">Optional <small class="text-danger">*</small></label>
-                @error('keterangan')
-                <div class="invalid-feedback">
-                    {{ $message }}
+            <h1 class="h3 mb-3 fw-normal">Keterangan</h1>
+            @if ($type === 'pangkat')
+              <form action="/cari/pangkat/{{ $pangkat->slug }}/request" method="post">
+                @csrf
+                <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+                <input type="hidden" name="owner" value="{{ $pangkat->user_id }}">
+                <input type="hidden" name="request_file" value="{{ $pangkat->pangkat->nama }}">
+                <input type="hidden" name="type" value="{{ $type }}">
+                <input type="hidden" name="aksi" value="proses">
+                <input type="hidden" name="token" value="">
+                <input type="hidden" name="surat_keterangan" value="">
+                <input type="hidden" name="slug" value="{{ $pangkat->slug }}">
+                <input type="hidden" name="is_downloaded" value="0">
+
+                <div class="form-floating">
+                  <textarea name="keterangan" id="keterangan" class="form-control" style="height: 10rem"></textarea>
+                  <label for="keterangan">Optional <small class="text-danger">*</small></label>
+                  @error('keterangan')
+                  <div class="invalid-feedback">
+                      {{ $message }}
+                  </div>
+                  @enderror
                 </div>
-                @enderror
-              </div>
-          
-              <button class="w-100 btn btn-lg btn-warning" style="margin: 20px 0"><i class="bi bi-chat-left"></i>&nbsp; Request file</button>
-            </form>
+            
+                <button class="w-100 btn btn-lg btn-warning" style="margin: 20px 0"><i class="bi bi-chat-left"></i>&nbsp; Request file</button>
+              </form>
+            @else
+              <form action="/cari/jabatan/{{ $jabatan->slug }}/request" method="post">
+                @csrf
+                <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+                <input type="hidden" name="owner" value="{{ $jabatan->user_id }}">
+                <input type="hidden" name="request_file" value="{{ $jabatan->jabatan->nama }}">
+                <input type="hidden" name="type" value="{{ $type }}">
+                <input type="hidden" name="aksi" value="proses">
+                <input type="hidden" name="token" value="">
+                <input type="hidden" name="surat_keterangan" value="">
+                <input type="hidden" name="slug" value="{{ $jabatan->slug }}">
+                <input type="hidden" name="is_downloaded" value="0">
+
+                <div class="form-floating">
+                  <textarea name="keterangan" id="keterangan" class="form-control" style="height: 10rem"></textarea>
+                  <label for="keterangan">Optional <small class="text-danger">*</small></label>
+                  @error('keterangan')
+                  <div class="invalid-feedback">
+                      {{ $message }}
+                  </div>
+                  @enderror
+                </div>
+            
+                <button class="w-100 btn btn-lg btn-warning" style="margin: 20px 0"><i class="bi bi-chat-left"></i>&nbsp; Request file</button>
+              </form>
+            @endif
 
           </main>
 
@@ -64,5 +92,6 @@
     </div>
 
   </div>
+  
 </section><!-- End Blog Single Section -->
 @endsection
