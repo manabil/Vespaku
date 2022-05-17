@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\JabatanUser;
 use App\Models\PangkatUser;
-use App\Models\Pangkat;
 use Illuminate\Http\Request;
 use App\Models\Request as RequestModel;
 use App\Models\User;
@@ -35,7 +34,8 @@ class RequestController extends Controller
             'title' => 'Request File',
             'pangkat' => $pangkat,
             'jabatan' => $jabatan,
-            'username' => $request->username
+            'username' => $request->username,
+            'type' => $request->type
         ]);
     }
 
@@ -61,26 +61,56 @@ class RequestController extends Controller
 
     public function token(PangkatUser $pangkat, JabatanUser $jabatan, Request $request)
     {
-        // return $request;
         return view('request.token', [
             'title' => 'Unduh File',
             'pangkat' => $pangkat,
             'jabatan' => $jabatan,
             'username' => $request->username,
+            'type' => $request->type
         ]);
     }
 
-    public function download(PangkatUser $pangkat, JabatanUser $jabatan, Request $request, RequestModel $request_model)
+    public function download_pangkat(PangkatUser $pangkat, Request $request)
     {
-        return $request;
+
         $validatedData = $request->validate([
             'token' => 'required|min:20|max:20',
         ]);
+
+        $request_data = RequestModel::where('user_id', auth()->user()->id)->where('owner', $pangkat->user_id)->where('token', $validatedData['token'])->get();
+
+        if ($request_data->isEmpty()) {
+            return back()->with('token_error', 'Token Salah !');
+        }
+
+        if ($request_data[0]->is_downloaded) {
+            return back()->with('token_error', 'Token Sudah Digunakan, Silahkan Request Ulang !');
+        }
+
+
+
+        return 'token benar';
 
         if ($pangkat->token != $validatedData['token']) {
             return 'TOken ndak sama';
         }
         if (!$pangkat->is_downloaded) {
+            return 'Token kadaluarsa';
+        }
+        return 'silahkan download';
+    }
+
+    public function download_jabatan(JabatanUser $jabatan, Request $request)
+    {
+        return RequestModel::all();
+        $validatedData = $request->validate([
+            'token' => 'required|min:20|max:20',
+        ]);
+
+        if ($jabatan->token != $validatedData['token']) {
+            return 'TOken ndak sama';
+        }
+        if (!$jabatan->is_downloaded) {
             return 'Token kadaluarsa';
         }
         return 'silahkan download';
