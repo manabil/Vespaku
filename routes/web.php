@@ -82,14 +82,14 @@ Route::get('/request', [RequestController::class, 'index'])->middleware('auth');
 Route::post('/request/{pangkat:slug}', [RequestController::class, 'update']);
 Route::post('/request/{jabatan:slug}', [RequestController::class, 'update']);
 
-Route::get('/cari/{pangkat:slug}/token', [RequestController::class, 'token'])->middleware('auth');
-Route::get('/cari/{jabatan:slug}/token', [RequestController::class, 'token'])->middleware('auth');
+Route::get('/cari/pangkat/{pangkat:slug}/token', [RequestController::class, 'token'])->middleware('auth');
+Route::get('/cari/jabatan/{jabatan:slug}/token', [RequestController::class, 'token'])->middleware('auth');
 
-Route::post('/cari/{pangkat:slug}/token', [RequestController::class, 'download'])->middleware('auth');
-Route::post('/cari/{jabatan:slug}/token', [RequestController::class, 'download'])->middleware('auth');
+Route::post('/cari/pangkat/{pangkat:slug}/token', [RequestController::class, 'download_pangkat'])->middleware('auth');
+Route::post('/cari/jabatan/{jabatan:slug}/token', [RequestController::class, 'download_jabatan'])->middleware('auth');
 
-Route::get('/cari/{pangkat:slug}/request', [RequestController::class, 'create'])->middleware('auth');
-Route::get('/cari/{jabatan:slug}/request', [RequestController::class, 'create'])->middleware('auth');
+Route::get('/cari/pangkat/{pangkat:slug}/request', [RequestController::class, 'create'])->middleware('auth');
+Route::get('/cari/jabatan/{jabatan:slug}/request', [RequestController::class, 'create'])->middleware('auth');
 
-Route::post('/cari/{pangkat:slug}/request', [RequestController::class, 'store'])->middleware('auth');
-Route::post('/cari/{jabatan:slug}/request', [RequestController::class, 'store'])->middleware('auth');
+Route::post('/cari/pangkat/{pangkat:slug}/request', [RequestController::class, 'store'])->middleware('auth');
+Route::post('/cari/jabatan/{jabatan:slug}/request', [RequestController::class, 'store'])->middleware('auth');
