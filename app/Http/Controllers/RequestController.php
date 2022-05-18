@@ -86,7 +86,10 @@ class RequestController extends Controller
             return back()->with('token_error', 'Token Sudah Digunakan, Silahkan Request Ulang !');
         }
 
-        return view('request.download', [
+        $request_data[0]->is_downloaded = true;
+        $request_data[0]->save();
+
+        return view('request.download_pangkat', [
             'title' => 'Unduh File',
             'pangkat' => $pangkat,
             'request_data' => $request_data
@@ -109,7 +112,10 @@ class RequestController extends Controller
             return back()->with('token_error', 'Token Sudah Digunakan, Silahkan Request Ulang !');
         }
 
-        return view('request.download', [
+        $request_data[0]->is_downloaded = true;
+        $request_data[0]->save();
+
+        return view('request.download_jabatan', [
             'title' => 'Unduh File',
             'jabatan' => $jabatan,
             'request_data' => $request_data
