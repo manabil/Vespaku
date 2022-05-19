@@ -32,11 +32,11 @@ class RequestFactory extends Factory
             'user_id' => $user_id,
             'owner' => $owner,
             'request_file' => $pangkat[array_rand($pangkat)],
-            'type' => 'pangkat',
-            'tanggal_aksi' => $this->faker->dateTimeInInterval('-1 years', '+7 days'),
+            'type' => 'jabatan',
             'aksi' => $aksi,
             'token' => ($aksi === 'terima') ? Str::random(20) : '',
             'surat_keterangan' => JabatanUser::where('user_id', $owner)->first()->surat_keterangan,
+            'keterangan' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure quisquam qui obcaecati magnam! Cupiditate rerum quaerat aliquam itaque saepe explicabo nobis, eveniet dolore suscipit eum a, reiciendis perferendis. Officia, rerum.',
             // 'slug' => str_replace(['/', '.'], '', bcrypt(str_replace(['-', ' ', ':', '.'], '', $this->faker->dateTimeBetween('-1 years', 'now')->format('Y-m-d H:i:s')))),
             'slug' => JabatanUser::where('user_id', $owner)->first()->slug,
             'is_downloaded' => $is_downloaded

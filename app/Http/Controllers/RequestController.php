@@ -14,8 +14,8 @@ class RequestController extends Controller
 {
     public function index()
     {
-        $get_request = RequestModel::with(['user'])->where('owner', auth()->user()->id)->whereNotIn('aksi', ['terima', 'tolak'])->latest('tanggal_aksi');
-        $set_request = RequestModel::with(['user'])->where('user_id', auth()->user()->id)->latest('tanggal_aksi');
+        $get_request = RequestModel::with(['user'])->where('owner', auth()->user()->id)->whereNotIn('aksi', ['terima', 'tolak'])->latest('updated_at');
+        $set_request = RequestModel::with(['user'])->where('user_id', auth()->user()->id)->latest('updated_at');
         $username = User::all();
         $token = Str::random(20);
 
@@ -24,7 +24,7 @@ class RequestController extends Controller
             'get_requests' => $get_request->paginate(5, ['*'], 'get_request')->withQueryString(),
             'set_requests' => $set_request->paginate(5, ['*'], 'set_request')->withQueryString(),
             'username' => $username,
-            'token' => $token
+            'token' => $token,
         ]);
     }
 
