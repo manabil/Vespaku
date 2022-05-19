@@ -1,4 +1,3 @@
-{{-- @dd($get_requests->first()) --}}
 @extends('layout.page')
 
 <!-- ======= Breadcrumbs ======= -->
@@ -51,6 +50,7 @@
                     <th scope="col" colspan="2">Username</th>
                     <th scope="col">File Yang Direquest</th>
                     <th scope="col">Tanggal Request</th>
+                    <th scope="col" style="width:15em;">Keterangan</th>
                     <th scope="col">Aksi</th>
                   </tr>
                 </thead>
@@ -58,9 +58,10 @@
                   @foreach ($get_requests as $request)
                     <tr>
                         <td><img src="{{ ($request->user->foto === '') ? 'https://source.unsplash.com/400x400?profile' : $request->user->foto }}" style="border-radius: 50%; width:60px; height:60px; object-fit: cover;" alt="{{ $request->user->nama }}"></td>
-                        <td>{{$request->user->nama}}</td>
+                        <td><a href="/cari/{{ $request->user->username }}" style="text-decoration: none; color:black;">{{$request->user->nama}}</a></td>
                         <td>{{ $request->request_file }}</td>
-                        <td>{{ $request->created_at }}</td>
+                        <td>{{ $request->created_at->diffForHumans() }}</td>
+                        <td style="overflow: auto; max-height: 11em; max-width: 15em; display: block; height: 9em;">{{ $request->keterangan == '' ? '-' : $request->keterangan }}</td>
                         <td>
                             <form action="/request/{{ $request->slug }}" method="post" >
                               @csrf
@@ -129,10 +130,10 @@
                   @foreach ($set_requests as $request)
                         <tr>
                           <td><img src="{{ ($request->user->foto === '') ? 'https://source.unsplash.com/400x400?profile' : $request->user->foto }}" style="border-radius: 50%; width:60px; height:60px; object-fit: cover;" alt="{{ $request->user->nama }}"></td>
-                          <td>{{ $username->where('id', $request->owner)->pluck('nama')[0] }}</td>
+                          <td><a style="text-decoration: none;color: black;" href="/cari/{{ $username->where('id', $request->owner)->pluck('username')[0] }}">{{ $username->where('id', $request->owner)->pluck('nama')[0] }}</a></td>
                           <td>{{ $request->request_file }}</td>
                           <td>{{ $request->created_at }}</td>
-                          <td>{{ $request->tanggal_aksi }}</td>
+                          <td>{{ $request->updated_at->diffForHumans() }}</td>
                           @if ($request->aksi === 'terima')
                             <td>{{ $request->token }}</td>
                             <td>
