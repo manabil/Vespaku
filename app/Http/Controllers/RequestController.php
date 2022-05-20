@@ -41,8 +41,6 @@ class RequestController extends Controller
 
     public function store(Request $request)
     {
-        $request['tanggal_aksi'] = now();
-
         RequestModel::create($request->toArray());
         return redirect('/request')->with('request_added', 'Request Berhasil Dibuat');
     }
@@ -50,7 +48,6 @@ class RequestController extends Controller
     public function update(Request $request)
     {
         $updated_request = array_slice($request->toArray(), 1, count($request->toArray()));
-        $updated_request['tanggal_aksi'] = now();
 
         RequestModel::where('id', $request->id)->update($updated_request);
         if ($updated_request['aksi'] === 'terima') {

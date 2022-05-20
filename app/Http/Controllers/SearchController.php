@@ -18,7 +18,7 @@ class SearchController extends Controller
         $user_search = User::with(['pangkat', 'jabatan']);
 
         if (request('search')) {
-            $search_user = User::with(['jabatan', 'pangkat'])->latest()->where('nama', 'LIKE', '%' . request('search') . '%')->get();
+            $search_user = $user_search->latest()->where('nama', 'LIKE', '%' . request('search') . '%')->get();
             $searched_id = collect();
 
             foreach ($search_user as $user) {
