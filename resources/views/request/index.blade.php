@@ -69,7 +69,6 @@
                               <input type="hidden" name="user_id" value="{{ $request->user->id }}">
                               <input type="hidden" name="owner" value="{{ auth()->user()->id }}">
                               <input type="hidden" name="request_file" value="{{ $request->request_file }}">
-                              <input type="hidden" name="tanggal_aksi" value="{{ now() }}">
                               <input type="hidden" name="aksi" value="terima">
                               <input type="hidden" name="token" value="{{ $token }}">
                               <input type="hidden" name="surat_keterangan" value="{{ $request->surat_keterangan }}">
@@ -83,7 +82,6 @@
                               <input type="hidden" name="user_id" value="{{ $request->user->id }}">
                               <input type="hidden" name="owner" value="{{ auth()->user()->id }}">
                               <input type="hidden" name="request_file" value="{{ $request->request_file }}">
-                              <input type="hidden" name="tanggal_aksi" value="{{ now() }}">
                               <input type="hidden" name="aksi" value="tolak">
                               <input type="hidden" name="token" value="">
                               <input type="hidden" name="is_downloaded" value="0">
@@ -106,6 +104,7 @@
           </div>
           
           <h2 class="entry-title"><a href="blog-single.html">Riwayat Request</a></h2>
+
           @if ($set_requests->isNotEmpty())
             <div class="table-responsive">
               @if (session()->has('request_added'))
