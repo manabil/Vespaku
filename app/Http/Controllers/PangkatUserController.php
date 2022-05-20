@@ -40,24 +40,23 @@ class PangkatUserController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-                'pangkat_id' => 'required',
-                'no_surat_keterangan' => 'required|min:5',
-                'tmt' => 'required',
-                'surat_keterangan' => 'required|file|mimes:pdf,doc,docx,epub'
+            'pangkat_id' => 'required',
+            'no_surat_keterangan' => 'required|min:5',
+            'tmt' => 'required',
+            'surat_keterangan' => 'required|file|mimes:pdf,doc,docx,epub'
         ]);
-        
+
         $validatedData['user_id'] = auth()->user()->id;
-        $validatedData['slug'] = str_replace(['/', '.'], '', bcrypt(str_replace(['-',' ', ':', '.'], '', now()->toDateTimeString())));
+        $validatedData['slug'] = str_replace(['/', '.'], '', bcrypt(str_replace(['-', ' ', ':', '.'], '', now()->toDateTimeString())));
 
-        $unavailablePangkat = PangkatUser:: where('user_id', auth()->user()->id)
-                                            ->where('pangkat_id', $validatedData['pangkat_id'])->get();
+        $unavailablePangkat = PangkatUser::where('user_id', auth()->user()->id)
+            ->where('pangkat_id', $validatedData['pangkat_id'])->get();
 
-        if($unavailablePangkat->isNotEmpty()){
+        if ($unavailablePangkat->isNotEmpty()) {
             return redirect('/dashboard/pangkat/create')->with('pangkat_sudah_ada', 'Pangkat ini sudah ada. Mohon isi dengan pangkat yang lain');
         }
 
-        if($request->file('surat_keterangan'))
-        {
+        if ($request->file('surat_keterangan')) {
             $validatedData['surat_keterangan'] = $request->file('surat_keterangan')->store('surat_keterangan_pangkat');
         }
 
@@ -73,6 +72,10 @@ class PangkatUserController extends Controller
      */
     public function show(PangkatUser $pangkat)
     {
+        if ($pangkat->user_id !== auth()->user()->id) {
+            return abort(403, 'Anda tidak berhak mengakses data ini');
+        }
+
         return view('dashboard.pangkat.show', [
             'title' => 'Detail Pangkat',
             'pangkat' => $pangkat
@@ -87,6 +90,10 @@ class PangkatUserController extends Controller
      */
     public function edit(PangkatUser $pangkat)
     {
+        if ($pangkat->user_id !== auth()->user()->id) {
+            return abort(403, 'Anda tidak berhak mengakses data ini');
+        }
+
         $no_surat_keterangan = $pangkat->no_surat_keterangan;
         $tmt = $pangkat->tmt;
         $surat_keterangan = $pangkat->surat_keterangan;
@@ -116,24 +123,22 @@ class PangkatUserController extends Controller
             'tmt' => 'required',
             'surat_keterangan' => 'file|mimes:pdf,doc,docx,epub',
         ]);
-        
+
         $validatedData['user_id'] = auth()->user()->id;
 
-        if($pangkat->pangkat->id != $request['pangkat_id'])
-        {
-            $unavailablePangkat = PangkatUser:: where('user_id', auth()->user()->id)
-                                                ->where('pangkat_id', $validatedData['pangkat_id'])->get();
-    
-            if($unavailablePangkat->isNotEmpty()){
-                return redirect('/dashboard/pangkat/'.$pangkat->id.'/edit')->with('pangkat_sudah_ada', 'Pangkat ini sudah ada. Mohon isi dengan pangkat yang lain');
+        if ($pangkat->pangkat->id != $request['pangkat_id']) {
+            $unavailablePangkat = PangkatUser::where('user_id', auth()->user()->id)
+                ->where('pangkat_id', $validatedData['pangkat_id'])->get();
+
+            if ($unavailablePangkat->isNotEmpty()) {
+                return redirect('/dashboard/pangkat/' . $pangkat->id . '/edit')->with('pangkat_sudah_ada', 'Pangkat ini sudah ada. Mohon isi dengan pangkat yang lain');
             }
         }
 
-        if($request->file('surat_keterangan'))
-        {
+        if ($request->file('surat_keterangan')) {
             Storage::delete($pangkat->surat_keterangan);
             $validatedData['surat_keterangan'] = $request->file('surat_keterangan')->store('surat_keterangan_pangkat');
-        }	
+        }
 
         PangkatUser::where('id', $pangkat->id)->update($validatedData);
         return redirect('/dashboard')->with('alert_pangkat', 'Pangkat berhasil diubah');

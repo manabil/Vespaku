@@ -17,7 +17,6 @@ class JabatanUserController extends Controller
      */
     public function index()
     {
-        
     }
 
     /**
@@ -49,24 +48,22 @@ class JabatanUserController extends Controller
             'tmt' => 'required',
             'surat_keterangan' => 'required|file|mimes:pdf,doc,docx,epub'
         ]);
-        
-        $validatedData['user_id'] = auth()->user()->id;
-        $validatedData['slug'] = str_replace(['/', '.'], '', bcrypt(str_replace(['-',' ', ':', '.'], '', now()->toDateTimeString())));
-        
-        $unavailableJabatan = JabatanUser:: where('user_id', auth()->user()->id)
-                                            ->where('jabatan_id', $validatedData['jabatan_id'])
-                                            ->where('jenis_jabatan_id', $validatedData['jenis_jabatan_id'])->get();
 
-        if($unavailableJabatan->isNotEmpty())
-        {
+        $validatedData['user_id'] = auth()->user()->id;
+        $validatedData['slug'] = str_replace(['/', '.'], '', bcrypt(str_replace(['-', ' ', ':', '.'], '', now()->toDateTimeString())));
+
+        $unavailableJabatan = JabatanUser::where('user_id', auth()->user()->id)
+            ->where('jabatan_id', $validatedData['jabatan_id'])
+            ->where('jenis_jabatan_id', $validatedData['jenis_jabatan_id'])->get();
+
+        if ($unavailableJabatan->isNotEmpty()) {
             return redirect('/dashboard/jabatan/create')->with('jabatan_sudah_ada', 'Jabatan ini sudah ada. Mohon isi dengan jabatan yang lain');
         }
 
-        if($request->file('surat_keterangan'))
-        {
+        if ($request->file('surat_keterangan')) {
             $validatedData['surat_keterangan'] = $request->file('surat_keterangan')->store('surat_keterangan_jabatan');
         }
-        
+
         JabatanUser::create($validatedData);
         return redirect('/dashboard')->with('alert_jabatan', 'Jabatan berhasil ditambahkan');
     }
@@ -79,6 +76,10 @@ class JabatanUserController extends Controller
      */
     public function show(JabatanUser $jabatan)
     {
+        if ($jabatan->user_id !== auth()->user()->id) {
+            return abort(403, 'Anda tidak berhak mengakses data ini');
+        }
+
         return view('dashboard.jabatan.show', [
             'title' => 'Detail Jabatan',
             'jabatan' => $jabatan
@@ -94,6 +95,10 @@ class JabatanUserController extends Controller
      */
     public function edit(JabatanUser $jabatan)
     {
+        if ($jabatan->user_id !== auth()->user()->id) {
+            return abort(403, 'Anda tidak berhak mengakses data ini');
+        }
+
         $nama_jabatan = $jabatan->jabatan->nama;
         $nama_jenis_jabatan = $jabatan->jenis_jabatan->nama;
         $tmt = $jabatan->tmt;
@@ -129,26 +134,23 @@ class JabatanUserController extends Controller
             'tmt' => 'required',
             'surat_keterangan' => 'file|mimes:pdf,doc,docx,epub',
         ]);
-        
+
         $validatedData['user_id'] = auth()->user()->id;
 
-        if(($jabatan->jabatan->id != $request['jabatan_id']) || ($jabatan->jenis_jabatan->id != $request['jenis_jabatan_id']))
-        {
-            $unavailableJabatan = JabatanUser:: where('user_id', auth()->user()->id)
-                                                ->where('jabatan_id', $validatedData['jabatan_id'])
-                                                ->where('jenis_jabatan_id', $validatedData['jenis_jabatan_id'])->get();
-    
-            if($unavailableJabatan->isNotEmpty())
-            {
-                return redirect('/dashboard/jabatan/'.$jabatan->id.'/edit')->with('jabatan_sudah_ada', 'Jabatan ini sudah ada. Mohon isi dengan jabatan yang lain');
+        if (($jabatan->jabatan->id != $request['jabatan_id']) || ($jabatan->jenis_jabatan->id != $request['jenis_jabatan_id'])) {
+            $unavailableJabatan = JabatanUser::where('user_id', auth()->user()->id)
+                ->where('jabatan_id', $validatedData['jabatan_id'])
+                ->where('jenis_jabatan_id', $validatedData['jenis_jabatan_id'])->get();
+
+            if ($unavailableJabatan->isNotEmpty()) {
+                return redirect('/dashboard/jabatan/' . $jabatan->id . '/edit')->with('jabatan_sudah_ada', 'Jabatan ini sudah ada. Mohon isi dengan jabatan yang lain');
             }
         }
 
-        if($request->file('surat_keterangan'))
-        {
+        if ($request->file('surat_keterangan')) {
             Storage::delete($jabatan->surat_keterangan);
             $validatedData['surat_keterangan'] = $request->file('surat_keterangan')->store('surat_keterangan_jabatan');
-        }	
+        }
 
         JabatanUser::where('id', $jabatan->id)->update($validatedData);
         return redirect('/dashboard')->with('alert_jabatan', 'Jabatan berhasil diubah');

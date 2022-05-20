@@ -147,7 +147,7 @@
                         <td>{{ date('Y',strtotime($pangkat->tmt)) }}</td>
                         <td>{{ $pangkat->no_surat_keterangan }}</td>
                         <td>{{ $pangkat->created_at }}</td>
-                        <td>{{ $pangkat->updated_at->diffForHumans() }}</td>
+                        <td>{{ $pangkat->updated_at }}</td>
                         <td>
                           <div class="container d-flex justify-content-center">
                               <a href="/dashboard/pangkat/{{ $pangkat->slug }}" class="btn btn-sm btn-outline-primary mx-1"><i class="bi bi-eye mx-0"></i></a>

@@ -97,32 +97,24 @@
                     <th scope="col">Aksi</th>
                   </tr>
                 </thead>
-                  <tbody>
-                    @foreach ($pangkats as $pangkat)
-                    <tr>
-                        <th scope="row">{{ $pangkat->pangkat->nama }}</th>
-                        <td>{{ date('Y', strtotime($pangkat->tmt)) }}</td>
-                        <td>{{ $pangkat->no_surat_keterangan }}</td>
-                        <td>{{ $pangkat->created_at }}</td>
-                        <td>{{ $pangkat->updated_at->diffForHumans() }}</td>
-                        <td>
-                          <form action="{{ '/cari/'.$pangkat->slug.'/request' }}" method="post">
-                            @csrf
-                            <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
-                            <input type="hidden" name="owner" value="{{ $pegawai->id }}">
-                            <input type="hidden" name="request_file" value="{{ $pangkat->pangkat->nama }}">
-                            <input type="hidden" name="tanggal_aksi" value="{{ now() }}">
-                            <input type="hidden" name="aksi" value="proses">
-                            <input type="hidden" name="token" value="">
-                            <input type="hidden" name="surat_keterangan" value="">
-                            <input type="hidden" name="slug" value="{{ $pangkat->slug }}">
-                            <input type="hidden" name="is_downloaded" value="0">
-                            <button class="btn btn-sm btn-outline-primary"><i class="bi bi-download"></i>&nbsp; Unduh</button>
-                          </form>
-                        </td>
-                      </tr>
-                      @endforeach
-                  </tbody>
+                <tbody>
+                  @foreach ($pangkats as $pangkat)
+                  <tr>
+                      <th scope="row">{{ $pangkat->pangkat->nama }}</th>
+                      <td>{{ date('Y', strtotime($pangkat->tmt)) }}</td>
+                      <td>{{ $pangkat->no_surat_keterangan }}</td>
+                      <td>{{ $pangkat->created_at }}</td>
+                      <td>{{ $pangkat->updated_at->diffForHumans() }}</td>
+                      <td>
+                        <form action="/cari/pangkat/{{ $pangkat->slug }}/token" method="get">
+                          <input type="hidden" name="username" value="{{ $pegawai->username }}">
+                          <input type="hidden" name="type" value="pangkat">
+                          <button class="btn btn-sm btn-outline-primary"><i class="bi bi-download"></i>&nbsp; Unduh</button>
+                        </form>
+                      </td>
+                    </tr>
+                    @endforeach
+                </tbody>
               </table>
             </div>
           @else
@@ -146,20 +138,24 @@
                     <th scope="col">Aksi</th>
                   </tr>
                 </thead>
-                  <tbody>
-                    @foreach ($jabatans as $jabatan)
-                    <tr>
-                        <th scope="row">{{ $jabatan->jabatan->nama }}</th>
-                        <td>{{ date('Y', strtotime($jabatan->tmt)) }}</td>
-                        <td>{{ $jabatan->no_surat_keterangan }}</td>
-                        <td>{{ $jabatan->created_at }}</td>
-                        <td>{{ $jabatan->updated_at->diffForHumans() }}</td>
-                        <td>
-                          <a href="" class="btn btn-sm btn-outline-primary"><i class="bi bi-download"></i>&nbsp; Unduh</a>
-                        </td>
-                      </tr>
-                      @endforeach
-                  </tbody>
+                <tbody>
+                  @foreach ($jabatans as $jabatan)
+                  <tr>
+                      <th scope="row">{{ $jabatan->jabatan->nama }}</th>
+                      <td>{{ date('Y', strtotime($jabatan->tmt)) }}</td>
+                      <td>{{ $jabatan->no_surat_keterangan }}</td>
+                      <td>{{ $jabatan->created_at }}</td>
+                      <td>{{ $jabatan->updated_at->diffForHumans() }}</td>
+                      <td>
+                        <form action="/cari/jabatan/{{ $jabatan->slug }}/token" method="get">
+                          <input type="hidden" name="username" value="{{ $pegawai->username }}">
+                          <input type="hidden" name="type" value="jabatan">
+                          <button class="btn btn-sm btn-outline-primary"><i class="bi bi-download"></i>&nbsp; Unduh</button>
+                        </form>
+                      </td>
+                    </tr>
+                    @endforeach
+                </tbody>
               </table>
             </div>
           @else

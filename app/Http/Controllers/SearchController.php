@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Pangkat;
 use App\Models\JabatanUser;
 use App\Models\PangkatUser;
+use Illuminate\Support\Str;
 use App\Models\Request as RequestModel;
 
 
@@ -34,17 +36,11 @@ class SearchController extends Controller
 
     public function pegawai(User $user)
     {
-        return view('user', [
+        return view('request.user', [
             'title' => 'Profile Pegawai',
             'pegawai' => $user,
             'jabatans' => JabatanUser::with(['jenis_jabatan', 'jabatan', 'user'])->latest()->where('user_id', $user->id)->get(),
             'pangkats' => PangkatUser::with(['user', 'pangkat'])->latest()->where('user_id', $user->id)->get()
         ]);
-    }
-
-    public function request(PangkatUser $pangkat, Request $request)
-    {
-        RequestModel::create($request->toArray());
-        return redirect('/request')->with('request_added', 'Request Berhasil Dibuat');
     }
 }
