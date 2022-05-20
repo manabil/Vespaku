@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('slug', 75)->nullable();
             $table->text('keterangan')->nullable();
             $table->boolean('is_downloaded');
+            $table->boolean('readed');
             $table->timestamps();
         });
     }
