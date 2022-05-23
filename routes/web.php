@@ -12,6 +12,7 @@ use App\Http\Controllers\RequestController;
 use App\Http\Controllers\JabatanController;
 use App\Http\Controllers\JabatanUserController;
 use App\Http\Controllers\SearchController;
+use App\Http\Controllers\GraphController;
 use App\Models\Jabatan;
 use App\Models\Pangkat;
 use App\Models\User;
@@ -59,6 +60,9 @@ Route::post('/daftar', [DaftarController::class, 'add']);
 Route::get('/cari', [SearchController::class, 'index']);
 Route::get('/cari/{user:username}', [SearchController::class, 'pegawai'])->middleware('auth');
 
+
+// *=============== Graph ===============*
+Route::get('/graph', [GraphController::class, 'index']);
 
 // *=============== Profile ===============*
 Route::get('/dashboard/profile/{user:username}', [ProfileController::class, 'index'])->middleware('auth');
