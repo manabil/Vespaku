@@ -6,8 +6,7 @@ use Illuminate\Support\Facades\Gate;
 use App\Models\User;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Pagination\Paginator;
-use App\Models\PangkatUser;
-use App\Models\JabatanUser;
+use App\Models\Request as RequestModel;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -38,7 +37,7 @@ class AppServiceProvider extends ServiceProvider
             return $user->user_type === 'super_admin';
         });
 
-        Gate::define('owners', function (User $user) {
+        Gate::define('has_notifications', function (RequestModel $request) {
             //
         });
     }
