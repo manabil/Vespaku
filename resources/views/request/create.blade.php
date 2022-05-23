@@ -43,6 +43,7 @@
                 <input type="hidden" name="surat_keterangan" value="">
                 <input type="hidden" name="slug" value="{{ $pangkat->slug }}">
                 <input type="hidden" name="is_downloaded" value="0">
+                <input type="hidden" name="readed" value="0">
 
                 <div class="form-floating">
                   <textarea name="keterangan" id="keterangan" class="form-control" style="height: 10rem"></textarea>
@@ -68,6 +69,7 @@
                 <input type="hidden" name="surat_keterangan" value="">
                 <input type="hidden" name="slug" value="{{ $jabatan->slug }}">
                 <input type="hidden" name="is_downloaded" value="0">
+                <input type="hidden" name="readed" value="0">
 
                 <div class="form-floating">
                   <textarea name="keterangan" id="keterangan" class="form-control" style="height: 10rem"></textarea>
