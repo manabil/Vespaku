@@ -10,8 +10,9 @@
     <nav id="navbar" class="navbar">
         <ul>
         <li><a class="nav-link scrollto {{ $title === 'Cari Pegawai' ? 'active' : ''}}" href="/cari">Cari Pegawai</a></li>
+        <li><a class="nav-link scrollto {{ $title === 'Visualisasi Pegawai' ? 'active' : ''}}" href="/graph">Visualisasi</a></li>
         @auth
-            <li><a class="nav-link scrollto" href="/request"><i class="bi bi-bell"></i></a></li>   
+            <li><a class="nav-link scrollto" href="/request"><img src="\template\img\bell_notification.svg" alt="notifications" width="16em" height="16em"></a></li>   
             <li class="dropdown"><a href="#"><span class="btn btn-outline-primary btn-sm"> {{ openssl_decrypt(str_replace('-', '/', auth()->user()->username), 'AES-128-ECB', 'VESPaKU') }}</span> <i class="bi bi-chevron-down"></i></a>
                 <ul>
                     <li><a href="/dashboard">User Profile</a></li>
@@ -19,7 +20,7 @@
                         <li><a href="/user">Data User</a></li>
                         <li><a href="/pangkat">Data Pangkat</a></li>
                         <li><a href="/jabatan">Data Jabatan</a></li>
-                    @endcan
+                    @endcan 
                     <li class="dropdown-divider"></li>
                     <li>
                         <form id="form-submit" action="/logout" method="post">
