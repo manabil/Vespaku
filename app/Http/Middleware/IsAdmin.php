@@ -16,11 +16,10 @@ class IsAdmin
      */
     public function handle(Request $request, Closure $next)
     {
-        if(!auth()->check() || auth()->user()->user_type == 'user')
-        {
+        if (!auth()->check() || auth()->user()->user_type == 'user') {
             abort(403, 'Aksi Dilarang');
         }
-        
+
         return $next($request);
     }
 }
