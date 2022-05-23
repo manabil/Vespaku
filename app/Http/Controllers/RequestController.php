@@ -41,6 +41,7 @@ class RequestController extends Controller
 
     public function store(Request $request)
     {
+        // return $request;
         RequestModel::create($request->toArray());
         return redirect('/request')->with('request_added', 'Request Berhasil Dibuat');
     }
