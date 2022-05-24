@@ -26,7 +26,7 @@ class GraphController extends Controller
         return view('graph', [
             'title' => 'Visualisasi Pegawai',
             'pegawai' => $user_search->paginate(10)->withQueryString(),
-            'notification' => RequestModel::where('owner', auth()->user()->id)->where('readed', '0')
+            // 'notification' => RequestModel::where('owner', auth()->user()->id)->where('readed', '0') 
         ]);
     }
 }
