@@ -13,23 +13,6 @@
 </section><!-- End Breadcrumbs -->
 @endsection
 
-<!-- ======= Search Bar ======= -->
-@section('search_bar')
-<footer id="footer" class="footer">
-  <div class="footer-newsletter">
-    <div class="container" data-aos="fade-down" data-aos-duration="1000">
-      <div class="row justify-content-center">
-        <div class="col-lg-6">
-          <form action="/cari" >
-            <input type="text" name="search" value="{{ request('search') }}" placeholder="Tuliskan Nama Pegawai">
-            <input type="submit" value="Cari">
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-</footer>
-@endsection
 
 <!-- ======= Blog Single Section ======= -->
 @section('content')
@@ -46,105 +29,75 @@
 
           <canvas id="myChart" width="400" height="400"></canvas>
           <script>
-          const ctx = document.getElementById('myChart').getContext('2d');
-          const myChart = new Chart(ctx, {
+            const labels = ['januari', 'februari', 'maret', 'april', 'mei', 'juni', 'juli', 'agustus', 'september', 'oktober', 'november', 'desember'];
+            const data = {
+              labels: labels,
+              datasets: [{
+                axis: 'y',
+                label: 'My First Dataset',
+                data: [65, 59, 80, 81, 56, 55, 40],
+                fill: false,
+                backgroundColor: [
+                  'rgba(255, 99, 132, 0.2)',
+                  'rgba(255, 159, 64, 0.2)',
+                  'rgba(255, 205, 86, 0.2)',
+                  'rgba(75, 192, 192, 0.2)',
+                  'rgba(54, 162, 235, 0.2)',
+                  'rgba(153, 102, 255, 0.2)',
+                  'rgba(201, 203, 207, 0.2)'
+                ],
+                borderColor: [
+                  'rgb(255, 99, 132)',
+                  'rgb(255, 159, 64)',
+                  'rgb(255, 205, 86)',
+                  'rgb(75, 192, 192)',
+                  'rgb(54, 162, 235)',
+                  'rgb(153, 102, 255)',
+                  'rgb(201, 203, 207)'
+                ],
+                borderWidth: 1
+              },{
+                axis: 'y',
+                label: 'Jos Dataset',
+                data: [50, 67, 74, 53, 78, 42, 40],
+                fill: false,
+                backgroundColor: [
+                  'rgba(255, 99, 132, 0.2)',
+                  'rgba(255, 159, 64, 0.2)',
+                  'rgba(255, 205, 86, 0.2)',
+                  'rgba(75, 192, 192, 0.2)',
+                  'rgba(54, 162, 235, 0.2)',
+                  'rgba(153, 102, 255, 0.2)',
+                  'rgba(201, 203, 207, 0.2)'
+                ],
+                borderColor: [
+                  'rgb(255, 99, 132)',
+                  'rgb(255, 159, 64)',
+                  'rgb(255, 205, 86)',
+                  'rgb(75, 192, 192)',
+                  'rgb(54, 162, 235)',
+                  'rgb(153, 102, 255)',
+                  'rgb(201, 203, 207)'
+                ],
+                borderWidth: 1
+              }]
+            };
+            const config = {
               type: 'line',
-              data: {
-                  labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-                  datasets: [{
-                      label: '# of Votes',
-                      data: [12, 19, 3, 5, 2, 3],
-                      backgroundColor: [
-                          'rgba(255, 99, 132, 0.2)',
-                          'rgba(54, 162, 235, 0.2)',
-                          'rgba(255, 206, 86, 0.2)',
-                          'rgba(75, 192, 192, 0.2)',
-                          'rgba(153, 102, 255, 0.2)',
-                          'rgba(255, 159, 64, 0.2)'
-                      ],
-                      borderColor: [
-                          'rgba(255, 99, 132, 1)',
-                          'rgba(54, 162, 235, 1)',
-                          'rgba(255, 206, 86, 1)',
-                          'rgba(75, 192, 192, 1)',
-                          'rgba(153, 102, 255, 1)',
-                          'rgba(255, 159, 64, 1)'
-                      ],
-                      borderWidth: 1
-                  }]
-              },
+              data: data,
               options: {
-                  scales: {
-                      y: {
-                          beginAtZero: true
-                      }
+                indexAxis: 'y',
+                scales: {
+                  x: {
+                    beginAtZero: true
                   }
+                }
               }
-          });
+            };
+
+            const ctx = document.getElementById('myChart').getContext('2d');
+            const myChart = new Chart(ctx, config);
           </script>
-
-
-          @if ($pegawai->isNotEmpty())
-            @if (request('search'))
-              <h2 class="entry-title mb-3">Ditemukan "{{ request('search') }}"</h2>
-            @else
-              <h2 class="entry-title mb-3">
-                <a href="#">Daftar Pegawai</a>
-              </h2>
-            @endif
-
-            <div class="table-responsive">
-              <table class="table table-hover table-borderless entry-table">
-                <thead>
-                  <tr>
-                    <th scope="col" class="no" colspan="2">Pegawai</th>
-                    <th scope="col">Jabatan Terakhir</th>
-                    <th scope="col">Pangkat Terakhir</th>
-                    <th scope="col">NIP</th>
-                    <th scope="col">Aksi</th>
-                  </tr>
-                </thead>
-                @foreach ($pegawai as $p)
-                  <tbody>
-                    <tr>
-                      <td scope="row" class="no"><img src="{{ ($p->foto=='') ? 'https://source.unsplash.com/400x400?profile' : $p->foto }}" style="border-radius: 50%; width:60px; height:60px; object-fit: cover;" alt="{{ $p->nama }}"></td>
-                      @if (auth()->check())
-                        <td><a href="{{ $p->id == auth()->user()->id ? '/dashboard' : '/cari/'. $p->username }}" style="text-decoration: none; color: black">{{ $p->nama }}</a></td>
-                      @else
-                        <td><a href="/cari/{{ $p->username }}" style="text-decoration: none; color: black">{{ $p->nama }}</a></td>
-                      @endif
-                      @if ($p->jabatan->isNotEmpty())
-                        <td>{{ $p->jabatan->last()->nama }}</td>
-                      @else
-                        <td class="text-danger">Data Masih Kosong</td>
-                      @endif
-                      @if ($p->jabatan->isNotEmpty())
-                        <td>{{ $p->pangkat->last()->nama }}</td>
-                      @else
-                        <td class="text-danger">Data Masih Kosong</td>
-                      @endif
-                      <td>{{ $p->nip }}</td>
-                      @if (auth()->check())
-                        <td><a href="{{ $p->id == auth()->user()->id ? '/dashboard' : '/cari/'. $p->username }}" class="btn btn-sm btn-outline-warning"><i class="bi bi-eye" style="margin:auto 10px"></i>Lihat</a></td>
-                      @else
-                        <td><a href="/cari/{{ ($p->username) }}" class="btn btn-sm btn-outline-warning"><i class="bi bi-eye" style="margin:auto 10px"></i>Lihat</a></td>
-                      @endif
-                    </tr>
-                  </tbody>
-                @endforeach
-              </table>
-            </div>
-            
-          @else
-            <h2 class="entry-title">
-              <a href="#">Pencarian Tidak ditemukan</a>
-            </h2>
-          @endif
-
-          <!-- Pagination -->
-          <div class="d-flex justify-content-end">
-            {{ $pegawai->links() }}
-          </div>
 
         </article><!-- End blog entry -->
 

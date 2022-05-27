@@ -138,6 +138,7 @@ class DatabaseSeeder extends Seeder
         foreach (JabatanUser::all() as $jabatan) {
             $jabatan->update([
                 'jenis_jabatan_id' => JenisJabatan::all()->random()->id,
+                'tmt' => $this->faker->dateTimeBetween('-10 years', 'now'),
                 'slug' => str_replace(['/', '.'], '', bcrypt(str_replace(['-', ' ', ':', '.'], '', $this->faker->dateTimeBetween('-1 years', 'now')->format('Y-m-d H:i:s')))),
                 'created_at' => $this->faker->dateTimeBetween('-1 years', 'now'),
                 'updated_at' => $this->faker->dateTimeInInterval('-1 years', '1 weeks'),
@@ -149,6 +150,7 @@ class DatabaseSeeder extends Seeder
         //*===========================
         foreach (PangkatUser::all() as $pangkat) {
             $pangkat->update([
+                'tmt' => $this->faker->dateTimeBetween('-10 years', 'now'),
                 'slug' => str_replace(['/', '.'], '', bcrypt(str_replace(['-', ' ', ':', '.'], '', $this->faker->dateTimeBetween('-1 years', 'now')->format('Y-m-d H:i:s')))),
                 'created_at' => $this->faker->dateTimeBetween('-1 years', 'now'),
                 'updated_at' => $this->faker->dateTimeInInterval('-1 years', '1 weeks'),
