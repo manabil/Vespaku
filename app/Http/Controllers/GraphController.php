@@ -16,7 +16,6 @@ class GraphController extends Controller
             return date('Y', strtotime($item));
         })->unique()->values();
         $listUser = User::all()->pluck('nama');
-        return $listUser;
 
         return view('graph', [
             'title' => 'Visualisasi Kepangkatan Pegawai',
