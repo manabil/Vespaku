@@ -27,8 +27,8 @@
 
         <article class="entry entry-single">
 
-          <canvas id="myChart" width="400" height="400"></canvas>
-          <script>
+          <canvas id="myChart" width="auto" height="auto"></canvas>
+          {{-- <script>
             const labels = ['januari', 'februari', 'maret', 'april', 'mei', 'juni', 'juli', 'agustus', 'september', 'oktober', 'november', 'desember'];
             const data = {
               labels: labels,
@@ -97,6 +97,47 @@
 
             const ctx = document.getElementById('myChart').getContext('2d');
             const myChart = new Chart(ctx, config);
+          </script> --}}
+
+          <script>
+            const ctx = document.getElementById('myChart').getContext('2d');
+            const labels = {!! $listPangkat !!};
+            console.log(labels);
+
+            const data = {
+              labels: labels,
+              datasets: [
+              {
+                label: 'My First dataset1',
+                color: 'orange',
+                backgroundColor: 'green',
+                borderColor: 'greenlight',
+                data: [0, 10, 5, 2, 20, 30, 45],
+              },
+              {
+                label: 'My First dataset2',
+                backgroundColor: 'rgb(255, 99, 0)',
+                borderColor: 'rgb(255, 99, 0)',
+                data: [1, 20, 2, 5, 13, 25, 5],
+              },
+              {
+                label: 'My First dataset3',
+                backgroundColor: 'rgb(255, 0, 80)',
+                borderColor: 'rgb(255, 0, 80)',
+                data: [2, 23, 2, 7, 24, 29, 50],
+              }]
+            };
+
+            const config = {
+              type: 'line',
+              data: data,
+              options: {}
+            };
+
+            const myChart = new Chart(
+              document.getElementById('myChart').getContext('2d'),
+              config
+            );
           </script>
 
         </article><!-- End blog entry -->

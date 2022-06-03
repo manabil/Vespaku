@@ -23,7 +23,7 @@
   <link href="{{ asset('template/vendor/glightbox/css/glightbox.min.css') }}" rel="stylesheet">
   <link href="{{ asset('template/vendor/remixicon/remixicon.css') }}" rel="stylesheet">
   <link href="{{ asset('template/vendor/swiper/swiper-bundle.min.css') }}" rel="stylesheet">
-  <script src="{{ asset('template/js/Chartjs/dist/chart.min.js') }}"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js"></script>
 
   <!-- Template Main CSS File -->
   <link href="{{ asset('template/css/style.css') }}" rel="stylesheet">
