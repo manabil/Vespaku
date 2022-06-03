@@ -16,8 +16,6 @@
 <!-- ======= Blog Single Section ======= -->
 @section('content')
 <section id="blog" class="blog">
-  
-
   <div class="container" data-aos="fade-up">
 
     <div class="row">
@@ -108,6 +106,187 @@
                   <a href="/dashboard/profile/{{ auth()->user()->username }}" class="btn btn-lg btn-outline-warning" style="margin: 20px 0 0 30px"> <i class="bi bi-pen"></i>&nbsp; Ubah Data</a>
               </div>
           </div>
+
+          <h2 class="entry-title my-3">
+            <a href="blog-single.html">Timeline Pangkat</a>
+          </h2>
+          
+          @if ($pangkats->isNotEmpty())
+            <canvas style="overflow: auto" id="myChart" width="auto" height="auto"></canvas>
+            {{-- <script>
+              const labels = ['januari', 'februari', 'maret', 'april', 'mei', 'juni', 'juli', 'agustus', 'september', 'oktober', 'november', 'desember'];
+              const data = {
+                labels: labels,
+                datasets: [{
+                  axis: 'y',
+                  label: 'My First Dataset',
+                  data: [65, 59, 80, 81, 56, 55, 40],
+                  fill: false,
+                  backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(255, 159, 64, 0.2)',
+                    'rgba(255, 205, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(201, 203, 207, 0.2)'
+                  ],
+                  borderColor: [
+                    'rgb(255, 99, 132)',
+                    'rgb(255, 159, 64)',
+                    'rgb(255, 205, 86)',
+                    'rgb(75, 192, 192)',
+                    'rgb(54, 162, 235)',
+                    'rgb(153, 102, 255)',
+                    'rgb(201, 203, 207)'
+                  ],
+                  borderWidth: 1
+                },{
+                  axis: 'y',
+                  label: 'Jos Dataset',
+                  data: [50, 67, 74, 53, 78, 42, 40],
+                  fill: false,
+                  backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(255, 159, 64, 0.2)',
+                    'rgba(255, 205, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(201, 203, 207, 0.2)'
+                  ],
+                  borderColor: [
+                    'rgb(255, 99, 132)',
+                    'rgb(255, 159, 64)',
+                    'rgb(255, 205, 86)',
+                    'rgb(75, 192, 192)',
+                    'rgb(54, 162, 235)',
+                    'rgb(153, 102, 255)',
+                    'rgb(201, 203, 207)'
+                  ],
+                  borderWidth: 1
+                }]
+              };
+              const config = {
+                type: 'line',
+                data: data,
+                options: {
+                  indexAxis: 'y',
+                  scales: {
+                    x: {
+                      beginAtZero: true
+                    }
+                  }
+                }
+              };
+
+              const ctx = document.getElementById('myChart').getContext('2d');
+              const myChart = new Chart(ctx, config);
+            </script> --}}
+            <script>
+              const ctx = document.getElementById('myChart').getContext('2d');
+              const labels = {!! $listPangkat !!}.reverse();
+              const year = {!! $listTahun !!}.reverse();
+              const now = new Date().getFullYear();
+
+              const jos = {
+                if (labels.length )
+              }
+
+              const data = {
+                labels: labels,
+                datasets: [{
+                  data: [
+                    for (let i in year) {
+                      if (i == 1) {
+                        console.log(year[i]);
+                      }
+                    }
+                    [year[0], year[1]],
+                    [year[1], `${now}`],
+                    [year[2], `${now}`],
+                    ['1998', '2000'],
+                    ['2000', '2002'],
+                    ['2002', '2005'],
+                    ['2005', '2008'],
+                    ['2008', '2010'],
+                    ['2010', '2013'],
+                    ['2013', '2015'],
+                    ['2015', '2018'],
+                    ['2018', '2020'],
+                    ['2020', '2022'],
+                    ['2022', '2023'],
+                  ],
+                  backgroundColor: [
+                    'rgba(255, 26, 104, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(0, 0, 0, 1)'
+                  ],
+                  borderColor: [
+                    'rgba(255, 26, 104, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)',
+                    'rgba(0, 0, 0, 1)'
+                  ],
+                  barPercentage: 0.2,
+                  borderRadius: [
+                    5,
+                    20
+                  ]
+                }]
+              };
+
+              const config = {
+                type: 'bar',
+                data: data,
+                options: {
+                  responsive: true,
+                  indexAxis: 'y',
+                  scales: {
+                    x: {
+                      ticks: {
+                        autoSkip: true,
+                        maxTicksLimit: 16
+                      },
+                      min: year[0],
+                      max: `${now}`,
+                      type: 'time',
+                      grid: {
+                        display: false,
+                      },
+                      time: {
+                        unit: 'year'
+                      }
+                    },
+                    y: {
+                      grid: {
+                        display: false,
+                      }
+                    }
+                  },
+                  plugins: {
+                    legend: {
+                      display: false
+                    }
+                  }
+                }
+              };
+
+              const myChart = new Chart(
+                document.getElementById('myChart').getContext('2d'),
+                config
+              );
+            </script>
+          @else
+            <p class="text-danger">Data Masih Kosong. Silahkan Isi Pangkat Terlebih Dahulu</p>
+          @endif
 
           <h2 class="entry-title my-3">
             <a href="blog-single.html">Daftar Kepangkatan</a>
@@ -230,7 +409,7 @@
               </table>
             </div>
           @else
-          <p class="text-danger">Data Masih Kosong. Silahkan Isi Jabatan Terlebih Dahulu</p>
+            <p class="text-danger">Data Masih Kosong. Silahkan Isi Jabatan Terlebih Dahulu</p>
           @endif
 
           <a href="/dashboard/jabatan/create" class="btn btn-lg btn-outline-success" style="margin: 0 0 10px 0"> <i class="bi bi-plus"></i>&nbsp; Tambah Jabatan</a>
