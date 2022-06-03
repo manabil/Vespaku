@@ -17,8 +17,6 @@
 <!-- ======= Blog Single Section ======= -->
 @section('content')
 <section id="blog" class="blog">
-  
-
   <div class="container" data-aos="fade-up">
 
     <div class="row">
