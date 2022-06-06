@@ -113,7 +113,7 @@
           
           @if ($pangkats->isNotEmpty())
             <canvas style="overflow: auto" id="myChart" width="auto" height="auto"></canvas>
-            {{-- <script>
+            <script>
               const labels = ['januari', 'februari', 'maret', 'april', 'mei', 'juni', 'juli', 'agustus', 'september', 'oktober', 'november', 'desember'];
               const data = {
                 labels: labels,
@@ -182,41 +182,32 @@
 
               const ctx = document.getElementById('myChart').getContext('2d');
               const myChart = new Chart(ctx, config);
-            </script> --}}
-            <script>
+            </script>
+            {{-- <script>
               const ctx = document.getElementById('myChart').getContext('2d');
               const labels = {!! $listPangkat !!}.reverse();
               const year = {!! $listTahun !!}.reverse();
               const now = new Date().getFullYear();
-
-              const jos = {
-                if (labels.length )
+              
+              let masaJabatan = [];
+              for (let i in labels){
+                if (labels.length == 1){
+                  masaJabatan.push([year[0], `${now}`]);
+                  break;
+                } else if (i == 0) {
+                  masaJabatan.push([year[i], year[eval(i+1)]]);
+                } else if (labels.length - 1 == i) {
+                  masaJabatan.push([year[i], `${now}`]);
+                  break
+                } else {
+                  masaJabatan.push([year[i], year[eval(i)+1]]);
+                }
               }
 
               const data = {
                 labels: labels,
                 datasets: [{
-                  data: [
-                    for (let i in year) {
-                      if (i == 1) {
-                        console.log(year[i]);
-                      }
-                    }
-                    [year[0], year[1]],
-                    [year[1], `${now}`],
-                    [year[2], `${now}`],
-                    ['1998', '2000'],
-                    ['2000', '2002'],
-                    ['2002', '2005'],
-                    ['2005', '2008'],
-                    ['2008', '2010'],
-                    ['2010', '2013'],
-                    ['2013', '2015'],
-                    ['2015', '2018'],
-                    ['2018', '2020'],
-                    ['2020', '2022'],
-                    ['2022', '2023'],
-                  ],
+                  data: masaJabatan,
                   backgroundColor: [
                     'rgba(255, 26, 104, 1)',
                     'rgba(54, 162, 235, 1)',
@@ -236,13 +227,16 @@
                     'rgba(0, 0, 0, 1)'
                   ],
                   barPercentage: 0.2,
-                  borderRadius: [
-                    5,
-                    20
-                  ]
                 }]
               };
 
+              const labelTooltip = (tooltipItems) => {
+                console.log(tooltipItems.formattedValue);
+                let rawDate = tooltipItems.formattedValue;
+                console.log(rawDate);
+                return tooltipItems.formattedValue;
+              }
+              
               const config = {
                 type: 'bar',
                 data: data,
@@ -274,6 +268,11 @@
                   plugins: {
                     legend: {
                       display: false
+                    },
+                    tooltip: {
+                      callbacks: {
+                        label: labelTooltip
+                      }
                     }
                   }
                 }
@@ -283,7 +282,7 @@
                 document.getElementById('myChart').getContext('2d'),
                 config
               );
-            </script>
+            </script> --}}
           @else
             <p class="text-danger">Data Masih Kosong. Silahkan Isi Pangkat Terlebih Dahulu</p>
           @endif

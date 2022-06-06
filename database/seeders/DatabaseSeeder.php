@@ -128,18 +128,19 @@ class DatabaseSeeder extends Seeder
         //* Jabatan/Pangkat Pegawai Seeder
         //*===============================
         foreach (User::all() as $pegawai) {
-            if ($pegawai->seeder == 1) {
-                $pegawai->pangkat()->attach(Pangkat::all()->first());
-            }
-            if ($pegawai->seeder == 2) {
-                $pegawai->pangkat()->attach(Pangkat::all()->first());
-                $pegawai->pangkat()->attach(Pangkat::all()->find(2));
-            }
-            if ($pegawai->seeder == 3) {
-                $pegawai->pangkat()->attach(Pangkat::all()->first());
-                $pegawai->pangkat()->attach(Pangkat::all()->find(2));
-                $pegawai->pangkat()->attach(Pangkat::all()->find(3));
-            }
+            // if ($pegawai->seeder == 1) {
+            //     $pegawai->pangkat()->attach(Pangkat::all()->first());
+            // }
+            // if ($pegawai->seeder == 2) {
+            //     $pegawai->pangkat()->attach(Pangkat::all()->first());
+            //     $pegawai->pangkat()->attach(Pangkat::all()->find(2));
+            // }
+            // if ($pegawai->seeder == 3) {
+            //     $pegawai->pangkat()->attach(Pangkat::all()->first());
+            //     $pegawai->pangkat()->attach(Pangkat::all()->find(2));
+            //     $pegawai->pangkat()->attach(Pangkat::all()->find(3));
+            // }
+            $pegawai->jabatan()->attach(Pangkat::all()->random());
             $pegawai->jabatan()->attach(Jabatan::all()->random());
         }
 
