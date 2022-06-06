@@ -23,7 +23,7 @@ return new class extends Migration
             $table->date('tanggal_lahir');
             $table->string('foto', 75);
             $table->string('user_type', 15);
-            // $table->string('seeder', 1);
+            $table->string('seeder', 1);
             $table->timestamps();
         });
     }
