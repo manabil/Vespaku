@@ -18,12 +18,14 @@ class GraphController extends Controller
         })->unique()->values();
         $listUser = User::all()->pluck('nama');
         $listPangkat = Pangkat::all()->pluck('nama');
+        $listPangkatUser = PangkatUser::with(['user', 'pangkat'])->latest('tmt')->where('user_id', auth()->user()->id)->get();
 
         return view('graph', [
             'title' => 'Visualisasi Kepangkatan Pegawai',
             'listTahun' => $listTahun,
             'listUser' => $listUser,
             'listPangkat' => $listPangkat,
+            'pangkats' => $listPangkatUser,
             // 'pegawai' => $user_search->paginate(10)->withQueryString(),
         ]);
     }

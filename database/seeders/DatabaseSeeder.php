@@ -140,6 +140,7 @@ class DatabaseSeeder extends Seeder
                 $pegawai->pangkat()->attach(Pangkat::all()->find(2));
                 $pegawai->pangkat()->attach(Pangkat::all()->find(3));
             }
+            // $pegawai->jabatan()->attach(Pangkat::all()->random());
             $pegawai->jabatan()->attach(Jabatan::all()->random());
         }
 
