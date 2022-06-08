@@ -25,7 +25,7 @@
 
         <article class="entry entry-single">
 
-          <canvas id="myChart" width="auto" height="700"></canvas>
+          <canvas id="myChart" width="auto" height="auto"></canvas>
           {{-- <script>
             const labels = ['januari', 'februari', 'maret', 'april', 'mei', 'juni', 'juli', 'agustus', 'september', 'oktober', 'november', 'desember'];
             const data = {
@@ -129,7 +129,19 @@
             const config = {
               type: 'line',
               data: data,
-              options: {}
+              options: {
+                scales: {
+                  y: {
+                    ticks: {
+                      maxTicksLimit: 15,
+                      sampleSize: 15,
+                      callback: function(value, index) {
+                        return index;
+                      }
+                    }
+                  }
+                }
+              }
             };
 
             const myChart = new Chart(
@@ -241,28 +253,360 @@
 
           <script>
             const dataUser = {!! $listUser !!}
+            const dataObj = {!! $pangkats !!};
+            const jos = [{
+              tahun:'2000', pangkat:{
+                ilsa: 0,
+                erik: 0.1,
+                januar: 0.2,
+                a: 0.3,
+                b: 0.4,
+                c: 0.5,
+                d: 0.6,
+                e: 0.7,
+                f: 0.8,
+                g: 0.9,
+                h: 1,
+                i: 1.1,
+                j: 1.2,
+                k: 1.3,
+                l: 1.4,
+                m: 1.5,
+                n: 1.6,
+                o: 1.7,
+                p: 1.8,
+                q: 1.9,
+                r: 2,
+                s: 2.1,
+                t: 2.2,
+                u: 2.3,
+                v: 2.4,
+              }
+            },{
+              tahun:'2013', pangkat:{
+                ilsa: 0,
+                erik: 0.1,
+                januar: 0.2,
+                a: 0.3,
+                b: 0.4,
+                c: 0.5,
+                d: 0.6,
+                e: 0.7,
+                f: 0.8,
+                g: 0.9,
+                h: 1,
+                i: 1.1,
+                j: 1.2,
+                k: 1.3,
+                l: 1.4,
+                m: 1.5,
+                n: 1.6,
+                o: 1.7,
+                p: 1.8,
+                q: 1.9,
+                r: 2,
+                s: 2.1,
+                t: 2.2,
+                u: 2.3,
+                v: 2.4,
+              }
+            },{
+              tahun:'2017', pangkat:{
+                ilsa: 0,
+                erik: 0.1,
+                januar: 0.2,
+                a: 0.3,
+                b: 0.4,
+                c: 0.5,
+                d: 0.6,
+                e: 0.7,
+                f: 0.8,
+                g: 0.9,
+                h: 1,
+                i: 1.1,
+                j: 1.2,
+                k: 1.3,
+                l: 1.4,
+                m: 1.5,
+                n: 1.6,
+                o: 1.7,
+                p: 1.8,
+                q: 1.9,
+                r: 2,
+                s: 2.1,
+                t: 2.2,
+                u: 2.3,
+                v: 2.4,
+              }
+            },{
+              tahun:'2019', pangkat:{
+                erik: 0.1,
+                ilsa: 0,
+                januar: 0.2,
+              }
+            },{
+              tahun:'2020', pangkat:{
+                ilsa: 0,
+                januar: 0.2,
+              }
+            },{
+              tahun:'2018', pangkat:{
+                erik: null,
+                ilsa: null,
+                januar: null,
+              }
+            },]
 
             const data = {
               labels: {!! $listTahun !!},
               datasets: [{
-                label: 'My First dataset',
-                backgroundColor: 'rgb(255, 99, 132)',
-                borderColor: 'rgb(255, 99, 132)',
-                data: dataUser,
-              }]
+                label: 'Ilsa',
+                backgroundColor: 'red',
+                borderColor: 'red',
+                data: jos,
+                parsing: {
+                  xAxisKey: 'tahun',
+                  yAxisKey: 'pangkat.ilsa'
+                }
+              },
+              {
+                label: 'Erik',
+                backgroundColor: 'orange',
+                borderColor: 'orange',
+                data: jos,
+                parsing: {
+                  xAxisKey: 'tahun',
+                  yAxisKey: 'pangkat.erik'
+                }
+              },{
+                label: 'Januar',
+                backgroundColor: 'salmon',
+                borderColor: 'salmon',
+                data: jos,
+                parsing: {
+                  xAxisKey: 'tahun',
+                  yAxisKey: 'pangkat.januar'
+                }
+              },
+              {
+                label: 'a',
+                backgroundColor: 'green',
+                borderColor: 'green',
+                data: jos,
+                parsing: {
+                  xAxisKey: 'tahun',
+                  yAxisKey: 'pangkat.a'
+                }
+              },{
+                label: 'b',
+                backgroundColor: 'blue',
+                borderColor: 'blue',
+                data: jos,
+                parsing: {
+                  xAxisKey: 'tahun',
+                  yAxisKey: 'pangkat.b'
+                }
+              },{
+                label: 'c',
+                backgroundColor: 'grey',
+                borderColor: 'grey',
+                data: jos,
+                parsing: {
+                  xAxisKey: 'tahun',
+                  yAxisKey: 'pangkat.c'
+                }
+              },{
+                label: 'd',
+                backgroundColor: 'purple',
+                borderColor: 'purple',
+                data: jos,
+                parsing: {
+                  xAxisKey: 'tahun',
+                  yAxisKey: 'pangkat.d'
+                }
+              },{
+                label: 'e',
+                backgroundColor: 'violet',
+                borderColor: 'violet',
+                data: jos,
+                parsing: {
+                  xAxisKey: 'tahun',
+                  yAxisKey: 'pangkat.e'
+                }
+              },{
+                label: 'f',
+                backgroundColor: 'maroon',
+                borderColor: 'maroon',
+                data: jos,
+                parsing: {
+                  xAxisKey: 'tahun',
+                  yAxisKey: 'pangkat.f'
+                }
+              },{
+                label: 'g',
+                backgroundColor: 'pink',
+                borderColor: 'pink',
+                data: jos,
+                parsing: {
+                  xAxisKey: 'tahun',
+                  yAxisKey: 'pangkat.g'
+                }
+              },{
+                label: 'h',
+                backgroundColor: 'brown',
+                borderColor: 'brown',
+                data: jos,
+                parsing: {
+                  xAxisKey: 'tahun',
+                  yAxisKey: 'pangkat.h'
+                }
+              },{
+                label: 'i',
+                backgroundColor: 'red',
+                borderColor: 'red',
+                data: jos,
+                parsing: {
+                  xAxisKey: 'tahun',
+                  yAxisKey: 'pangkat.i'
+                }
+              },{
+                label: 'j',
+                backgroundColor: 'orange',
+                borderColor: 'orange',
+                data: jos,
+                parsing: {
+                  xAxisKey: 'tahun',
+                  yAxisKey: 'pangkat.j'
+                }
+              },{
+                label: 'k',
+                backgroundColor: 'salmon',
+                borderColor: 'salmon',
+                data: jos,
+                parsing: {
+                  xAxisKey: 'tahun',
+                  yAxisKey: 'pangkat.k'
+                }
+              },{
+                label: 'l',
+                backgroundColor: 'blue',
+                borderColor: 'blue',
+                data: jos,
+                parsing: {
+                  xAxisKey: 'tahun',
+                  yAxisKey: 'pangkat.l'
+                }
+              },{
+                label: 'm',
+                backgroundColor: 'purple',
+                borderColor: 'purple',
+                data: jos,
+                parsing: {
+                  xAxisKey: 'tahun',
+                  yAxisKey: 'pangkat.m'
+                }
+              },{
+                label: 'n',
+                backgroundColor: 'violet',
+                borderColor: 'violet',
+                data: jos,
+                parsing: {
+                  xAxisKey: 'tahun',
+                  yAxisKey: 'pangkat.n'
+                }
+              },{
+                label: 'o',
+                backgroundColor: 'grey',
+                borderColor: 'grey',
+                data: jos,
+                parsing: {
+                  xAxisKey: 'tahun',
+                  yAxisKey: 'pangkat.o'
+                }
+              },{
+                label: 'p',
+                backgroundColor: 'red',
+                borderColor: 'red',
+                data: jos,
+                parsing: {
+                  xAxisKey: 'tahun',
+                  yAxisKey: 'pangkat.p'
+                }
+              },{
+                label: 'q',
+                backgroundColor: 'orange',
+                borderColor: 'orange',
+                data: jos,
+                parsing: {
+                  xAxisKey: 'tahun',
+                  yAxisKey: 'pangkat.q'
+                }
+              },{
+                label: 'r',
+                backgroundColor: 'salmon',
+                borderColor: 'salmon',
+                data: jos,
+                parsing: {
+                  xAxisKey: 'tahun',
+                  yAxisKey: 'pangkat.r'
+                }
+              },{
+                label: 's',
+                backgroundColor: 'green',
+                borderColor: 'green',
+                data: jos,
+                parsing: {
+                  xAxisKey: 'tahun',
+                  yAxisKey: 'pangkat.s'
+                }
+              },{
+                label: 't',
+                backgroundColor: 'blue',
+                borderColor: 'blue',
+                data: jos,
+                parsing: {
+                  xAxisKey: 'tahun',
+                  yAxisKey: 'pangkat.t'
+                }
+              },{
+                label: 'u',
+                backgroundColor: 'violet',
+                borderColor: 'violet',
+                data: jos,
+                parsing: {
+                  xAxisKey: 'tahun',
+                  yAxisKey: 'pangkat.u'
+                }
+              },{
+                label: 'v',
+                backgroundColor: 'purple',
+                borderColor: 'purple',
+                data: jos,
+                parsing: {
+                  xAxisKey: 'tahun',
+                  yAxisKey: 'pangkat.v'
+                }
+              },]
             };
           
             const config = {
               type: 'line',
               data: data,
               options: {
+                plugins: {
+                  legend: {
+                    display: false
+                  },
+                },
                 scales: {
                   y: {
+                    grid: {
+                      display: false
+                    },
                     ticks: {
-                      maxTicksLimit: 50,
-                      sampleSize: 15,
+                      maxTicksLimit: dataUser.length,
+                      sampleSize: dataUser.length,
                       callback: function(value, index) {
-                        console.log(index);
                         return dataUser[index];
                       }
                     }
