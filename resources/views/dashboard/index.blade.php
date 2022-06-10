@@ -288,7 +288,6 @@
               const labels = {!! $listPangkat !!}.reverse();
               const year = {!! $listTahun !!}.reverse();
               const now = new Date().getFullYear();
-              const data_json = {!! $listJson !!};
               
               const masaJabatan = [];
               for (let i in labels){
