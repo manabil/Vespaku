@@ -251,7 +251,7 @@
             );
           </script> --}}
 
-          <script>
+          {{-- <script>
             const dataUser = {!! $listUser !!}
             const dataObj = {!! $pangkats !!};
             const jos = [{
@@ -619,6 +619,11 @@
               document.getElementById('myChart'),
               config
             );
+          </script> --}}
+
+          <script>
+            let jos = {!! json_encode($jos) !!}
+            console.log(jos);
           </script>
 
         </article><!-- End blog entry -->
