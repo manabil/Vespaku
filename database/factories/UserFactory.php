@@ -32,7 +32,7 @@ class UserFactory extends Factory
             'tanggal_lahir' => now(),
             'user_type' => $this->faker->randomElement($user_type),
             'foto' => 'foto_profile/default.png',
-            'seeder' => $this->faker->numberBetween(1, 3)
+            // 'seeder' => $this->faker->numberBetween(1, 3)
         ];
     }
 

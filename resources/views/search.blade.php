@@ -77,7 +77,7 @@
                       @else
                         <td class="text-danger">Data Masih Kosong</td>
                       @endif
-                      @if ($p->jabatan->isNotEmpty())
+                      @if ($p->pangkat->isNotEmpty())
                         <td>{{ $p->pangkat->last()->nama }}</td>
                       @else
                         <td class="text-danger">Data Masih Kosong</td>

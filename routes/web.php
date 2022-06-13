@@ -15,6 +15,7 @@ use App\Http\Controllers\SearchController;
 use App\Http\Controllers\GraphController;
 use App\Models\Jabatan;
 use App\Models\Pangkat;
+use App\Models\PangkatUser;
 use App\Models\User;
 use GuzzleHttp\Middleware;
 
@@ -34,7 +35,7 @@ Route::get('/', function () {
     $total_pegawai = User::all()->count();
     $total_jabatan = Jabatan::all()->count();
     $total_pangkat = Pangkat::all()->count();
-    $total_unduh = Jabatan::all()->count();
+    $total_unduh = PangkatUser::all()->count();
 
     return view('home', [
         'title' => 'Home',

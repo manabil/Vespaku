@@ -20,21 +20,30 @@ class GraphController extends Controller
         $listPangkat = Pangkat::all()->pluck('nama');
         $listPangkatUser = PangkatUser::with(['user', 'pangkat'])->get();
 
-        $jos = [
-            'tahun' => '2002',
-            'pangkat' => [
-                'sulis' => 1,
-                'cecep' => 2,
-                'kapten' => 3,
-                'lintasan' => 4,
-                'komandan' => 5,
-                'komandan lintasan' => 6,
-                'komandan sulis' => 7,
-                'komandan cecep' => 8,
-                'komandan kapten' => 9,
-                'komandan komandan' => 10,
-            ]
-        ];
+        $datasets = [];
+        for ($i = 0; $i < count($listTahun); $i++) {
+            $datasets[$i]['tahun'] = $listTahun[$i];
+            $datasets[$i]['pangkat'] = [];
+            for ($j = 0; $j < count($listUser); $j++) {
+                for ($k = 0; $k < count($listPangkatUser); $k++) {
+                    if (date('Y', strtotime($listPangkatUser[$k]['tmt'])) === $datasets[$i]['tahun']) {
+                        $datasets[$i]['pangkat'][str_replace([' ', '-', '.'], '', $listPangkatUser[$k]->user->nama)] = ($listPangkatUser[$k]->user->id - 1) / 10;
+                    }
+                }
+            }
+        }
+
+        $data = [];
+        for ($i = 0; $i < count($listUser); $i++) {
+            $data[$i]['label'] = $listUser[$i];
+            $data[$i]['backgroundColor'] = 'red';
+            $data[$i]['borderColor'] = 'red';
+            $data[$i]['data'] = 'datasets';
+            $data[$i]['parsing']['xAxisKey'] = 'tahun';
+            $data[$i]['parsing']['yAxisKey'] = "pangkat." . str_replace([' ', '-', '.'], '', $listUser[$i]);
+        }
+        $data = json_encode($data);
+        $data = preg_replace('/("datasets")/', 'datasets', $data);
 
         return view('graph', [
             'title' => 'Visualisasi Kepangkatan Pegawai',
@@ -42,8 +51,8 @@ class GraphController extends Controller
             'listUser' => $listUser,
             'listPangkat' => $listPangkat,
             'pangkats' => $listPangkatUser,
-            'jos' => $jos,
-            // 'pegawai' => $user_search->paginate(10)->withQueryString(),
+            'datasets' => $datasets,
+            'data' => $data,
         ]);
     }
 }
