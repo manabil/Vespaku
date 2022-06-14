@@ -17,6 +17,7 @@ use App\Models\Jabatan;
 use App\Models\Pangkat;
 use App\Models\PangkatUser;
 use App\Models\User;
+use Illuminate\Support\Facades\Artisan;
 use GuzzleHttp\Middleware;
 
 /*
@@ -98,3 +99,14 @@ Route::get('/cari/jabatan/{jabatan:slug}/request', [RequestController::class, 'c
 
 Route::post('/cari/pangkat/{pangkat:slug}/request', [RequestController::class, 'store'])->middleware('auth');
 Route::post('/cari/jabatan/{jabatan:slug}/request', [RequestController::class, 'store'])->middleware('auth');
+
+
+// *=============== Artisan ============*
+Route::get('/artisan/links', function () {
+    Artisan::call('storage:link');
+    return redirect()->back();
+});
+Route::get('/artisan/migrate', function () {
+    Artisan::call('migrate:fresh --seed');
+    return redirect()->back();
+});
