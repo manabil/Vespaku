@@ -57,7 +57,7 @@
                 <tbody>
                   @foreach ($get_requests as $request)
                     <tr>
-                        <td><img src="{{ ($request->user->foto === '') ? 'https://source.unsplash.com/400x400?profile' : $request->user->foto }}" style="border-radius: 50%; width:60px; height:60px; object-fit: cover;" alt="{{ $request->user->nama }}"></td>
+                        <td><img src="{{ (asset($request->user->foto) === '') ? 'https://source.unsplash.com/400x400?profile' : asset($request->user->foto) }}" style="border-radius: 50%; width:60px; height:60px; object-fit: cover;" alt="{{ $request->user->nama }}"></td>
                         <td><a href="/cari/{{ $request->user->username }}" style="text-decoration: none; color:black;">{{$request->user->nama}}</a></td>
                         <td>{{ $request->request_file }}</td>
                         <td>{{ $request->created_at->diffForHumans() }}</td>

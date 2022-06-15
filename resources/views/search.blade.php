@@ -66,7 +66,7 @@
                 @foreach ($pegawai as $p)
                   <tbody>
                     <tr>
-                      <td scope="row" class="no"><img src="{{ ($p->foto=='') ? 'https://source.unsplash.com/400x400?profile' : $p->foto }}" style="border-radius: 50%; width:60px; height:60px; object-fit: cover;" alt="{{ $p->nama }}"></td>
+                      <td scope="row" class="no"><img src="{{ (asset('storage/' . $p->foto)=='') ? 'https://source.unsplash.com/400x400?profile' : asset('storage/' . $p->foto) }}" style="border-radius: 50%; width:60px; height:60px; object-fit: cover;" alt="{{ $p->nama }}"></td>
                       @if (auth()->check())
                         <td><a href="{{ $p->id == auth()->user()->id ? '/dashboard' : '/cari/'. $p->username }}" style="text-decoration: none; color: black">{{ $p->nama }}</a></td>
                       @else
