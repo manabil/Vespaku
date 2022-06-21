@@ -630,6 +630,17 @@
             const dataObj = {!! $pangkats !!};
             let datasets = {!! json_encode($datasets) !!};
             let dataIdv = {!! $data !!};
+            const titleTooltips = (tooltipItem) => {
+              console.log(tooltipItem);
+              return tooltipItem[0].dataset.label;
+            };
+            const afterTitleTooltips = (tooltipItem) => {
+              return `(${tooltipItem[0].label})`;
+            };
+            const labelTooltips = (tooltipItem) => {
+              return tooltipItem.raw.pangkat.label_pangkat;
+            };
+
 
             const data = {
               labels: {!! $listTahun !!},
@@ -643,6 +654,27 @@
                 plugins: {
                   legend: {
                     display: false
+                  },
+                  tooltip: {
+                    backgroundColor: 'rgba(255, 255, 255, 0.6)',
+                    titleColor: '#012970',
+                    titleAlign: 'center',
+                    titleFont: {
+                      size: '13',
+                      weight: 'bold'
+                    },
+                    bodyColor: 'black',
+                    bodyAlign: 'center',
+                    displayColors: false,
+                    borderColor: '#012970',
+                    borderWidth: 1,
+                    yAlign: 'center',
+                    titleMarginBottom: 8,
+                    callbacks: {
+                      title: titleTooltips,
+                      afterTitle: afterTitleTooltips,
+                      label: labelTooltips,
+                    }
                   },
                 },
                 scales: {
@@ -668,11 +700,11 @@
             );
           </script>
 
-          <script>
+          {{-- <script>
             console.log(data['datasets']);
             console.log(dataIdv);
             console.log(datasets);
-          </script>
+          </script> --}}
 
         </article><!-- End blog entry -->
 
