@@ -91,7 +91,7 @@
         <div class="count-box">
             <i class="bi bi-download" style="color: #ee6c20;"></i>
             <div>
-            <span data-purecounter-start="0" data-purecounter-end="{{ $total_unduh }}" data-purecounter-duration="1" class="purecounter"></span>
+            <span data-purecounter-start="0" data-purecounter-end="{{ $total_download }}" data-purecounter-duration="1" class="purecounter"></span>
             <p>Total Berkas Diunduh</p>
             </div>
         </div>
