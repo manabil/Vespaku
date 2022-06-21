@@ -254,6 +254,9 @@
           {{-- <script>
             const dataUser = {!! $listUser !!}
             const dataObj = {!! $pangkats !!};
+            let datasets = {!! json_encode($datasets) !!};
+            let dataIdv = {!! $data !!};
+
             const jos = [{
               tahun:'2000', pangkat:{
                 ilsa: 0,
@@ -359,7 +362,8 @@
 
             const data = {
               labels: {!! $listTahun !!},
-              datasets: [{
+              datasets: 
+              [{
                 label: 'Ilsa',
                 backgroundColor: 'red',
                 borderColor: 'red',
@@ -588,7 +592,7 @@
                 }
               },]
             };
-          
+
             const config = {
               type: 'line',
               data: data,
@@ -622,8 +626,52 @@
           </script> --}}
 
           <script>
-            let jos = {!! json_encode($jos) !!}
-            console.log(jos);
+            const dataUser = {!! $listUser !!}
+            const dataObj = {!! $pangkats !!};
+            let datasets = {!! json_encode($datasets) !!};
+            let dataIdv = {!! $data !!};
+
+            const data = {
+              labels: {!! $listTahun !!},
+              datasets: dataIdv
+            };
+
+            const config = {
+              type: 'line',
+              data: data,
+              options: {
+                plugins: {
+                  legend: {
+                    display: false
+                  },
+                },
+                scales: {
+                  y: {
+                    grid: {
+                      display: false
+                    },
+                    ticks: {
+                      maxTicksLimit: dataUser.length,
+                      sampleSize: dataUser.length,
+                      callback: function(value, index) {
+                        return dataUser[index];
+                      }
+                    }
+                  },
+                },
+              },
+            };
+
+            const myChart = new Chart(
+              document.getElementById('myChart'),
+              config
+            );
+          </script>
+
+          <script>
+            console.log(data['datasets']);
+            console.log(dataIdv);
+            console.log(datasets);
           </script>
 
         </article><!-- End blog entry -->

@@ -57,7 +57,7 @@ class PangkatUserController extends Controller
         }
 
         if ($request->file('surat_keterangan')) {
-            $validatedData['surat_keterangan'] = $request->file('surat_keterangan')->store('surat_keterangan_pangkat');
+            $validated_data['surat_keterangan'] = Storage::disk('home')->put('surat_keterangan_pangkat', $request->file('surat_keterangan'));
         }
 
         PangkatUser::create($validatedData);
@@ -137,7 +137,7 @@ class PangkatUserController extends Controller
 
         if ($request->file('surat_keterangan')) {
             Storage::delete($pangkat->surat_keterangan);
-            $validatedData['surat_keterangan'] = $request->file('surat_keterangan')->store('surat_keterangan_pangkat');
+            $validated_data['surat_keterangan'] = Storage::disk('home')->put('surat_keterangan_pangkat', $request->file('surat_keterangan'));
         }
 
         PangkatUser::where('id', $pangkat->id)->update($validatedData);
