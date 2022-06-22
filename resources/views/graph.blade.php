@@ -628,17 +628,35 @@
           <script>
             const dataUser = {!! $listUser !!}
             const dataObj = {!! $pangkats !!};
-            let datasets = {!! json_encode($datasets) !!};
-            let dataIdv = {!! $data !!};
+            const datasets = {!! json_encode($datasets) !!};
+            const dataIdv = {!! $data !!};
+            const dataPangkat = {!! $label_pangkat !!};
+            const dataJabatan = {!! $label_jabatan !!};
             const titleTooltips = (tooltipItem) => {
-              console.log(tooltipItem);
               return tooltipItem[0].dataset.label;
             };
             const afterTitleTooltips = (tooltipItem) => {
               return `(${tooltipItem[0].label})`;
             };
             const labelTooltips = (tooltipItem) => {
-              return tooltipItem.raw.pangkat.label_pangkat;
+              if(dataPangkat[tooltipItem.datasetIndex][tooltipItem.label] === undefined){
+                console.log(dataPangkat[tooltipItem.datasetIndex][tooltipItem.label]);
+                let i = 1;
+                let output = '';
+                while (dataPangkat[tooltipItem.datasetIndex][tooltipItem.label] === undefined) {
+                  output += i;
+                  i++;
+                }
+                return output;
+              }
+
+              return dataPangkat[tooltipItem.datasetIndex][tooltipItem.label];
+            };
+            const afterLabelTooltips = (tooltipItem) => {
+              if(dataJabatan[tooltipItem.datasetIndex][tooltipItem.label] === undefined){
+                return 'data tidak ada';
+              }
+              return dataJabatan[tooltipItem.datasetIndex][tooltipItem.label];
             };
 
 
@@ -656,14 +674,14 @@
                     display: false
                   },
                   tooltip: {
-                    backgroundColor: 'rgba(255, 255, 255, 0.6)',
+                    backgroundColor: '#f6f9ff',
                     titleColor: '#012970',
                     titleAlign: 'center',
                     titleFont: {
                       size: '13',
                       weight: 'bold'
                     },
-                    bodyColor: 'black',
+                    bodyColor: '#000',
                     bodyAlign: 'center',
                     displayColors: false,
                     borderColor: '#012970',
@@ -674,6 +692,7 @@
                       title: titleTooltips,
                       afterTitle: afterTitleTooltips,
                       label: labelTooltips,
+                      afterLabel: afterLabelTooltips,
                     }
                   },
                 },

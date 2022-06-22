@@ -33,17 +33,27 @@ class GraphController extends Controller
                 for ($k = 0; $k < count($listPangkatUser); $k++) {
                     if (date('Y', strtotime($listPangkatUser[$k]['tmt'])) === $datasets[$i]['tahun']) {
                         $datasets[$i]['pangkat'][str_replace([' ', '-', '.'], '', $listPangkatUser[$k]->user->nama)]['index'] = ($listPangkatUser[$k]->user->id - 1) / 10;
-                        $datasets[$i]['label_pangkat'] = $listPangkatUser[$k]->pangkat->nama;
                     }
                 }
-                // for ($k = 0; $k < count($listJabatanUser); $k++) {
-                //     if (date('Y', strtotime($listJabatanUser[$k]['tmt'])) === $datasets[$i]['tahun']) {
-                //         $datasets[$i]['jabatan'][str_replace([' ', '-', '.'], '', $listJabatanUser[$k]->user->nama)]['index'] = ($listJabatanUser[$k]->user->id - 1) / 10;
-                //         $datasets[$i]['jabatan'][str_replace([' ', '-', '.'], '', $listJabatanUser[$k]->user->nama)]['label_jabatan'] = $listJabatanUser[$k]->jabatan->nama;
-                //     }
-                // }
+                for ($k = 0; $k < count($listJabatanUser); $k++) {
+                    if (date('Y', strtotime($listJabatanUser[$k]['tmt'])) === $datasets[$i]['tahun']) {
+                        $datasets[$i]['pangkat'][str_replace([' ', '-', '.'], '', $listJabatanUser[$k]->user->nama)]['index'] = ($listJabatanUser[$k]->user->id - 1) / 10;
+                    }
+                }
             }
         }
+
+        $pangkat = [];
+        $jabatan = [];
+        foreach ($listPangkatUser as $key => $user) {
+            $pangkat[$user->user->id - 1][date('Y', strtotime($user->tmt))] = $user->pangkat->nama;
+        }
+        foreach ($listJabatanUser as $key => $user) {
+            $jabatan[$user->user->id - 1][date('Y', strtotime($user->tmt))] = $user->jabatan->nama;
+        }
+        $pangkat = json_encode($pangkat);
+        $jabatan = json_encode($jabatan);
+
 
         $data = [];
         for ($i = 0; $i < count($listUser); $i++) {
@@ -66,6 +76,8 @@ class GraphController extends Controller
             'pangkats' => $listPangkatUser,
             'datasets' => $datasets,
             'data' => $data,
+            'label_pangkat' => $pangkat,
+            'label_jabatan' => $jabatan,
         ]);
     }
 }
