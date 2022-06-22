@@ -52,7 +52,7 @@ class ProfileController extends Controller
 
         if ($request->file('foto')) {
             Storage::delete($user->foto);
-            $validated_data['foto'] = $request->file('foto')->store('foto_profile');
+            $validated_data['foto'] = Storage::disk('home')->put('foto_profile', $request->file('foto'));
         }
 
         User::where('id', auth()->user()->id)->update($validated_data);

@@ -16,6 +16,8 @@ use App\Http\Controllers\GraphController;
 use App\Models\Jabatan;
 use App\Models\Pangkat;
 use App\Models\User;
+use App\Models\Request;
+use Illuminate\Support\Facades\Artisan;
 use GuzzleHttp\Middleware;
 
 /*
@@ -34,14 +36,14 @@ Route::get('/', function () {
     $total_pegawai = User::all()->count();
     $total_jabatan = Jabatan::all()->count();
     $total_pangkat = Pangkat::all()->count();
-    $total_unduh = Jabatan::all()->count();
+    $total_download = Request::where('is_downloaded', 1)->count();
 
     return view('home', [
         'title' => 'Home',
         'total_pegawai' => $total_pegawai,
         'total_jabatan' => $total_jabatan,
         'total_pangkat' => $total_pangkat,
-        'total_unduh' => $total_unduh
+        'total_download' => $total_download
     ]);
 });
 
@@ -97,3 +99,10 @@ Route::get('/cari/jabatan/{jabatan:slug}/request', [RequestController::class, 'c
 
 Route::post('/cari/pangkat/{pangkat:slug}/request', [RequestController::class, 'store'])->middleware('auth');
 Route::post('/cari/jabatan/{jabatan:slug}/request', [RequestController::class, 'store'])->middleware('auth');
+
+
+// *=============== Artisan ============*
+Route::get('/artisan/migrate', function () {
+    Artisan::call('migrate:fresh --seed');
+    return redirect()->back();
+});

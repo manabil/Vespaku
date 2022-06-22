@@ -57,7 +57,7 @@
                 <tbody>
                   @foreach ($get_requests as $request)
                     <tr>
-                        <td><img src="{{ ($request->user->foto === '') ? 'https://source.unsplash.com/400x400?profile' : $request->user->foto }}" style="border-radius: 50%; width:60px; height:60px; object-fit: cover;" alt="{{ $request->user->nama }}"></td>
+                        <td><img src="{{ (asset($request->user->foto) === '') ? 'https://source.unsplash.com/400x400?profile' : asset($request->user->foto) }}" style="border-radius: 50%; width:60px; height:60px; object-fit: cover;" alt="{{ $request->user->nama }}"></td>
                         <td><a href="/cari/{{ $request->user->username }}" style="text-decoration: none; color:black;">{{$request->user->nama}}</a></td>
                         <td>{{ $request->request_file }}</td>
                         <td>{{ $request->created_at->diffForHumans() }}</td>
@@ -128,7 +128,7 @@
                 <tbody>
                   @foreach ($set_requests as $request)
                         <tr>
-                          <td><img src="{{ ($request->user->foto === '') ? 'https://source.unsplash.com/400x400?profile' : $request->user->foto }}" style="border-radius: 50%; width:60px; height:60px; object-fit: cover;" alt="{{ $request->user->nama }}"></td>
+                          <td><img src="{{ ($username->where('id', $request->owner)->pluck('foto')[0] === '') ? 'https://source.unsplash.com/400x400?profile' : $username->where('id', $request->owner)->pluck('foto')[0] }}" style="border-radius: 50%; width:60px; height:60px; object-fit: cover;" alt="{{ $request->user->nama }}"></td>
                           <td><a style="text-decoration: none;color: black;" href="/cari/{{ $username->where('id', $request->owner)->pluck('username')[0] }}">{{ $username->where('id', $request->owner)->pluck('nama')[0] }}</a></td>
                           <td>{{ $request->request_file }}</td>
                           <td>{{ $request->created_at }}</td>
@@ -140,13 +140,13 @@
                                 <form action="cari/pangkat/{{ $request->slug }}/token" method="get">
                                   <input type="hidden" name="username" value="{{ $username->where('id', $request->owner)->pluck('username')[0] }}">
                                   <input type="hidden" name="type" value="{{ $request->type }}">
-                                  <button class="btn btn-sm btn-outline-primary"><i class="bi bi-download"></i>&nbsp; Unduh</button>
+                                  <button class="btn btn-sm btn-outline-primary {{ $request->is_downloaded === 1 ? 'disabled' : '' }}"><i class="bi bi-download"></i>&nbsp; {{ $request->is_downloaded === 1 ? 'Sudah Diunduh' : 'Unduh' }}</button>
                                 </form>
                               @else
                                 <form action="  cari/jabatan/{{ $request->slug }}/token" method="get">
                                   <input type="hidden" name="username" value="{{ $username->where('id', $request->owner)->pluck('username')[0] }}">
                                   <input type="hidden" name="type" value="{{ $request->type }}">
-                                  <button class="btn btn-sm btn-outline-primary"><i class="bi bi-download"></i>&nbsp; Unduh</button>
+                                  <button class="btn btn-sm btn-outline-primary {{ $request->is_downloaded === 1 ? 'disabled' : '' }}"><i class="bi bi-download"></i>&nbsp; {{ $request->is_downloaded === 1 ? 'Sudah Diunduh' : 'Unduh' }}</button>
                                 </form>
                               @endif
                             </td>

@@ -61,7 +61,7 @@ class JabatanUserController extends Controller
         }
 
         if ($request->file('surat_keterangan')) {
-            $validatedData['surat_keterangan'] = $request->file('surat_keterangan')->store('surat_keterangan_jabatan');
+            $validated_data['surat_keterangan'] = Storage::disk('home')->put('surat_keterangan_jabatan', $request->file('surat_keterangan'));
         }
 
         JabatanUser::create($validatedData);
@@ -149,7 +149,7 @@ class JabatanUserController extends Controller
 
         if ($request->file('surat_keterangan')) {
             Storage::delete($jabatan->surat_keterangan);
-            $validatedData['surat_keterangan'] = $request->file('surat_keterangan')->store('surat_keterangan_jabatan');
+            $validated_data['surat_keterangan'] = Storage::disk('home')->put('surat_keterangan_jabatan', $request->file('surat_keterangan'));
         }
 
         JabatanUser::where('id', $jabatan->id)->update($validatedData);

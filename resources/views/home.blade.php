@@ -11,7 +11,7 @@
         <h2 data-aos="fade-up" data-aos-delay="400">Merupakan aplikasi yang memberikan gambaran utama pola kinerja pegawai internal BPMPK</h2>
         <div data-aos="fade-up" data-aos-delay="600">
         <div class="text-center text-lg-start">
-            <a href="http://vespaku.test/cari" class="btn-get-started scrollto d-inline-flex align-items-center justify-content-center align-self-center">
+            <a href="/cari" class="btn-get-started scrollto d-inline-flex align-items-center justify-content-center align-self-center">
             <span>Cari Pegawai</span>
             <i class="bi bi-arrow-right"></i>
             </a>
@@ -91,7 +91,7 @@
         <div class="count-box">
             <i class="bi bi-download" style="color: #ee6c20;"></i>
             <div>
-            <span data-purecounter-start="0" data-purecounter-end="{{ $total_unduh }}" data-purecounter-duration="1" class="purecounter"></span>
+            <span data-purecounter-start="0" data-purecounter-end="{{ $total_download }}" data-purecounter-duration="1" class="purecounter"></span>
             <p>Total Berkas Diunduh</p>
             </div>
         </div>
