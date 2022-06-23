@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Pangkat;
-use App\Models\Jabatan;
 use App\Models\PangkatUser;
 use App\Models\JabatanUser;
 use App\Models\Request as RequestModel;
@@ -42,18 +41,9 @@ class GraphController extends Controller
                 }
             }
         }
+        $datasets = json_encode($datasets);
 
-        $pangkat = [];
-        $jabatan = [];
-        foreach ($listPangkatUser as $key => $user) {
-            $pangkat[$user->user->id - 1][date('Y', strtotime($user->tmt))] = $user->pangkat->nama;
-        }
-        foreach ($listJabatanUser as $key => $user) {
-            $jabatan[$user->user->id - 1][date('Y', strtotime($user->tmt))] = $user->jabatan->nama;
-        }
-        $pangkat = json_encode($pangkat);
-        $jabatan = json_encode($jabatan);
-
+        $userLink = User::all()->pluck('username');
 
         $data = [];
         for ($i = 0; $i < count($listUser); $i++) {
@@ -61,19 +51,32 @@ class GraphController extends Controller
             $data[$i]['backgroundColor'] = 'red';
             $data[$i]['borderColor'] = 'red';
             $data[$i]['data'] = 'datasets';
+            $data[$i]['link'] = '/cari/' . $userLink[$i];
             $data[$i]['parsing']['xAxisKey'] = 'tahun';
-            $data[$i]['parsing']['yAxisKey'] = "jabatan." . str_replace([' ', '-', '.'], '', $listUser[$i]) . '.index';
             $data[$i]['parsing']['yAxisKey'] = "pangkat." . str_replace([' ', '-', '.'], '', $listUser[$i]) . '.index';
         }
         $data = json_encode($data);
         $data = preg_replace('/("datasets")/', 'datasets', $data);
 
+        $pangkat = [];
+        $jabatan = [];
+        foreach ($listPangkatUser as $user) {
+            $pangkat[$user->user->id - 1][date('Y', strtotime($user->tmt))] = $user->pangkat->nama;
+        }
+        foreach ($listJabatanUser as $user) {
+            $jabatan[$user->user->id - 1][date('Y', strtotime($user->tmt))] = $user->jabatan->nama;
+        }
+        $pangkat = json_encode($pangkat);
+        $jabatan = json_encode($jabatan);
+
+
+
         return view('graph', [
             'title' => 'Visualisasi Kepangkatan Pegawai',
             'listTahun' => $listTahun,
             'listUser' => $listUser,
-            'listPangkat' => $listPangkat,
-            'pangkats' => $listPangkatUser,
+            'listPangkat' => $listPangkatUser,
+            'listLink' => $userLink,
             'datasets' => $datasets,
             'data' => $data,
             'label_pangkat' => $pangkat,

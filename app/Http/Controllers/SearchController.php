@@ -36,6 +36,9 @@ class SearchController extends Controller
 
     public function pegawai(User $user)
     {
+        if (auth()->user()->nama === $user->nama) {
+            return redirect('/dashboard');
+        }
         return view('request.user', [
             'title' => 'Profile Pegawai',
             'pegawai' => $user,
