@@ -67,7 +67,7 @@
 
                 <div class="mt-5">
                   <div class="col mx-2 my-2" style="float: right">
-                    <form action="/dashboard/jabatan/{{ $jabatan->id }}" method="post">
+                    <form action="/dashboard/jabatan/{{ $jabatan->slug }}" method="post">
                       @csrf
                       @method('delete')
                       <button class="btn btn-outline-danger btn-md " onclick="return confirm('Apakah Anda yakin ingin menghapus ?')"><i class="bi bi-trash"></i>&nbsp; Hapus</button>
