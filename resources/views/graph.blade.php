@@ -77,15 +77,20 @@
             };
             const footerTooltips = (tooltipItem) => {
               // console.log(dataPangkat[tooltipItem[0].datasetIndex][tooltipItem[0].label]);
-              if(dataJabatan[tooltipItem[0].datasetIndex][tooltipItem[0].label] === undefined){
+              try {
+                if(dataJabatan[tooltipItem[0].datasetIndex][tooltipItem[0].label] === undefined){
+                return 'Kenaikan Pangkat';
+                }
+                else if (dataPangkat[tooltipItem[0].datasetIndex][tooltipItem[0].label] === undefined) {
+                  return 'Kenaikan Jabatan';
+                }
+                else{
+                  return 'Kenaikan Pangkat dan Jabatan';
+                }
+              } catch (error) {
                 return 'Kenaikan Pangkat';
               }
-              else if (dataPangkat[tooltipItem[0].datasetIndex][tooltipItem[0].label] === undefined) {
-                return 'Kenaikan Jabatan';
-              }
-              else{
-                return 'Kenaikan Pangkat dan Jabatan';
-              }
+              
               // try {
               //   if(dataJabatan[tooltipItem.datasetIndex] === undefined && dataPangkat[tooltipItem[0].datasetIndex][tooltipItem[0].label] !== undefined){
               //     if(dataPangkat[tooltipItem[0].datasetIndex][tooltipItem[0].label] === 'CPNS'){
