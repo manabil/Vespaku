@@ -40,62 +40,72 @@
               return `(${tooltipItem[0].label})`;
             };
             const labelTooltips = (tooltipItem) => {
-              if(dataPangkat[tooltipItem.datasetIndex] === undefined){
-                return 'Data pangkat belum diisi';
-              }
-              if(dataPangkat[tooltipItem.datasetIndex][tooltipItem.label] === undefined){
-                let i = 0;
-                let output = dataPangkat[tooltipItem.datasetIndex][tooltipItem.label];
-                while (output === undefined) {
-                  output = dataPangkat[tooltipItem.datasetIndex][tooltipItem.label - i];
-                  i++;
-                  if(i > {!! $listTahun !!}.length){
-                    return dataPangkat[tooltipItem.datasetIndex][Object.keys(dataPangkat[tooltipItem.datasetIndex])[0]];
-                  }
-                }
-                return output;
-              }
+              // if(dataPangkat[tooltipItem.datasetIndex] === undefined){
+              //   return 'Data pangkat belum diisi';
+              // }
+              // if(dataPangkat[tooltipItem.datasetIndex][tooltipItem.label] === undefined){
+              //   let i = 0;
+              //   let output = dataPangkat[tooltipItem.datasetIndex][tooltipItem.label];
+              //   while (output === undefined) {
+              //     output = dataPangkat[tooltipItem.datasetIndex][tooltipItem.label - i];
+              //     i++;
+              //     if(i > {!! $listTahun !!}.length){
+              //       return dataPangkat[tooltipItem.datasetIndex][Object.keys(dataPangkat[tooltipItem.datasetIndex])[0]];
+              //     }
+              //   }
+              //   return output;
+              // }
               return dataPangkat[tooltipItem.datasetIndex][tooltipItem.label];
             };
             const afterLabelTooltips = (tooltipItem) => {
-              if(dataJabatan[tooltipItem.datasetIndex] === undefined){
-                return 'Data jabatan belum diisi';
-              }
-              else if(dataJabatan[tooltipItem.datasetIndex][tooltipItem.label] === undefined){
-                let i = 0;
-                let output = dataJabatan[tooltipItem.datasetIndex][tooltipItem.label];
-                while (output === undefined) {
-                  output = dataJabatan[tooltipItem.datasetIndex][tooltipItem.label - i];
-                  i++;
-                  if(i > {!! $listTahun !!}.length){
-                    return dataJabatan[tooltipItem.datasetIndex][Object.keys(dataJabatan[tooltipItem.datasetIndex])[0]];
-                  }
-                }
-                return output;
-              }
+              // if(dataJabatan[tooltipItem.datasetIndex] === undefined){
+              //   return 'Data jabatan belum diisi';
+              // }
+              // else if(dataJabatan[tooltipItem.datasetIndex][tooltipItem.label] === undefined){
+              //   let i = 0;
+              //   let output = dataJabatan[tooltipItem.datasetIndex][tooltipItem.label];
+              //   while (output === undefined) {
+              //     output = dataJabatan[tooltipItem.datasetIndex][tooltipItem.label - i];
+              //     i++;
+              //     if(i > {!! $listTahun !!}.length){
+              //       return dataJabatan[tooltipItem.datasetIndex][Object.keys(dataJabatan[tooltipItem.datasetIndex])[0]];
+              //     }
+              //   }
+              //   return output;
+              // }
               return dataJabatan[tooltipItem.datasetIndex][tooltipItem.label];
             };
             const footerTooltips = (tooltipItem) => {
-              try {
-                if(dataJabatan[tooltipItem.datasetIndex] === undefined && dataPangkat[tooltipItem[0].datasetIndex][tooltipItem[0].label] !== undefined){
-                  if(dataPangkat[tooltipItem[0].datasetIndex][tooltipItem[0].label] === 'CPNS'){
-                    return 'Terdaftar CPNS';
-                  }
-                  return 'Naik Pangkat';
-                }
-                else if(dataPangkat[tooltipItem.datasetIndex] === undefined && dataJabatan[tooltipItem[0].datasetIndex][tooltipItem[0].label] !== undefined){
-                  return 'Naik Jabatan';
-                }
-                else if(dataJabatan[tooltipItem[0].datasetIndex][tooltipItem[0].label] === undefined){
-                  return 'Naik Pangkat';
-                } else if (dataPangkat[tooltipItem[0].datasetIndex][tooltipItem[0].label] === undefined) {
-                  return 'Naik Jabatan';
-                } else {
-                  return 'Naik Pangkat dan Jabatan';
-                }
-              } catch (error) {
-                return 'Naik Jabatan';
+              // console.log(dataPangkat[tooltipItem[0].datasetIndex][tooltipItem[0].label]);
+              if(dataJabatan[tooltipItem[0].datasetIndex][tooltipItem[0].label] === undefined){
+                return 'Kenaikan Pangkat';
               }
+              else if (dataPangkat[tooltipItem[0].datasetIndex][tooltipItem[0].label] === undefined) {
+                return 'Kenaikan Jabatan';
+              }
+              else{
+                return 'Kenaikan Pangkat dan Jabatan';
+              }
+              // try {
+              //   if(dataJabatan[tooltipItem.datasetIndex] === undefined && dataPangkat[tooltipItem[0].datasetIndex][tooltipItem[0].label] !== undefined){
+              //     if(dataPangkat[tooltipItem[0].datasetIndex][tooltipItem[0].label] === 'CPNS'){
+              //       return 'Terdaftar CPNS';
+              //     }
+              //     return 'Kenaikan Pangkat';
+              //   }
+              //   else if(dataPangkat[tooltipItem.datasetIndex] === undefined && dataJabatan[tooltipItem[0].datasetIndex][tooltipItem[0].label] !== undefined){
+              //     return 'Kenaikan Jabatan';
+              //   }
+              //   else if(dataJabatan[tooltipItem[0].datasetIndex][tooltipItem[0].label] === undefined){
+              //     return 'Kenaikan Pangkat';
+              //   } else if (dataPangkat[tooltipItem[0].datasetIndex][tooltipItem[0].label] === undefined) {
+              //     return 'Kenaikan Jabatan';
+              //   } else {
+              //     return 'Kenaikan Pangkat dan Jabatan';
+              //   }
+              // } catch (error) {
+              //   return 'Kenaikan Jabatan';
+              // }
             };
 
 
