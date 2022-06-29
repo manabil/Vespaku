@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\JabatanUser;
 use App\Models\PangkatUser;
+use App\Models\Request as RequestUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Hash;
@@ -113,6 +114,7 @@ class UserController extends Controller
         JabatanUser::destroy(JabatanUser::where('user_id', $user->id)->get());
         Storage::delete(PangkatUser::where('user_id', $user->id)->pluck('surat_keterangan')->toArray());
         PangkatUser::destroy(PangkatUser::where('user_id', $user->id)->get());
+        RequestUser::destroy(RequestUser::where('user_id', $user->id)->get());
         return redirect('/user')->with('user_dihapus', 'User berhasil dihapus');
     }
 }

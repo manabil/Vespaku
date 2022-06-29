@@ -25,7 +25,7 @@
 
         <article class="entry entry-single">
 
-          <canvas id="myChart" width="auto" height="auto"></canvas>
+          <canvas id="myChart" width="auto" height="200vh"></canvas>
           <script>
             const dataUser = {!! $listUser !!}
             const dataObj = {!! $listPangkat !!};
@@ -55,7 +55,12 @@
               //   }
               //   return output;
               // }
-              return dataPangkat[tooltipItem.datasetIndex][tooltipItem.label];
+              console.log(dataPangkat);
+              try {
+                return dataPangkat[tooltipItem.datasetIndex][tooltipItem.label];
+              } catch (error) {
+                return '';
+              }
             };
             const afterLabelTooltips = (tooltipItem) => {
               // if(dataJabatan[tooltipItem.datasetIndex] === undefined){
@@ -73,7 +78,11 @@
               //   }
               //   return output;
               // }
-              return dataJabatan[tooltipItem.datasetIndex][tooltipItem.label];
+              try {
+                return dataJabatan[tooltipItem.datasetIndex][tooltipItem.label];
+              } catch (error) {
+                return '';
+              }
             };
             const footerTooltips = (tooltipItem) => {
               // console.log(dataPangkat[tooltipItem[0].datasetIndex][tooltipItem[0].label]);
@@ -158,6 +167,8 @@
                 },
                 scales: {
                   y: {
+                    // min:-0.1,
+                    // max:2.6,
                     grid: {
                       display: false
                     },
