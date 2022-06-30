@@ -4,11 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
-use App\Models\Pangkat;
 use App\Models\JenisJabatan;
 use App\Models\PangkatUser;
 use App\Models\JabatanUser;
-use App\Models\Request as RequestModel;
 
 class GraphController extends Controller
 {
@@ -18,7 +16,7 @@ class GraphController extends Controller
             return date('Y', strtotime($item));
         })->merge(JabatanUser::oldest('tmt')->pluck('tmt')->map(function ($item) {
             return date('Y', strtotime($item));
-        }))->unique()->values();
+        }))->unique()->sort()->values();
         $listUser = User::all()->pluck('nama');
         $listPangkatUser = PangkatUser::with(['user', 'pangkat'])->get();
         $listJabatanUser = JabatanUser::with(['user', 'jabatan'])->get();
@@ -31,12 +29,12 @@ class GraphController extends Controller
             for ($j = 0; $j < count($listUser); $j++) {
                 for ($k = 0; $k < count($listPangkatUser); $k++) {
                     if (date('Y', strtotime($listPangkatUser[$k]['tmt'])) === $datasets[$i]['tahun']) {
-                        $datasets[$i]['pangkat'][str_replace([' ', '-', '.'], '', $listPangkatUser[$k]->user->nama)]['index'] = ($listPangkatUser[$k]->user->id - 1) / 10;
+                        $datasets[$i]['pangkat'][str_replace([' ', '-', '.'], '', $listPangkatUser[$k]->user->nama)]['index'] = array_keys($listUser->toArray(), $listPangkatUser[$k]->user->nama)[0] / 10;
                     }
                 }
                 for ($k = 0; $k < count($listJabatanUser); $k++) {
                     if (date('Y', strtotime($listJabatanUser[$k]['tmt'])) === $datasets[$i]['tahun']) {
-                        $datasets[$i]['pangkat'][str_replace([' ', '-', '.'], '', $listJabatanUser[$k]->user->nama)]['index'] = ($listJabatanUser[$k]->user->id - 1) / 10;
+                        $datasets[$i]['pangkat'][str_replace([' ', '-', '.'], '', $listJabatanUser[$k]->user->nama)]['index'] = array_keys($listUser->toArray(), $listJabatanUser[$k]->user->nama)[0] / 10;
                     }
                 }
             }
@@ -46,22 +44,26 @@ class GraphController extends Controller
         $userLink = User::all()->pluck('username');
 
         $backgroundColor = [
-            'rgba(255, 26, 104, 0.6)',
-            'rgba(54, 162, 235, 0.6)',
-            'rgba(255, 206, 86, 0.6)',
-            'rgba(75, 192, 192, 0.6)',
-            'rgba(153, 102, 255, 0.6)',
-            'rgba(255, 159, 64, 0.6)',
-            'rgba(0, 0, 0, 0.6)'
+            'steelblue',
+            'magenta',
+            'rgba(160, 44, 93, 1)',
+            'rgba(236, 15, 71, 1)',
+            'rgba(238, 107, 59, 1)',
+            'rgba(21, 194, 134, 1)',
+            'rgba(4, 84, 89, 1)',
+            'rgba(171, 217, 109, 1)',
+            'rgba(251, 191, 84, 1)'
         ];
         $borderColor = [
-            'rgba(255, 26, 104, 1)',
-            'rgba(54, 162, 235, 1)',
-            'rgba(255, 206, 86, 1)',
-            'rgba(75, 192, 192, 1)',
-            'rgba(153, 102, 255, 1)',
-            'rgba(255, 159, 64, 1)',
-            'rgba(0, 0, 0, 1)'
+            'steelblue',
+            'magenta',
+            'rgba(160, 44, 93, 1)',
+            'rgba(236, 15, 71, 1)',
+            'rgba(238, 107, 59, 1)',
+            'rgba(21, 194, 134, 1)',
+            'rgba(4, 84, 89, 1)',
+            'rgba(171, 217, 109, 1)',
+            'rgba(251, 191, 84, 1)'
         ];
 
         $data = [];
@@ -70,6 +72,7 @@ class GraphController extends Controller
             $data[$i]['label'] = $listUser[$i];
             $data[$i]['backgroundColor'] = $backgroundColor[$randomColor];
             $data[$i]['borderColor'] = $borderColor[$randomColor];
+            $data[$i]['spanGaps'] = true;
             $data[$i]['data'] = 'datasets';
             $data[$i]['link'] = '/cari/' . $userLink[$i];
             $data[$i]['parsing']['xAxisKey'] = 'tahun';
@@ -81,16 +84,14 @@ class GraphController extends Controller
         $pangkat = [];
         $jabatan = [];
         $jenisJabatan = JenisJabatan::all()->pluck('nama', 'id');
-        foreach ($listPangkatUser as $user) {
-            $pangkat[$user->user->id - 1][date('Y', strtotime($user->tmt))] = $user->pangkat->nama;
+        foreach ($listPangkatUser as $key => $user) {
+            $pangkat[$key][date('Y', strtotime($user->tmt))] = $user->pangkat->nama;
         }
-        foreach ($listJabatanUser as $user) {
-            $jabatan[$user->user->id - 1][date('Y', strtotime($user->tmt))] = $jenisJabatan[$user->jenis_jabatan_id] . ' - ' . $user->jabatan->nama;
+        foreach ($listJabatanUser as $key => $user) {
+            $jabatan[$key][date('Y', strtotime($user->tmt))] = $jenisJabatan[$user->jenis_jabatan_id] . ' - ' . $user->jabatan->nama;
         }
         $pangkat = json_encode($pangkat);
         $jabatan = json_encode($jabatan);
-
-
 
         return view('graph', [
             'title' => 'Visualisasi Kepangkatan Pegawai',
