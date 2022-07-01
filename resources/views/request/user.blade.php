@@ -29,7 +29,7 @@
           <div class="row">
             <div class="col-lg-4">
               <div class="entry-image">
-                <img src="{{ asset('storage/' . $pegawai->foto) }}" alt="{{ $pegawai->nama }}" class="img-fluid">
+                <img src="{{ asset($pegawai->foto) }}" alt="{{ $pegawai->nama }}" class="img-fluid">
               </div>
             </div>
             <div class="col-lg-8">
