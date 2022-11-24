@@ -91,11 +91,19 @@
                           @endif
                         </td>
                         <td>{{ $user->nip }}</td>
-                        <td>{{ $user->jabatan->last()->nama }}</td>
-                        <td>{{ $user->pangkat->last()->nama }}</td>
+                        @if ($user->jabatan->isNotEmpty())
+                          <td>{{ $user->jabatan->last()->nama }}</td>
+                        @else
+                          <td class="text-danger">Data Masih Kosong</td>
+                        @endif
+                        @if ($user->pangkat->isNotEmpty())
+                          <td>{{ $user->pangkat->last()->nama }}</td>
+                        @else
+                          <td class="text-danger">Data Masih Kosong</td>
+                        @endif
                         <td>
                           <div class="container d-flex justify-content-center">
-                            <a href="{{ $user->id == auth()->user()->id ? '/dashboard' : '/user/'. $user->username }}" class="btn btn-sm btn-outline-primary mx-1"><i class="bi bi-eye mx-0"></i></a>
+                            <a href="{{ $user->id == auth()->user()->id ? '/dashboard' : '/cari/'. $user->username }}" class="btn btn-sm btn-outline-primary mx-1"><i class="bi bi-eye mx-0"></i></a>
                             @can('super_admin')
                               @if ($user->user_type === 'user')
                                 <form action="/user/{{ $user->username }}" method="post">
